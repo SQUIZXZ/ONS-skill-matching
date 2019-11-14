@@ -2,7 +2,8 @@
 
 Ons Skills group project
 Group 5
-Members
+
+Members:
 Daniel Fulop
 Ewan Stacey
 Finlay Wallis
