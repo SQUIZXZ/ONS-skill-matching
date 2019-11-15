@@ -12,9 +12,53 @@
     <form action="#" method = "post" th:action="@{/skillRequestVerification}" th:object="${skillRequestForm}">
         <div class = "formSection">
             <label th:for="firstName">First Name</label>
-            <input>
+            <input type = "text" th:field = "*{firstName}" placeholder="Enter your Name..."/>
+            <div th:errors="*{firstName}"
+                 th:if="${#fields.hasErrors('firstName')}">
+                Name Error
+            </div>
         </div>
-
+        <div class = "formSection">
+            <label th:for="surname">Surname</label>
+            <input type = "text" th:field = "*{surname}" placeholder="Enter your Surname..."/>
+            <div th:errors="*{surname}"
+                 th:if="${#fields.hasErrors('surname')}">
+                Surname Error
+            </div>
+        </div>
+        <div class = "formSection">
+            <label th:for="department">Department</label>
+            <input type = "text" th:field = "*{department}" placeholder="Enter your department..."/>
+            <div th:errors="*{department}"
+                 th:if="${#fields.hasErrors('department')}">
+                Surname Error
+            </div>
+        </div>
+        <div class = "formSection">
+            <label th:for="skill">Skill you want to find</label>
+            <input type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
+            <div th:errors="*{skill}"
+                 th:if="${#fields.hasErrors('skill')}">
+                Skill Error
+            </div>
+        </div>
+        <div class = "formSection">
+            <label th:for="taskDescription">Description of the task you need doing</label>
+            <input type = "text" th:field = "*{taskDescription}" placeholder="Enter task description..."/>
+            <div th:errors="*{taskDescription}"
+                 th:if="${#fields.hasErrors('taskDescription')}">
+                Description Error
+            </div>
+        </div>
+        <div class = "formSection">
+            <label th:for="furl">Furl</label>
+            <input type = "text" th:field = "*{furl}" placeholder="Enter the furl for your page..."/>
+            <div th:errors="*{furl}"
+                 th:if="${#fields.hasErrors('furl')}">
+                furl Error
+            </div>
+        </div>
+        <button type = "submit">Submit</button>
     </form>
 </div>
 </main>
