@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Create a Request - SkillShare</title>
 </head>
 <body>
 <main>
+<div>
+    <h2>Create a Skill request</h2>
 
+    <form action="#" method = "post" th:action="@{/skillRequestVerification}" th:object="${skillRequestForm}">
+        <div class = "formSection">
+            <label th:for="firstName">First Name</label>
+            <input>
+        </div>
+
+    </form>
+</div>
 </main>
 </body>
 </html>

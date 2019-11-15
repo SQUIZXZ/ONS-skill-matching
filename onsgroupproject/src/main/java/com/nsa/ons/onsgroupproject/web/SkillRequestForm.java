@@ -32,4 +32,8 @@ public class SkillRequestForm {
     @Size(min = 2, max = 300, message = "Your Description is too long")
     private String taskDescription;
 
+    @NotNull
+    @Size(min = 1,max = 20, message = "Invalid Furl")
+    private String furl;
+
 }
