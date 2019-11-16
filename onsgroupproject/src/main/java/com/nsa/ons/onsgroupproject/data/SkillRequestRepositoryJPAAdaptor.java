@@ -7,17 +7,17 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class SkillRequestJPAAdaptor implements SkillRequestRepository {
+public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository {
 
-     private SkillRequestJPA skillRequestJPA;
+     private SkillRequestRepositoryJPA skillRequestRepositoryJPA;
 
-    public SkillRequestJPAAdaptor(SkillRequestJPA skillRequestJPARepo) {
-        skillRequestJPA = skillRequestJPARepo;
+    public SkillRequestRepositoryJPAAdaptor(SkillRequestRepositoryJPA skillRequestJPARepo) {
+        skillRequestRepositoryJPA = skillRequestJPARepo;
     }
 
     @Override
     public Optional<SkillRequest> findByFurl(String furl) {
-        return skillRequestJPA.findByFurl(furl);
+        return skillRequestRepositoryJPA.findByFurl(furl);
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SkillRequestJPA extends JpaRepository<SkillRequest, Long> {
+public interface SkillRequestRepositoryJPA extends JpaRepository<SkillRequest, Long> {
 
     Optional<SkillRequest> findByFurl(String furl);
 
