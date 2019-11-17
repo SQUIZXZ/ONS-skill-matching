@@ -46,7 +46,7 @@ public class SkillRequestController {
         String furl = values.get(5).substring(5);
         SkillRequest skillRequest = new SkillRequest(null,firstName,surname,department,skill,description,furl);
         skillRequestRepository.saveSkillRequest(skillRequest);
-        return ResponseEntity.status(HttpStatus.OK).body("hi");
+        return ResponseEntity.status(HttpStatus.OK).body(furl);
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)

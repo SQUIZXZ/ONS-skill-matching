@@ -16,8 +16,8 @@ function saveSkillRequest() {
             description: description,
             furl: furl,
         },
-        success: function (data) {
-            console.log(data);
+        success: function (furl) {
+            window.location.href = "/skillRequest/"+furl;
         },
         error: function (e) {
             console.log(e);
