@@ -1,23 +1,30 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SkillRequestController {
 
     static final Logger log = LoggerFactory.getLogger(SkillRequestController.class);
+    private SkillRequestRepository skillRequestRepository;
 
-    public SkillRequestController() {
+    public SkillRequestController(SkillRequestRepository srRepository) {
+        skillRequestRepository = srRepository;
 
     }
 
@@ -28,10 +35,18 @@ public class SkillRequestController {
         return "RequestFormPage";
     }
 
-    @RequestMapping(path = "saveSkillRequest", method = RequestMethod.GET)
-    public String saveSkillRequest(@ModelAttribute("donor") @Valid SkillRequestForm skillRequestForm, Model model) {
-        System.out.println(skillRequestForm);
-        return skillRequestForm.toString();
+    @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
+    public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
+        List<String> values = Arrays.asList(formData.split("&"));
+        String firstName = values.get(0).substring(10);
+        String surname = values.get(1).substring(8);
+        String department = values.get(2).substring(11);
+        String skill = values.get(3).substring(6);
+        String description = values.get(4).substring(12);
+        String furl = values.get(5).substring(5);
+        SkillRequest skillRequest = new SkillRequest(null,firstName,surname,department,skill,description,furl);
+        skillRequestRepository.saveSkillRequest(skillRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("hi");
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)

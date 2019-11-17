@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <title>Create a Request - SkillShare</title>
     <script type="text/javascript" th:src="@{/js/request_form_page.js}"></script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
 </head>
 <body>
 <main>
 <div>
-
     <h2>Create a Skill request</h2>
-    <button onclick="test()">test</button>
-
-    <form th:object="${skillRequestForm}">
+    <form action="#" th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
         <div class = "formSection">
             <label th:for="firstName">First Name</label>
-            <input type = "text" th:field = "*{firstName}" placeholder="Enter your Name..."/>
+            <input id = "firstName" type = "text" th:field = "*{firstName}" placeholder="Enter your Name..."/>
             <div th:errors="*{firstName}"
                  th:if="${#fields.hasErrors('firstName')}">
                 Name Error
@@ -23,7 +21,7 @@
         </div>
         <div class = "formSection">
             <label th:for="surname">Surname</label>
-            <input type = "text" th:field = "*{surname}" placeholder="Enter your Surname..."/>
+            <input id= "surname" type = "text" th:field = "*{surname}" placeholder="Enter your Surname..."/>
             <div th:errors="*{surname}"
                  th:if="${#fields.hasErrors('surname')}">
                 Surname Error
@@ -31,7 +29,7 @@
         </div>
         <div class = "formSection">
             <label th:for="department">Department</label>
-            <input type = "text" th:field = "*{department}" placeholder="Enter your department..."/>
+            <input  id= "department" type = "text" th:field = "*{department}" placeholder="Enter your department..."/>
             <div th:errors="*{department}"
                  th:if="${#fields.hasErrors('department')}">
                 Surname Error
@@ -39,7 +37,7 @@
         </div>
         <div class = "formSection">
             <label th:for="skill">Skill you want to find</label>
-            <input type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
+            <input id= "skill" type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
             <div th:errors="*{skill}"
                  th:if="${#fields.hasErrors('skill')}">
                 Skill Error
@@ -47,7 +45,7 @@
         </div>
         <div class = "formSection">
             <label th:for="taskDescription">Description of the task you need doing</label>
-            <input type = "text" th:field = "*{taskDescription}" placeholder="Enter task description..."/>
+            <input id= "description" type = "text" th:field = "*{taskDescription}" placeholder="Enter task description..."/>
             <div th:errors="*{taskDescription}"
                  th:if="${#fields.hasErrors('taskDescription')}">
                 Description Error
@@ -55,13 +53,13 @@
         </div>
         <div class = "formSection">
             <label th:for="furl">Furl</label>
-            <input type = "text" th:field = "*{furl}" placeholder="Enter the furl for your page..."/>
+            <input id= "furl" type = "text" th:field = "*{furl}" placeholder="Enter the furl for your page..."/>
             <div th:errors="*{furl}"
                  th:if="${#fields.hasErrors('furl')}">
                 furl Error
             </div>
         </div>
-        <button type = "submit" onclick="test()">Submit</button>
+        <button type = "submit" >Submit</button>
     </form>
 </div>
 </main>
