@@ -20,4 +20,11 @@ public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository 
         return skillRequestRepositoryJPA.findByFurl(furl);
     }
 
+    @Override
+    public void saveSkillRequest(SkillRequest skillRequest) {
+
+        skillRequestRepositoryJPA.save(skillRequest);
+
+    }
+
 }

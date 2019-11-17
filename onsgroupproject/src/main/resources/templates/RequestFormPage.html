@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Create a Request - SkillShare</title>
+    <script type="text/javascript" th:src="@{/js/request_form_page.js}"></script>
 </head>
 <body>
 <main>
 <div>
-    <h2>Create a Skill request</h2>
 
-    <form action="#" method = "post" th:action="@{/skillRequestVerification}" th:object="${skillRequestForm}">
+    <h2>Create a Skill request</h2>
+    <button onclick="test()">test</button>
+
+    <form th:object="${skillRequestForm}">
         <div class = "formSection">
             <label th:for="firstName">First Name</label>
             <input type = "text" th:field = "*{firstName}" placeholder="Enter your Name..."/>
@@ -58,7 +61,7 @@
                 furl Error
             </div>
         </div>
-        <button type = "submit">Submit</button>
+        <button type = "submit" onclick="test()">Submit</button>
     </form>
 </div>
 </main>

@@ -8,4 +8,6 @@ public interface SkillRequestRepository {
 
     public Optional<SkillRequest> findByFurl(String furl);
 
+    public void saveSkillRequest(SkillRequest skillRequest);
+
 }

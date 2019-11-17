@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +28,6 @@ public class SkillRequestQueryTest {
     public void testThatFindByFurlWorks() throws Exception {
 
         Optional<SkillRequest> skillRequest = skillRequestRepository.findByFurl("python-help");
-        System.out.println("--------->" +skillRequest);
         assertEquals("Need help with python", skillRequest.get().getInfo());
 
     }
