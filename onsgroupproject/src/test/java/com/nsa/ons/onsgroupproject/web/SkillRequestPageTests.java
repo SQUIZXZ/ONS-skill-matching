@@ -35,10 +35,10 @@ public class SkillRequestPageTests {
                 1L,
                 "John",
                 "Smiths",
-                "theFurl",
                 "department A",
                 "python",
-                "making a web backend"
+                "making a web backend",
+                "theFurl"
         );
 
         given(this.skillRequestRepository.findByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
