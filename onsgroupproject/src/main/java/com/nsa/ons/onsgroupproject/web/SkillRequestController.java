@@ -2,6 +2,7 @@ package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,10 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class SkillRequestController {
@@ -35,6 +33,12 @@ public class SkillRequestController {
         return "RequestFormPage";
     }
 
+//    @RequestMapping(path = "saveSkillsRequest", method = RequestMethod.POST)
+//    public String saveSkillRequest(@ModelAttribute("skillRequestForm") SkillRequestForm skillRequest, Model model){
+//
+//    }
+
+
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
         List<String> values = Arrays.asList(formData.split("&"));
@@ -51,7 +55,13 @@ public class SkillRequestController {
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
     public String skillRequest(@PathVariable("furl") String furl, Model model) {
-        model.addAttribute("furl", furl);
+        Optional<SkillRequest> skillRequest = skillRequestRepository.findByFurl(furl);
+        if(skillRequest.isEmpty()){
+            log.debug("failed to find skill request");
+            return "404ErrorPage";
+        }
+
+        model.addAttribute("skillRequest",skillRequest.get());
         return "RequestPage";
     }
 
