@@ -17,6 +17,7 @@ function saveSkillRequest() {
             furl: furl,
         },
         success: function (furl) {
+            console.log(furl);
             window.location.href = "/skillRequest/"+furl;
         },
         error: function (e) {

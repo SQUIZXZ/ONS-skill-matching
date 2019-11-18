@@ -10,7 +10,7 @@
 <main>
 <div>
     <h2>Create a Skill request</h2>
-    <form action="#" th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
+    <form th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
         <div class = "formSection">
             <label th:for="firstName">First Name</label>
             <input id = "firstName" type = "text" th:field = "*{firstName}" placeholder="Enter your Name..."/>
@@ -59,7 +59,7 @@
                 furl Error
             </div>
         </div>
-        <button type = "submit" >Submit</button>
+        <button type = "button" onclick="saveSkillRequest()" >Submit</button>
     </form>
 </div>
 </main>
