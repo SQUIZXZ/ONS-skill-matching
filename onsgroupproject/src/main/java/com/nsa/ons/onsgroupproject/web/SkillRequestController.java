@@ -42,6 +42,7 @@ public class SkillRequestController {
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
         List<String> values = Arrays.asList(formData.split("&"));
+        System.out.println(values);
         String firstName = values.get(0).substring(10);
         String surname = values.get(1).substring(8);
         String department = values.get(2).substring(11);

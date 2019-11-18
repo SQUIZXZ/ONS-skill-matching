@@ -24,9 +24,6 @@ public class SkillRequest {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "furl")
-    private String furl;
-
     @Column(name = "department")
     private String department;
 
@@ -35,5 +32,8 @@ public class SkillRequest {
 
     @Column(name = "info")
     private String info;
+
+    @Column(name = "furl")
+    private String furl;
 
 }
