@@ -2,6 +2,7 @@ package com.nsa.ons.onsgroupproject.data;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -21,9 +22,17 @@ public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository 
     }
 
     @Override
-    public void saveSkillRequest(SkillRequest skillRequest) {
-
-        skillRequestRepositoryJPA.save(skillRequest);
+    public void saveSkillRequest(SkillRequestMade skillRequest) {
+        SkillRequest newSkillRequest = new SkillRequest(
+                null,
+                skillRequest.getFirstName(),
+                skillRequest.getLastName(),
+                skillRequest.getDepartment(),
+                skillRequest.getSkill(),
+                skillRequest.getDescription(),
+                skillRequest.getFurl()
+        );
+        skillRequestRepositoryJPA.save(newSkillRequest);
 
     }
 

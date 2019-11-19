@@ -2,6 +2,7 @@ package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,8 @@ public class SkillRequestController {
     }
 
 //    @RequestMapping(path = "saveSkillsRequest", method = RequestMethod.POST)
-//    public String saveSkillRequest(@ModelAttribute("skillRequestForm") SkillRequestForm skillRequest, Model model){
+//    public String saveSkillRequest(@ModelAttribute("skillRequestForm") @Valid SkillRequestForm skillRequest,
+//                                   Model model){
 //
 //    }
 
@@ -42,16 +44,17 @@ public class SkillRequestController {
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
         List<String> values = Arrays.asList(formData.split("&"));
-        System.out.println(values);
-        String firstName = values.get(0).substring(10);
-        String surname = values.get(1).substring(8);
-        String department = values.get(2).substring(11);
-        String skill = values.get(3).substring(6);
-        String description = values.get(4).substring(12);
-        String furl = values.get(5).substring(5);
-        SkillRequest skillRequest = new SkillRequest(null,firstName,surname,department,skill,description,furl);
+        log.debug(values.toString());
+        SkillRequestMade skillRequest = new SkillRequestMade(
+                values.get(0).substring(10),
+                values.get(1).substring(8),
+                values.get(2).substring(11),
+                values.get(3).substring(6),
+                values.get(4).substring(12),
+                values.get(5).substring(5)
+        );
         skillRequestRepository.saveSkillRequest(skillRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(furl);
+        return ResponseEntity.status(HttpStatus.OK).body(values.get(5).substring(5));
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
