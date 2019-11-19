@@ -13,4 +13,6 @@ public interface RestRepository extends CrudRepository<Skill, Long> {
     @Override
     List<Skill> findAll();
 
+    List<Skill> findByName(String name);
+
 }

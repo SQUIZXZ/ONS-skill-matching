@@ -38,6 +38,13 @@ class SkillController {
                 .orElseThrow(() -> new SkillNotFoundException(id));
     }
 
+    @GetMapping("/skill/{name}")
+    List<Skill> one(@PathVariable String name) {
+
+        return repository.findByName(name);
+
+    }
+
     @PutMapping("/skills/{id}")
     Skill replaceSkill(@RequestBody Skill newSkill, @PathVariable Long id) {
 
