@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +35,29 @@ public class SkillRequestController {
         return "RequestFormPage";
     }
 
-//    @RequestMapping(path = "saveSkillsRequest", method = RequestMethod.POST)
-//    public String saveSkillRequest(@ModelAttribute("skillRequestForm") @Valid SkillRequestForm skillRequest,
-//                                   Model model){
+//    @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
+//    public String confirmSkillRequest(@ModelAttribute("skillRequestForm") @Valid SkillRequestForm skillRequest,
+//                                   Model model,
+//                                   BindingResult bindingResult){
+//        if(bindingResult.hasErrors()){
+//            log.debug("Binding Errors Found");
+//            return "RequestFormPage";
+//        }
+//
+//        log.debug("saving skill request");
+//        SkillRequestMade skillRequestMade = new SkillRequestMade(
+//                skillRequest.getFirstName(),
+//                skillRequest.getSurname(),
+//                skillRequest.getDepartment(),
+//                skillRequest.getSkill(),
+//                skillRequest.getTaskDescription(),
+//                skillRequest.getFurl()
+//        );
+//        skillRequestRepository.saveSkillRequest(skillRequestMade);
+//
+//        model.addAttribute("skillRequest",skillRequestRepository.findByFurl(skillRequest.getFurl()).get());
+//        return "RequestPage";
+//
 //
 //    }
 
