@@ -33,7 +33,6 @@ public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository 
                 skillRequest.getFurl()
         );
         skillRequestRepositoryJPA.save(newSkillRequest);
-
     }
 
 }

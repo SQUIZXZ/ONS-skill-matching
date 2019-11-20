@@ -8,22 +8,17 @@ function saveSkillRequest() {
     $.ajax({
         type: "POST",
         url: "/saveSkillRequest",
-        data: {
-            firstName: firstName,
-            surname: surname,
-            department: department,
-            skill: skill,
-            description: description,
-            furl: furl,
-        },
+        data: JSON.stringify({firstName: firstName, surname: surname,department: department,skill: skill,description: description,furl: furl}),
+        processData: false,
+        contentType: "application/json",
         success: function (furl) {
             console.log(furl);
             window.location.href = "/skillRequest/"+furl;
         },
         error: function (e) {
             console.log(e);
+            console.log("fail");
+
         }
     });
-
-
 }
