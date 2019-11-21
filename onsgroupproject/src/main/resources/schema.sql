@@ -1,6 +1,16 @@
 SET MODE MySQL;
 SET IGNORECASE = TRUE;
 
+CREATE TABLE IF NOT EXISTS `skill`
+(
+    `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `skill_name`   VARCHAR(100)  NOT NULL,
+
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
+
+
 CREATE TABLE IF NOT EXISTS `skill_requests`
 (
     `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -13,3 +23,4 @@ CREATE TABLE IF NOT EXISTS `skill_requests`
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
+
