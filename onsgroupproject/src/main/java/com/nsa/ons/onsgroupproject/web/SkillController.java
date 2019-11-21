@@ -1,67 +1,96 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.nsa.ons.onsgroupproject.data.RestRepository;
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 class SkillController {
 
-    private final RestRepository repository;
+    private SkillFinder finder;
 
-    SkillController(RestRepository repository) {
-        this.repository = repository;
+    public SkillController(SkillFinder aFinder) {
+        finder = aFinder;
     }
 
-    @GetMapping("/skills")
-    List<Skill> all() {
-        return repository.findAll();
+    // If skill index exists for add it to the model and return it
+    @GetMapping("skill/{i}")
+    public String showSkillPage(@PathVariable("i") Long index, Model model) {
+
+        Optional<Skill> skill = finder.findSkillByIndex(index);
+
+        if (skill.isPresent()) {
+            model.addAttribute("skill", skill.get());
+            return "skill";
+
+        } else {
+            return "404";
+        }
     }
 
-    @PostMapping("/skills")
-    Skill newSkill(@RequestBody Skill newSkill) {
-        return repository.save(newSkill);
-    }
+        @GetMapping("findSkill")
+        public String findSkill(@RequestParam("search") String searchTerm, Model model) {
 
-    @GetMapping("/skills/{id}")
-    Skill one(@PathVariable Long id) {
+            List<Skill> skills = finder.findSkillBySearch(searchTerm);
 
-        return repository.findById(id)
-                .orElseThrow(() -> new SkillNotFoundException(id));
-    }
+            model.addAttribute("searchTerm", searchTerm);
+            model.addAttribute("skills", skills);
+            return "skillList";
 
-    @GetMapping("/skill/{name}")
-    List<Skill> one(@PathVariable String name) {
-
-        return repository.findByName(name);
-
-    }
-
-    @PutMapping("/skills/{id}")
-    Skill replaceSkill(@RequestBody Skill newSkill, @PathVariable Long id) {
-
-        return repository.findById(id)
-                .map(skill -> {
-                    skill.setName(newSkill.getName());
-                    return repository.save(skill);
-                })
-                .orElseGet(() -> {
-                    newSkill.setId(id);
-                    return repository.save(newSkill);
-                });
-    }
-
-    @DeleteMapping("/skills/{id}")
-    void deleteSkill(@PathVariable Long id) {
-        repository.deleteById(id);
-    }
+        }
 }
+//    private final SkillRepositoryJPA repository;
+//
+//    SkillController(SkillRepositoryJPA repository) {
+//        this.repository = repository;
+//    }
+//
+//    @GetMapping("/skills")
+//    List<Skill> all() {
+//        return repository.findAll();
+//    }
+//
+//    @PostMapping("/skills")
+//    Skill newSkill(@RequestBody Skill newSkill) {
+//        return repository.save(newSkill);
+//    }
+//
+//    @GetMapping("/skills/{id}")
+//    Skill one(@PathVariable Long id) {
+//
+//        return repository.findById(id)
+//                .orElseThrow(() -> new SkillNotFoundException(id));
+//    }
+//
+//    @GetMapping("/skill/{name}")
+//    List<Skill> one(@PathVariable String name) {
+//
+//        return repository.findByName(name);
+//
+//    }
+//
+//    @PutMapping("/skills/{id}")
+//    Skill replaceSkill(@RequestBody Skill newSkill, @PathVariable Long id) {
+//
+//        return repository.findById(id)
+//                .map(skill -> {
+//                    skill.setName(newSkill.getName());
+//                    return repository.save(skill);
+//                })
+//                .orElseGet(() -> {
+//                    newSkill.setId(id);
+//                    return repository.save(newSkill);
+//                });
+//    }
+//
+//    @DeleteMapping("/skills/{id}")
+//    void deleteSkill(@PathVariable Long id) {
+//        repository.deleteById(id);
+//    }
+
 

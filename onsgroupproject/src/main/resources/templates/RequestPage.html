@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${skillRequest.firstName} + '\'s request - SkillShare'"></title>
+</head>
+<body>
+
+<h2><span th:text = "${skillRequest.skill}"></span> skill wanted</h2>
+<main>
+    <div>
+        <label>Requester Name: </label>
+        <span th:text="${skillRequest.firstName} + ' ' + ${skillRequest.lastName}"></span>
+    </div>
+    <div>
+        <label>Requester Department: </label>
+        <span th:text="${skillRequest.department}"></span>
+    </div>
+    <div>
+        <label>Skill wanted: </label>
+        <span th:text="${skillRequest.skill}"></span>
+    </div>
+    <div>
+        <label>Task Description: </label>
+        <span th:text="${skillRequest.info}"></span>
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -15,10 +15,9 @@ public class Skill {
     @Column(name = "skill_name")
     private String name;
 
-    Skill() {}
-
-    Skill(String name) {
-        this.name = name;
+    public String searchable() {
+        return String.join(";", name);
     }
+
 
 }
