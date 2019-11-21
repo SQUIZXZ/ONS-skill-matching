@@ -29,7 +29,7 @@ class SkillController {
             return "skill";
 
         } else {
-            return "404";
+            return "404ErrorPage";
         }
     }
 
