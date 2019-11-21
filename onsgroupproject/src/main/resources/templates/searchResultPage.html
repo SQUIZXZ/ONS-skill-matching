@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${skillSearch.Skill} + '\'s Search'"></title>
+</head>
+<body>
+
+<h2><span th:text = "${skillSearch.skill}"></span> skill wanted</h2>
+<main>
+    <div>
+        <label>Requester Name: </label>
+        <span th:text="${skillSearch.skill} "></span>
+    </div>
+
+
+</main>
+
+</body>
+</html>
