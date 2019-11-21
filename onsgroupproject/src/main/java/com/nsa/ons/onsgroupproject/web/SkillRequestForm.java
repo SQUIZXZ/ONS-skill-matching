@@ -35,7 +35,7 @@ public class SkillRequestForm {
 
     @NotNull
     @Size(min = 1,max = 20, message = "Invalid Furl")
-    @Pattern(regexp = "^\\w+$")
+    @Pattern(regexp = "^\\w+$", message = "Invalid Furl")
     private String furl;
 
 }
