@@ -3,7 +3,6 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
-import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -64,18 +62,17 @@ public class SkillRequestController {
 
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
-        List<String> values = Arrays.asList(formData.split("&"));
-        log.debug(values.toString());
-        SkillRequestMade skillRequest = new SkillRequestMade(
-                values.get(0).substring(10),
-                values.get(1).substring(8),
-                values.get(2).substring(11),
-                values.get(3).substring(6),
-                values.get(4).substring(12),
-                values.get(5).substring(5)
-        );
+
+        List<String> values = Arrays.asList(formData.split(","));
+        String firstName = values.get(0).substring(14,values.get(0).length() -1);
+        String surname = values.get(1).substring(11,values.get(1).length() -1);
+        String department = values.get(2).substring(14,values.get(2).length() -1);
+        String skill =  values.get(3).substring(9,values.get(3).length() -1);
+        String description = values.get(4).substring(15,values.get(4).length() -1);
+        String furl = values.get(5).substring(8,values.get(5).length() -2);
+        SkillRequestMade skillRequest = new SkillRequestMade(firstName,surname,department,skill,description,furl);
         skillRequestRepository.saveSkillRequest(skillRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(values.get(5).substring(5));
+        return ResponseEntity.status(HttpStatus.OK).body(furl);
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
@@ -85,7 +82,6 @@ public class SkillRequestController {
             log.debug("failed to find skill request");
             return "404ErrorPage";
         }
-
         model.addAttribute("skillRequest",skillRequest.get());
         return "RequestPage";
     }
