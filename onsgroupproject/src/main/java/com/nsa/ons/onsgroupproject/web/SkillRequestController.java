@@ -1,6 +1,7 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
+import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.slf4j.Logger;
@@ -20,9 +21,11 @@ public class SkillRequestController {
 
     static final Logger log = LoggerFactory.getLogger(SkillRequestController.class);
     private SkillRequestRepository skillRequestRepository;
+    private SkillRepository skillRepository;
 
-    public SkillRequestController(SkillRequestRepository srRepository) {
+    public SkillRequestController(SkillRequestRepository srRepository, SkillRepository sRepository) {
         skillRequestRepository = srRepository;
+        skillRepository = sRepository;
 
     }
 
@@ -30,6 +33,7 @@ public class SkillRequestController {
     public String createSkillRequest(Model model){
         log.debug("Create skill request accessed");
         model.addAttribute("skillRequestForm", new SkillRequestForm());
+        model.addAttribute("skills", skillRepository.findAll());
         return "RequestFormPage";
     }
 
@@ -62,7 +66,6 @@ public class SkillRequestController {
 
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody String formData) {
-
         List<String> values = Arrays.asList(formData.split(","));
         String firstName = values.get(0).substring(14,values.get(0).length() -1);
         String surname = values.get(1).substring(11,values.get(1).length() -1);

@@ -24,7 +24,6 @@ public class SkillQueries implements SkillFinder {
     // Finds skill by search
     public List<Skill> findSkillBySearch(String searchTerm) {
         return skillRepository.findBySearch(searchTerm);
-
     }
 
 }

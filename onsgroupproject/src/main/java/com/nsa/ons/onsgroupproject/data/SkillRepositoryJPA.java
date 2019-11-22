@@ -14,6 +14,8 @@ public interface SkillRepositoryJPA extends SkillRepository, JpaRepository<Skill
     @Query(value = "select * from skill where upper(skill_name) like concat('%', upper(:paramSearch), '%')", nativeQuery = true)
     List<com.nsa.ons.onsgroupproject.domain.Skill> findBySearch(@Param("paramSearch") String searchTerm);
 
+    List<Skill> findAll();
+
 }
 
 

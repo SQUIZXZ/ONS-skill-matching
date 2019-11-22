@@ -13,4 +13,6 @@ public interface SkillRepository {
 
     public List<Skill> findByName(String name);
 
+    public List<Skill> findAll();
+
 }

@@ -31,7 +31,7 @@
         </div>
         <div class = "formSection">
             <label th:for="department">Department</label>
-            <input  id= "department" type = "text" th:field = "*{department}" placeholder="Enter your department..."/>
+            <input id= "department" type = "text" th:field = "*{department}" placeholder="Enter your department..."/>
             <div th:errors="*{department}"
                  th:if="${#fields.hasErrors('department')}">
                 Surname Error
@@ -39,7 +39,10 @@
         </div>
         <div class = "formSection">
             <label th:for="skill">Skill you want to find</label>
-            <input id= "skill" type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
+            <input id= "skill" list="skills" type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
+            <datalist id="skills">
+            <option th:each="skills: ${skills}" th:text="${skills.name}" ></option>
+            </datalist>
             <div th:errors="*{skill}"
                  th:if="${#fields.hasErrors('skill')}">
                 Skill Error
