@@ -12,15 +12,10 @@ CREATE TABLE IF NOT EXISTS `skill`
 
 CREATE TABLE IF NOT EXISTS `skill_hierarchy`
 (
-    `parentID`  INT UNSIGNED NOT NULL,
-    `childID`   INT UNSIGNED NOT NULL,
-
-    CONSTRAINT
-        FOREIGN KEY (`fk_parent`)
-        REFERENCES `skill`(`id`),
-    CONSTRAINT
-        FOREIGN KEY (`fk_child`)
-        REFERENCES `skill`(`id`)
+    `parent_id`  INT UNSIGNED NOT NULL,
+    `child_id`   INT UNSIGNED NOT NULL,
+    FOREIGN KEY (`parent_id`) REFERENCES `skill`(`id`),
+    FOREIGN KEY (`child_id`) REFERENCES `skill`(`id`)
 
 )
     ENGINE = InnoDB;
