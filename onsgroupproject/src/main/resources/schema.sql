@@ -10,6 +10,17 @@ CREATE TABLE IF NOT EXISTS `skill`
 )
     ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `Users`
+(
+    `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `first_name`   VARCHAR(100)  NOT NULL,
+    `sure_name`   VARCHAR(100)  NOT NULL,
+    `email`   NVARCHAR(320)  NOT NULL,
+
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS `skill_requests`
 (
