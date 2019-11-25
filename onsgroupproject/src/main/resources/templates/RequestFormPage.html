@@ -39,14 +39,18 @@
         </div>
         <div class = "formSection">
             <label th:for="skill">Skill you want to find</label>
-            <input id= "skill" list="skills" type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
+            <input oninput="hideOrShow()" id= "skill" list="skills" type = "text" th:field = "*{skill}" placeholder="Enter the skill you need..."/>
             <datalist id="skills">
-            <option th:each="skills: ${skills}" th:text="${skills.name}" ></option>
+            <option th:each="skill: ${skills}" th:text="${skill}" ></option>
             </datalist>
             <div th:errors="*{skill}"
                  th:if="${#fields.hasErrors('skill')}">
                 Skill Error
             </div>
+            <input id="skillList"th:value="${skills}" type="hidden"/>
+            <label class="createSkill" style="display: none">The perant of this skill</label>
+            <input class="createSkill" list="skills"  style="display: none">
+            <button class="createSkill" style="display: none">Create new skill</button>
         </div>
         <div class = "formSection">
             <label th:for="taskDescription">Description of the task you need doing</label>

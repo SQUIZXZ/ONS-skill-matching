@@ -22,3 +22,26 @@ function saveSkillRequest() {
         }
     });
 }
+function hideOrShow(){
+    var skills = document.getElementById("skillList").value;
+    var skillList = skills.substring(1, skills.length - 1).split(", ");
+    var skill = document.getElementById("skill").value;
+    var createSkill = document.getElementsByClassName("createSkill");
+    var isSkill = false;
+    for (s = 0; s < skillList.length; s++) {
+        if (skillList[s] === skill){
+            isSkill = true;
+            break;
+        }
+    }
+    if(isSkill === true){
+        Array.prototype.forEach.call(createSkill, function(s) {
+            s.style.display = "none";
+        });
+    }else{
+        Array.prototype.forEach.call(createSkill, function(s) {
+            s.style.display = "block";
+        });
+    }
+
+}

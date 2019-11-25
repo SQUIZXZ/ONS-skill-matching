@@ -1,5 +1,6 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
@@ -33,7 +34,12 @@ public class SkillRequestController {
     public String createSkillRequest(Model model){
         log.debug("Create skill request accessed");
         model.addAttribute("skillRequestForm", new SkillRequestForm());
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill> skills = skillRepository.findAll();
+        ArrayList<String> skillsNoId = new ArrayList<>();
+        for (Skill s : skills) {
+            skillsNoId.add(s.getName());
+        }
+        model.addAttribute("skills", skillsNoId);
         return "RequestFormPage";
     }
 
