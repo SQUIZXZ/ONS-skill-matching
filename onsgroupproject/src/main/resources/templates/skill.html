@@ -11,7 +11,7 @@
         <h3>Child Skills</h3>
         <tbody>
         <tr th:each="skillChild: ${skill.getChildSkills()}">
-            <th><a th:href="@{/skill/{id} (id = ${skillChild.getId()})}"><span th:text="${skillChild.getName()}"></span></a></th>
+            <th><a th:href="@{/skill/{id} (id = ${skillChild.getId()})}"><span th:text="${skillChild.getName()}"></span></a><br></th>
         </tr>
         </tbody>
     </div>
