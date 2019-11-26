@@ -13,22 +13,19 @@ public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    public int id;
 
     @Column(name = "first_name")
-    private String firstName;
+    public String firstName;
 
     @Column(name = "surname")
-    private String surname;
+    public String surname;
 
     @Column(name = "email")
-    private String email;
+    public String email;
 
     @Column(name = "privacy")
-    private boolean privacy;
-
-//    @ManyToMany
-//    @JoinTable(name = "user_skill",)
+    public boolean privacy;
 
     public int getId() {
         return id;
