@@ -24,3 +24,12 @@ CREATE TABLE IF NOT EXISTS `skill_requests`
 )
     ENGINE = InnoDB;
 
+CREATE TABLE if not exists `user`
+(
+    `id`       int(11)      NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(45)  NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
+
