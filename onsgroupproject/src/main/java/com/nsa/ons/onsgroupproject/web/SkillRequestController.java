@@ -1,6 +1,9 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
+import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillRequestCreator;
+import com.nsa.ons.onsgroupproject.service.SkillRequestFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.slf4j.Logger;
@@ -19,10 +22,12 @@ import java.util.*;
 public class SkillRequestController {
 
     static final Logger log = LoggerFactory.getLogger(SkillRequestController.class);
-    private SkillRequestRepository skillRequestRepository;
+    private SkillRequestCreator skillRequestCreator;
+    private SkillRequestFinder skillRequestFinder;
 
-    public SkillRequestController(SkillRequestRepository srRepository) {
-        skillRequestRepository = srRepository;
+    public SkillRequestController(SkillRequestCreator srCreate, SkillRequestFinder srFinder) {
+        skillRequestCreator = srCreate;
+        skillRequestFinder = srFinder;
 
     }
 
@@ -71,13 +76,13 @@ public class SkillRequestController {
         String description = values.get(4).substring(15,values.get(4).length() -1);
         String furl = values.get(5).substring(8,values.get(5).length() -2);
         SkillRequestMade skillRequest = new SkillRequestMade(firstName,surname,department,skill,description,furl);
-        skillRequestRepository.saveSkillRequest(skillRequest);
+        skillRequestCreator.makeSkillRequest(skillRequest);
         return ResponseEntity.status(HttpStatus.OK).body(furl);
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
     public String skillRequest(@PathVariable("furl") String furl, Model model) {
-        Optional<SkillRequest> skillRequest = skillRequestRepository.findByFurl(furl);
+        Optional<SkillRequest> skillRequest = skillRequestFinder.findSkillRequestByFurl(furl);
         if(skillRequest.isEmpty()){
             log.debug("failed to find skill request");
             return "404ErrorPage";

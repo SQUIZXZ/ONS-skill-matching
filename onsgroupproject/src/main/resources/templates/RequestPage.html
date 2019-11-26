@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${skillRequest.firstName} + '\'s request - SkillShare'"></title>
+    <link rel="stylesheet" href="/style/globalStyles.css"/>
 </head>
 <body>
 
-<h2><span th:text = "${skillRequest.skill}"></span> skill wanted</h2>
+
 <main>
+    <h2><span th:text = "${skillRequest.skill}"></span> skill wanted</h2>
     <div>
         <label>Requester Name: </label>
         <span th:text="${skillRequest.firstName} + ' ' + ${skillRequest.lastName}"></span>

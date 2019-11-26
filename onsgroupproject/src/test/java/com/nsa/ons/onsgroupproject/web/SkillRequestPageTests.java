@@ -1,6 +1,9 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
+import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillRequestCreator;
+import com.nsa.ons.onsgroupproject.service.SkillRequestFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +30,10 @@ public class SkillRequestPageTests {
     private MockMvc mvc;
 
     @MockBean
-    private SkillRequestRepository skillRequestRepository;
+    private SkillRequestFinder skillRequestFinder;
+
+    @MockBean
+    private SkillRequestCreator skillRequestCreator;
 
     @Test
     public void requestPageFindsCorrectData() throws Exception{
@@ -41,7 +47,7 @@ public class SkillRequestPageTests {
                 "theFurl"
         );
 
-        given(this.skillRequestRepository.findByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
+        given(this.skillRequestFinder.findSkillRequestByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
 
         mvc.perform(
                 get("/skillRequest/theFurl")
