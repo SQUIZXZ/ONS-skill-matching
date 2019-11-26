@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
+import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,15 +35,26 @@ class SkillController {
     }
 
         @GetMapping("findSkill")
-        public String findSkill(@RequestParam("search") String searchTerm, Model model) {
+    public String findSkill(@RequestParam("search") String searchTerm, Model model) {
 
-            List<Skill> skills = finder.findSkillBySearch(searchTerm);
+        List<Skill> skills = finder.findSkillBySearch(searchTerm);
 
-            model.addAttribute("searchTerm", searchTerm);
-            model.addAttribute("skills", skills);
-            return "skillList";
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("skills", skills);
+        return "skillList";
 
-        }
+    }
+    @GetMapping("findUsers")
+    public String findUsers(@RequestParam("search") String searchTerm, Model model) {
+
+        List<User> users = finder.findUsersBySkill(searchTerm);
+
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("users", users);
+        return "users";
+
+    }
+
 }
 //    private final SkillRepositoryJPA repository;
 //
