@@ -1,7 +1,6 @@
 package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,7 @@ public interface SkillRepository {
 
     public List<Skill> findBySearch(String searchTerm);
 
-    public List<Skill> findByName(String name);
+    public int findByName(String name);
 
-   public List<User> findUsersBySkill(String searchTerm);
+   //public List<UserInfo> findUsersBySkill(String searchTerm);
 }

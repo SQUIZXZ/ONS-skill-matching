@@ -1,11 +1,16 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.User;
+import com.nsa.ons.onsgroupproject.domain.UserInfo;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillRepository;
+import com.nsa.ons.onsgroupproject.service.UserRepository;
+import com.nsa.ons.onsgroupproject.service.UserSkillRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +19,13 @@ import org.springframework.web.bind.annotation.*;
 class SkillController {
 
     private SkillFinder finder;
+    @Autowired
+    SkillRepository repo;
+    @Autowired
+    UserRepository UserRepo;
+    @Autowired
+    UserSkillRepository userSkillReop;
+
 
     public SkillController(SkillFinder aFinder) {
         finder = aFinder;
@@ -44,13 +56,22 @@ class SkillController {
         return "skillList";
 
     }
-    @GetMapping("findUsers")
+    @GetMapping("findUser")
     public String findUsers(@RequestParam("search") String searchTerm, Model model) {
+        int id =repo.findByName(searchTerm);
+        List<Integer> UserId = userSkillReop.findBySkill_Id(id);
+        ArrayList<UserInfo> usersL = new ArrayList <> ();
+        for(int uid : UserId ){
+           Optional<UserInfo> info = UserRepo.findById(uid);
+                if (info.get().privacy == true)
+                    usersL.add(info.get());
+                    
+        }
 
-        List<User> users = finder.findUsersBySkill(searchTerm);
+        model.addAttribute("userContacts", usersL);
 
-        model.addAttribute("searchTerm", searchTerm);
-        model.addAttribute("users", users);
+
+
         return "users";
 
     }

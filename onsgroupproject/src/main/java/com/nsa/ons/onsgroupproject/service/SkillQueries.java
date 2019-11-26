@@ -1,9 +1,6 @@
 package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.User;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +24,10 @@ public class SkillQueries implements SkillFinder {
         return skillRepository.findBySearch(searchTerm);
 
     }
-    public List<User> findUsersBySkill(String searchTerm) {
-        return skillRepository.findUsersBySkill(searchTerm);
+   // public List<UserInfo> findUsersBySkill(String searchTerm) {
+     //   return skillRepository.findUsersBySkill(searchTerm);
 
-    }
+    //}
 
 }
 
