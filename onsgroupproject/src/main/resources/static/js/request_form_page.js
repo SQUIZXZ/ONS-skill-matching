@@ -67,7 +67,7 @@ function saveNewSkill(){
         contentType: "application/json",
         success: function (data) {
             console.log(data);
-            // window.location.href = "/skillRequest/"+furl;
+            window.location.href = "/createSkillRequest";
         },
         error: function (e) {
             console.log(e);
