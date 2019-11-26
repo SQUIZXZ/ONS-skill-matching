@@ -8,7 +8,13 @@ function saveSkillRequest() {
     $.ajax({
         type: "POST",
         url: "/saveSkillRequest",
-        data: JSON.stringify({firstName: firstName, surname: surname,department: department,skill: skill,description: description,furl: furl}),
+        data: JSON.stringify({
+            firstName: firstName,
+            surname: surname,
+            department: department,
+            skill: skill,
+            description: description,
+            furl: furl}),
         processData: false,
         contentType: "application/json",
         success: function (furl) {
@@ -44,4 +50,27 @@ function hideOrShow(){
         });
     }
 
+}
+function saveNewSkill(){
+    var skill = document.getElementById("skill").value;
+    var parent = document.getElementById("parent").value;
+    console.log(skill);
+    console.log(parent);
+    $.ajax({
+        type: "POST",
+        url: "/saveNewSkill",
+        data:JSON.stringify({
+            skill: skill,
+            parent:parent
+        }),
+        processData: false,
+        contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+            // window.location.href = "/skillRequest/"+furl;
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }

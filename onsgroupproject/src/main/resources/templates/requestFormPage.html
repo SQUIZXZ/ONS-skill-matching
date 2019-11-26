@@ -48,9 +48,9 @@
                 Skill Error
             </div>
             <input id="skillList"th:value="${skills}" type="hidden"/>
-            <label class="createSkill" style="display: none">The perant of this skill</label>
-            <input class="createSkill" list="skills"  style="display: none">
-            <button class="createSkill" style="display: none">Create new skill</button>
+            <label class="createSkill" style="display: none">The parent of this skill</label>
+            <input id="parent" class="createSkill" list="skills"  style="display: none">
+            <button onclick="saveNewSkill()" type = "button" class="createSkill" style="display: none">Create new skill</button>
         </div>
         <div class = "formSection">
             <label th:for="taskDescription">Description of the task you need doing</label>
