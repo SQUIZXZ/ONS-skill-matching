@@ -1,10 +1,12 @@
 package com.nsa.ons.onsgroupproject.domain;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -18,13 +20,23 @@ public class User {
     private Long id;
 
     @Column(name = "username")
+    @NotNull
+    @NotEmpty
     private String username;
 
+    @Column(name = "email")
+    @NotNull
+    @NotEmpty
+    private String email;
+
     @Column(name = "password")
+    @NotNull
+    @NotEmpty
     private String password;
 
-    @Transient
     @Column(name = "passwordConfirm")
+    @NotNull
+    @NotEmpty
     private String passwordConfirm;
 
 }

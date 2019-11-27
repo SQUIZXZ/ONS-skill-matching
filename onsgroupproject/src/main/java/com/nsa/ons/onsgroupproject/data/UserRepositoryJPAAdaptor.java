@@ -26,6 +26,7 @@ public class UserRepositoryJPAAdaptor implements UserRepository {
         User newUser = new User(
                 null,
                 user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 user.getPasswordConfirm()
         );

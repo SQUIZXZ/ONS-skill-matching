@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserMade {
 
     private String username;
+    private String email;
     private String password;
     private String passwordConfirm;
 

@@ -14,3 +14,4 @@ insert into skill (skill_name) values ('Icon');
 insert into skill_requests (id, first_name, last_name, furl, department, skill, info) values (null, 'Daniel', 'Fulop', 'python-help', 'operations', 'Python', 'Need help with python');
 
 
+insert into user (username,email,password) VALUES ('jude','fin@gmail.com','{bcrypt}$2a$10$B188I9BfwGLsWGU9eF4wPOV6O6z.MgEbNxcErNEKb8xwM.4ChBT7G');
