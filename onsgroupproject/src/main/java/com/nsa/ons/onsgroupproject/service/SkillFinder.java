@@ -11,4 +11,9 @@ public interface SkillFinder {
 
     public List<Skill> findSkillBySearch(String searchTerm);
 
+    public List<Skill> findAll();
+
+    public Optional<Skill> findSkillByName(String name);
+
+
 }
