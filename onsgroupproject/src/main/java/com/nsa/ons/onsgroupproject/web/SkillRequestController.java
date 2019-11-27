@@ -3,10 +3,7 @@ package com.nsa.ons.onsgroupproject.web;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRequestCreator;
-import com.nsa.ons.onsgroupproject.service.SkillRequestFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import com.nsa.ons.onsgroupproject.service.*;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.slf4j.Logger;
@@ -25,10 +22,15 @@ public class SkillRequestController {
     static final Logger log = LoggerFactory.getLogger(SkillRequestController.class);
     private SkillRequestCreator skillRequestCreator;
     private SkillRequestFinder skillRequestFinder;
+    private SkillFinder skillFinder;
+    private SkillCreator skillCreator;
 
-    public SkillRequestController(SkillRequestCreator srCreate, SkillRequestFinder srFinder) {
+    public SkillRequestController(SkillRequestCreator srCreate, SkillRequestFinder srFinder,
+                                  SkillFinder aSkillFinder,SkillCreator aSkillCreator) {
         skillRequestCreator = srCreate;
         skillRequestFinder = srFinder;
+        skillFinder = aSkillFinder;
+        skillCreator = aSkillCreator;
 
     }
 
