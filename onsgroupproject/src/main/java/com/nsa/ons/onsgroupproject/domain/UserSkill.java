@@ -12,7 +12,6 @@ public class UserSkill {
     @Column(name = "User_id")
     public int User_id;
 
-
     @Column(name = "Skill_id")
     public int Skill_id;
 

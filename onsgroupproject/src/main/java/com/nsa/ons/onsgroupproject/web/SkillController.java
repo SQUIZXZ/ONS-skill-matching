@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.UserInfo;
+import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.Tuple;
 
 @Controller
 class SkillController {
@@ -59,16 +62,20 @@ class SkillController {
     @GetMapping("findUser")
     public String findUsers(@RequestParam("search") String searchTerm, Model model) {
         int id =repo.findByName(searchTerm);
-        List<Integer> UserId = userSkillReop.findBySkill_Id(id);
+        List<UserSkill> UserId = userSkillReop.findBySkill_Id(id);
         ArrayList<UserInfo> usersL = new ArrayList <> ();
-        for(int uid : UserId ){
-           Optional<UserInfo> info = UserRepo.findById(uid);
+        ArrayList<Integer> userRanks = new ArrayList<>();
+        for(int uid = 0; uid < UserId.size(); uid++ ){
+           Optional<UserInfo> info = UserRepo.findById(UserId.get(uid).User_id);
                 if (info.get().privacy == true)
                     usersL.add(info.get());
+                    userRanks.add(UserId.get(uid).level);
+
                     
         }
 
         model.addAttribute("userContacts", usersL);
+        model.addAttribute("userLevels",userRanks);
 
 
 

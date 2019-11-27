@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `user_skill`
     `skill_id`    INT NOT NULL,
     `level`   INT NOT NULL,
     PRIMARY KEY (user_id,skill_id)
-
+--    FOREIGN KEY (user_id) REFERENCES `users`(id),
+--    FOREIGN KEY (skill_id) REFERENCES `skill`(id)
 )
     ENGINE = InnoDB;
 
