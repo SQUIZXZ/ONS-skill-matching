@@ -3,8 +3,9 @@ package com.nsa.ons.onsgroupproject.web;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
-import com.nsa.ons.onsgroupproject.service.SkillCreator;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillRequestCreator;
+import com.nsa.ons.onsgroupproject.service.SkillRequestFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
@@ -22,14 +23,13 @@ import java.util.*;
 public class SkillRequestController {
 
     static final Logger log = LoggerFactory.getLogger(SkillRequestController.class);
-    private SkillRequestRepository skillRequestRepository;
-    private SkillFinder skillFinder;
-    private SkillCreator skillCreator;
+    private SkillRequestCreator skillRequestCreator;
+    private SkillRequestFinder skillRequestFinder;
 
-    public SkillRequestController(SkillRequestRepository srRepository, SkillFinder sFinder,SkillCreator sCreator ) {
-        skillRequestRepository = srRepository;
-        skillCreator = sCreator;
-        skillFinder = sFinder;
+    public SkillRequestController(SkillRequestCreator srCreate, SkillRequestFinder srFinder) {
+        skillRequestCreator = srCreate;
+        skillRequestFinder = srFinder;
+
     }
 
     @RequestMapping(path = "createSkillRequest", method = RequestMethod.GET)
@@ -81,7 +81,7 @@ public class SkillRequestController {
         String description = data.get("description").asText();
         String furl = data.get("furl").asText();
         SkillRequestMade skillRequest = new SkillRequestMade(firstName,surname,department,skill,description,furl);
-        skillRequestRepository.saveSkillRequest(skillRequest);
+        skillRequestCreator.makeSkillRequest(skillRequest);
         return ResponseEntity.status(HttpStatus.OK).body(furl);
     }
 
@@ -100,7 +100,7 @@ public class SkillRequestController {
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
     public String skillRequest(@PathVariable("furl") String furl, Model model) {
-        Optional<SkillRequest> skillRequest = skillRequestRepository.findByFurl(furl);
+        Optional<SkillRequest> skillRequest = skillRequestFinder.findSkillRequestByFurl(furl);
         if(skillRequest.isEmpty()){
             log.debug("failed to find skill request");
             return "404ErrorPage";
