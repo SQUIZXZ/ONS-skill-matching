@@ -27,6 +27,9 @@ public class UserInfo {
     @Column(name = "privacy")
     public boolean privacy;
 
+//    @ManyToMany
+//    @JoinTable(name = "user_skill",)
+
     public int getId() {
         return id;
     }
