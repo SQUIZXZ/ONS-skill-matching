@@ -42,7 +42,7 @@ class SkillController {
 
         if (skill.isPresent()) {
             model.addAttribute("skill", skill.get());
-            return "skill";
+            return "redirect:/findUser";
 
         } else {
             return "404ErrorPage";
@@ -60,7 +60,7 @@ class SkillController {
 
     }
     @GetMapping("findUser")
-    public String findUsers(@RequestParam("search") String searchTerm, Model model) {
+    public String findUsers(@RequestParam("findUser") String searchTerm, Model model) {
         int id =repo.findByName(searchTerm);
         List<UserSkill> UserId = userSkillReop.findBySkill_Id(id);
         ArrayList<UserInfo> usersL = new ArrayList <> ();
@@ -73,13 +73,14 @@ class SkillController {
 
                     
         }
-
+        System.out.print(usersL);
+        model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("userContacts", usersL);
         model.addAttribute("userLevels",userRanks);
 
 
 
-        return "users";
+        return "UsersContact";
 
     }
 
