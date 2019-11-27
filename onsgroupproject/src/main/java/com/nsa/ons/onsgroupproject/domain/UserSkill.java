@@ -10,13 +10,13 @@ import javax.persistence.*;
 public class UserSkill {
     @Id
     @Column(name = "User_id")
-    public int User_id;
+    private int User_id;
 
     @Column(name = "Skill_id")
-    public int Skill_id;
+    private int Skill_id;
 
     @Column(name = "level")
-    public int level;
+    private int level;
 
 
 }

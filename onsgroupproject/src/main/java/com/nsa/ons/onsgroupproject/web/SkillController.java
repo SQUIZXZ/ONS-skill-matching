@@ -66,10 +66,10 @@ class SkillController {
         ArrayList<UserInfo> usersL = new ArrayList <> ();
         ArrayList<Integer> userRanks = new ArrayList<>();
         for(int uid = 0; uid < UserId.size(); uid++ ){
-           Optional<UserInfo> info = UserRepo.findById(UserId.get(uid).User_id);
-                if (info.get().privacy == true)
+           Optional<UserInfo> info = UserRepo.findById(UserId.get(uid).getUser_id());
+                if (info.get().isPrivacy())
                     usersL.add(info.get());
-                    userRanks.add(UserId.get(uid).level);
+                    userRanks.add(UserId.get(uid).getLevel());
 
                     
         }
