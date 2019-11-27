@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.service.SkillCreator;
+import com.nsa.ons.onsgroupproject.service.*;
 
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,6 +32,12 @@ public class SkillCreationTests {
 
     @MockBean
     private SkillRequestRepository skillRequestRepository;
+
+    @MockBean
+    private SkillRequestFinder skillRequestFinder;
+
+    @MockBean
+    private SkillRequestCreator skillRequestCreator;
 
     @MockBean
     private SkillFinder skillFinder;

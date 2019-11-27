@@ -1,10 +1,7 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRequestCreator;
-import com.nsa.ons.onsgroupproject.service.SkillRequestFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import com.nsa.ons.onsgroupproject.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,12 @@ public class SkillRequestPageTests {
 
     @MockBean
     private SkillRequestCreator skillRequestCreator;
+
+    @MockBean
+    private SkillFinder skillFinder;
+
+    @MockBean
+    private SkillCreator skillCreator;
 
     @Test
     public void requestPageFindsCorrectData() throws Exception{
