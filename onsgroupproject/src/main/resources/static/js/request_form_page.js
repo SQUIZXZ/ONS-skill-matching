@@ -54,8 +54,6 @@ function hideOrShow(){
 function saveNewSkill(){
     var skill = document.getElementById("skill").value;
     var parent = document.getElementById("parent").value;
-    console.log(skill);
-    console.log(parent);
     $.ajax({
         type: "POST",
         url: "/saveNewSkill",

@@ -5,7 +5,6 @@ import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 import com.nsa.ons.onsgroupproject.service.SkillCreator;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
@@ -88,6 +87,7 @@ public class SkillRequestController {
 
     @RequestMapping(path = "saveNewSkill", method = RequestMethod.POST)
     public ResponseEntity<?> saveNewSkill(@RequestBody JsonNode node) {
+        System.out.println(node);
         String child = node.get("skill").asText();
         String parent = node.get("parent").asText();
         Optional<Skill> parentSkill = skillFinder.findSkillByName(parent);
@@ -95,7 +95,7 @@ public class SkillRequestController {
         skills.add(parentSkill.get());
         SkillMade sm = new SkillMade(child,skills);
         skillCreator.makeSkill(sm);
-        return ResponseEntity.status(HttpStatus.OK).body("Added to DB");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
