@@ -1,7 +1,7 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
-import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
+import com.nsa.ons.onsgroupproject.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,16 @@ public class SkillRequestPageTests {
     private MockMvc mvc;
 
     @MockBean
-    private SkillRequestRepository skillRequestRepository;
+    private SkillRequestFinder skillRequestFinder;
+
+    @MockBean
+    private SkillRequestCreator skillRequestCreator;
+
+    @MockBean
+    private SkillFinder skillFinder;
+
+    @MockBean
+    private SkillCreator skillCreator;
 
     @Test
     public void requestPageFindsCorrectData() throws Exception{
@@ -41,7 +50,7 @@ public class SkillRequestPageTests {
                 "theFurl"
         );
 
-        given(this.skillRequestRepository.findByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
+        given(this.skillRequestFinder.findSkillRequestByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
 
         mvc.perform(
                 get("/skillRequest/theFurl")
