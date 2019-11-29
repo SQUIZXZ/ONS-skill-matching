@@ -21,6 +21,9 @@ public class Skill {
     @Column(name = "skill_name")
     private String name;
 
+    @Column(name = "skill_desc")
+    private String description;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "skill_hierarchy",
     joinColumns = {@JoinColumn(name = "parent_id")},
