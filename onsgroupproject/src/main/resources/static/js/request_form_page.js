@@ -17,8 +17,36 @@ function saveSkillRequest() {
             console.log(furl);
             window.location.href = "/skillRequest/"+furl;
         },
-        error: function (e) {
-           console.log(e);
+        error: function (response) {
+            console.log(response.responseText.toString());
+            var messages = response.responseText.toString().split(", ");
+            $('input').next('span').remove();
+            for(i = 0; i < messages.length; i++){
+                switch(messages[i]){
+                    case "firstName":
+                        $('#firstName').after('<span class="error">' + 'Name Error' + '</span>');
+                        break;
+                    case "surname":
+                        $('#surname').after('<span class="error">' + 'Surname Error' + '</span>');
+                        break;
+                    case "department":
+                        $('#department').after('<span class="error">' + 'Department Error' + '</span>');
+                        break;
+                    case "skill":
+                        $('#skill').after('<span class="error">' + 'Skill Error' + '</span>');
+                        break;
+                    case "taskDescription":
+                        $('#description').after('<span class="error">' + 'Description Error' + '</span>');
+                        break;
+                    case "furlToLong":
+                        $('#furl').after('<span class="error">' + 'Furl is too Long' + '</span>');
+                        break;
+                    case "furlBadChar":
+                        $('#furl').after('<span class="error">' + 'Furl cannot contain special characters' + '</span>');
+                        break;
+
+                }
+            }
 
         }
     });

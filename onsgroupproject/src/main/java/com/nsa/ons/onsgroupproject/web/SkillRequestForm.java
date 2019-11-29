@@ -14,28 +14,28 @@ import javax.validation.constraints.Size;
 public class SkillRequestForm {
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Invalid Name")
+    @Size(min = 2, max = 100, message = "firstName")
     private String firstName;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Invalid Surname")
+    @Size(min = 2, max = 100, message = "surname")
     private String surname;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Invalid department name")
+    @Size(min = 2, max = 100, message = "department")
     private String department;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Skill not Found") //This will likely be a dropdown when we get the skill database up and running
+    @Size(min = 2, max = 100, message = "skill") //This will likely be a dropdown when we get the skill database up and running
     private String skill;
 
     @NotNull
-    @Size(min = 2, max = 300, message = "Your Description is too long")
+    @Size(min = 2, max = 300, message = "taskDescription")
     private String taskDescription;
 
     @NotNull
-    @Size(min = 1,max = 20, message = "Invalid Furl")
-    @Pattern(regexp = "^\\w+$", message = "Invalid Furl")
+    @Size(min = 1,max = 20, message = "furlToLong")
+    @Pattern(regexp = "^\\w+$", message = "furlBadChar")
     private String furl;
 
 }

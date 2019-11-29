@@ -82,12 +82,13 @@ public class SkillRequestController {
                                               BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             log.error("Binding Errors Found");
+            String messages = "";
             for(ObjectError error: bindingResult.getAllErrors()){
                 log.debug(error.getDefaultMessage());
-
+                messages += error.getDefaultMessage()+", ";
             }
 
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(bindingResult.getModel().toString());
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0,messages.length()-2));
         }
 
         String firstName = skillRequestForm.getFirstName();
