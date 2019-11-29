@@ -1,34 +1,18 @@
 package com.nsa.ons.onsgroupproject.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.UserInfo;
-import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
-import com.nsa.ons.onsgroupproject.service.UserRepository;
-import com.nsa.ons.onsgroupproject.service.UserSkillRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.Tuple;
 
 @Controller
 class SkillController {
 
     private SkillFinder finder;
-    @Autowired
-    SkillRepository repo;
-    @Autowired
-    UserRepository UserRepo;
-    @Autowired
-    UserSkillRepository userSkillReop;
-
 
     public SkillController(SkillFinder aFinder) {
         finder = aFinder;
@@ -42,14 +26,14 @@ class SkillController {
 
         if (skill.isPresent()) {
             model.addAttribute("skill", skill.get());
-            return "redirect:/findUser";
+            return "skill";
 
         } else {
             return "404ErrorPage";
         }
     }
 
-        @GetMapping("findSkill")
+    @GetMapping("findSkill")
     public String findSkill(@RequestParam("search") String searchTerm, Model model) {
 
         List<Skill> skills = finder.findSkillBySearch(searchTerm);
@@ -59,31 +43,6 @@ class SkillController {
         return "skillList";
 
     }
-    @GetMapping("findUser")
-    public String findUsers(@RequestParam("findUser") String searchTerm, Model model) {
-        int id =repo.findByName(searchTerm);
-        List<UserSkill> UserId = userSkillReop.findBySkill_Id(id);
-        ArrayList<UserInfo> usersL = new ArrayList <> ();
-        ArrayList<Integer> userRanks = new ArrayList<>();
-        for(int uid = 0; uid < UserId.size(); uid++ ){
-           Optional<UserInfo> info = UserRepo.findById(UserId.get(uid).getUser_id());
-                if (info.get().isPrivacy())
-                    usersL.add(info.get());
-                    userRanks.add(UserId.get(uid).getLevel());
-
-                    
-        }
-        System.out.print(usersL);
-        model.addAttribute("searchTerm", searchTerm);
-        model.addAttribute("userContacts", usersL);
-        model.addAttribute("userLevels",userRanks);
-
-
-
-        return "UsersContact";
-
-    }
-
 }
 //    private final SkillRepositoryJPA repository;
 //
