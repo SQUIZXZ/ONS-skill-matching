@@ -5,16 +5,12 @@ function saveSkillRequest() {
     var skill = document.getElementById("skill").value;
     var description = document.getElementById("description").value;
     var furl = document.getElementById("furl").value;
+    var data = {firstName: firstName, surname: surname, department: department, skill: skill, taskDescription: description, furl: furl};
+
     $.ajax({
         type: "POST",
         url: "/saveSkillRequest",
-        data: JSON.stringify({
-            firstName: firstName,
-            surname: surname,
-            department: department,
-            skill: skill,
-            description: description,
-            furl: furl}),
+        data: JSON.stringify(data),
         processData: false,
         contentType: "application/json",
         success: function (furl) {
@@ -22,11 +18,11 @@ function saveSkillRequest() {
             window.location.href = "/skillRequest/"+furl;
         },
         error: function (e) {
-            console.log(e);
-            console.log("fail");
+           console.log(e);
 
         }
     });
+
 }
 function hideOrShow(){
     var skills = document.getElementById("skillList").value;
