@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "user_skill")
 public class UserSkill {
     @Id
     @Column(name = "User_id")
@@ -18,5 +19,7 @@ public class UserSkill {
     @Column(name = "level")
     private int level;
 
+    @Column(name = "privacy")
+    private boolean privacy;
 
 }

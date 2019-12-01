@@ -8,6 +8,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class UserInfo {
     @Id
@@ -24,17 +26,9 @@ public class UserInfo {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "privacy")
-    private boolean privacy;
 
 //    @ManyToMany
 //    @JoinTable(name = "user_skill",)
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
