@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository {
 
-     private SkillRequestRepositoryJPA skillRequestRepositoryJPA;
+    private SkillRequestRepositoryJPA skillRequestRepositoryJPA;
 
     public SkillRequestRepositoryJPAAdaptor(SkillRequestRepositoryJPA skillRequestJPARepo) {
         skillRequestRepositoryJPA = skillRequestJPARepo;

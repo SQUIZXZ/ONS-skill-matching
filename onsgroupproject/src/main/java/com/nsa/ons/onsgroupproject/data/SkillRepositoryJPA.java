@@ -21,4 +21,3 @@ public interface SkillRepositoryJPA extends JpaRepository<Skill, Long> {
 
 }
 
-
