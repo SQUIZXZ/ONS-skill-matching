@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `user_skill`
     `user_id`    INT NOT NULL,
     `skill_id`    INT NOT NULL,
     `level`   INT NOT NULL,
+    `privacy`      BOOLEAN NOT NULL,
     PRIMARY KEY (user_id,skill_id)
 --    FOREIGN KEY (user_id) REFERENCES `users`(id),
 --    FOREIGN KEY (skill_id) REFERENCES `skill`(id)
@@ -52,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `users`
     `first_name`   VARCHAR(100)  NOT NULL,
     `surname`    VARCHAR(100) NOT NULL,
     `email`        VARCHAR(100) NULL,
-    `privacy`      BOOLEAN NOT NULL,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;

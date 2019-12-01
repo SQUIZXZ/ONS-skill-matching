@@ -39,5 +39,3 @@ public class SkillProcessor implements SkillFinder, SkillCreator {
     }
 }
 
-
-

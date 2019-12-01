@@ -11,7 +11,13 @@ insert into skill (skill_name) values ('c+');
 insert into skill (skill_name) values ('JavaFX Script');
 insert into skill (skill_name) values ('Go');
 insert into skill (skill_name) values ('Icon');
-
+insert into users (first_name , surname ,email)values ('Ghada', 'abu ', 'ghada@gmail.com');
+insert into users (first_name , surname ,email)values ('luke', 'm ', 'luke@gmail.com');
+insert into user_skill (user_id, skill_id, level ,privacy) values (1,1,12,true);
+insert into user_skill (user_id, skill_id, level ,privacy) values (1,2,12,false);
+insert into user_skill (user_id, skill_id, level ,privacy) values (1,3,12,true) ;
+insert into user_skill (user_id, skill_id, level ,privacy) values (1,4,12,true);
+insert into user_skill (user_id, skill_id, level ,privacy) values (1,5,12,false);
 insert into skill_hierarchy (parent_id,child_id) values (1,2);
 insert into skill_hierarchy (parent_id,child_id) values (1,3);
 insert into skill_hierarchy (parent_id,child_id) values (1,4);
