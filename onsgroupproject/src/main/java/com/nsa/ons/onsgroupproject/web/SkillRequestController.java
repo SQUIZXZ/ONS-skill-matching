@@ -84,7 +84,6 @@ public class SkillRequestController {
             log.error("Binding Errors Found");
             String messages = "";
             for(ObjectError error: bindingResult.getAllErrors()){
-                log.debug(error.getDefaultMessage());
                 messages += error.getDefaultMessage()+", ";
             }
 

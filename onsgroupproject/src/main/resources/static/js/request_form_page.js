@@ -20,29 +20,32 @@ function saveSkillRequest() {
         error: function (response) {
             console.log(response.responseText.toString());
             var messages = response.responseText.toString().split(", ");
-            $('input').next('span').remove();
+            $('.error').remove();
             for(i = 0; i < messages.length; i++){
                 switch(messages[i]){
                     case "firstName":
-                        $('#firstName').after('<span class="error">' + 'Name Error' + '</span>');
+                        $('#firstName').after('<span class="error">' + 'Name Error' + '</span>'+'<br class="error">');
                         break;
                     case "surname":
-                        $('#surname').after('<span class="error">' + 'Surname Error' + '</span>');
+                        $('#surname').after('<span class="error">' + 'Surname Error' + '</span>'+'<br class="error">');
                         break;
                     case "department":
-                        $('#department').after('<span class="error">' + 'Department Error' + '</span>');
+                        $('#department').after('<span class="error">' + 'Department Error' + '</span>'+'<br class="error">');
                         break;
                     case "skill":
-                        $('#skill').after('<span class="error">' + 'Skill Error' + '</span>');
+                        $('#skill').after('<span class="error">' + 'Skill Error' + '</span>'+'<br class="error">');
                         break;
                     case "taskDescription":
-                        $('#description').after('<span class="error">' + 'Description Error' + '</span>');
+                        $('#description').after('<span class="error">' + 'Description Error' + '</span>'+'<br class="error">');
+                        break;
+                    case "furlEmpty":
+                        $('#furl').after('<span class="error">' + 'Furl cannot be empty' + '</span>'+'<br class="error">');
                         break;
                     case "furlToLong":
-                        $('#furl').after('<span class="error">' + 'Furl is too Long' + '</span>');
+                        $('#furl').after('<span class="error">' + 'Furl is too Long' + '</span>'+'<br class="error">');
                         break;
                     case "furlBadChar":
-                        $('#furl').after('<span class="error">' + 'Furl cannot contain special characters' + '</span>');
+                        $('#furl').after('<span class="error">' + 'Furl cannot contain special characters' + '</span>'+'<brclass="error">');
                         break;
 
                 }
