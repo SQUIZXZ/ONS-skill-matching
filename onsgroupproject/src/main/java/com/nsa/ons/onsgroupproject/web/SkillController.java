@@ -44,6 +44,14 @@ class SkillController {
 
     }
 }
+
+
+//    @GetMapping("findSkill")
+//    public List<UserInfo> FindContactBySkill(@RequestParam("search") String searchTerm, Model model) {
+//
+//        return null;
+//    }
+
 //    private final SkillRepositoryJPA repository;
 //
 //    SkillController(SkillRepositoryJPA repository) {
