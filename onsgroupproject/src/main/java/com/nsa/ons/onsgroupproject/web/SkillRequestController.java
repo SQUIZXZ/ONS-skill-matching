@@ -88,14 +88,15 @@ public class SkillRequestController {
     }
 
     @RequestMapping(path = "saveNewSkill", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNewSkill(@RequestBody JsonNode node) {
+    public ResponseEntity<?> saveNewSkill(@RequestBody JsonNode node, Model model) {
         System.out.println(node);
         String child = node.get("skill").asText();
+        String description = node.get("description").asText();
         String parent = node.get("parent").asText();
         Optional<Skill> parentSkill = skillFinder.findSkillByName(parent);
         List<Skill> skills = new ArrayList<>();
         skills.add(parentSkill.get());
-        SkillMade sm = new SkillMade(child,skills);
+        SkillMade sm = new SkillMade(child,description,skills);
         skillCreator.makeSkill(sm);
         return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
     }
