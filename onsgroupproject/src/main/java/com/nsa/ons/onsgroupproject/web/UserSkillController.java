@@ -1,15 +1,14 @@
 package com.nsa.ons.onsgroupproject.web;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.domain.UserInfo;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 class UserSkillController {
@@ -22,19 +21,21 @@ class UserSkillController {
 
 
     @GetMapping("findContacts},{i}")
-    public List<UserInfo > findContactsInfo(@PathVariable("i") Long searchTerm, Model model) {
+    public string findContactsInfo(@PathVariable("i") long searchTerm, Model model) {
 
         List<UserSkill> usersWithSkill;
         Optional<Skill> skill = finder.findSkillByIndex(searchTerm);
-        List<Skill> childSkillsList = skill.getChildSkills();
+        List<Skill> childList = skill.getChildSkills();
 
         List<UserInfo > Usercontact;
-
+        List<UserSkill> userS;
         childSkillsList.add(skill);
-        for (Skill skillList : childSkillsList) {
-            List<UserSkill> userSkill = findUsersSkillBySkillId(skillList.get().getId());
-            for (UserSkill uSkill : userSkill) {
-                UserSkill userSkillPublic = findUserSkillByPrivace(uSkill); {
+        for (Skill skillList : childList) {
+
+            userS = finder.findUsersSkillBySkillId(skillList.get().getId());
+
+            for (UserSkill uSkill : userS) {
+                UserSkill userSkillPublic = finder.findUserSkillByPrivace(uSkill); {
                     if(userSkillPublic.isPresent()){
                         Usercontact.add(Skill.get() );
                     }
@@ -42,7 +43,7 @@ class UserSkillController {
             }
             model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("Usercontact", Usercontact);
-            return Usercontact;
+            return "Usercontact";
         }
     }
 }

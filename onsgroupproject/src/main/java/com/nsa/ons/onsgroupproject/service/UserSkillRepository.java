@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface UserSkillRepository  {
 
-    public Optional<UserSkill> findUsersInfoBySkill(long skillId);
+    public Optional<UserSkill> findUsersSkillBySkillId(long searchTerm);
 
-    public List<UserInfo> FindContactBySkill(long searchTerm );
+    public Optional<UserSkill>findUserSkillByPrivace (UserSkill userSkill);
 
 
 }
