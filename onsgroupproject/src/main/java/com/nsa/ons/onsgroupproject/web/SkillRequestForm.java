@@ -27,7 +27,7 @@ public class SkillRequestForm {
     private String department;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "skill") //This will likely be a dropdown when we get the skill database up and running
+    @Size(min = 2, max = 100, message = "skill")
     private String skill;
 
     @NotNull

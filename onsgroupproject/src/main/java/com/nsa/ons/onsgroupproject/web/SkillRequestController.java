@@ -80,14 +80,13 @@ public class SkillRequestController {
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody @Valid SkillRequestForm skillRequestForm,
                                               BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.error("Binding Errors Found");
             String messages = "";
-            for(ObjectError error: bindingResult.getAllErrors()){
-                messages += error.getDefaultMessage()+", ";
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                messages += error.getDefaultMessage() + ", ";
             }
-
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0,messages.length()-2));
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
         }
 
         String firstName = skillRequestForm.getFirstName();
@@ -103,14 +102,23 @@ public class SkillRequestController {
     }
 
     @RequestMapping(path = "saveNewSkill", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNewSkill(@RequestBody JsonNode node) {
-        System.out.println(node);
-        String child = node.get("skill").asText();
-        String parent = node.get("parent").asText();
-        Optional<Skill> parentSkill = skillFinder.findSkillByName(parent);
+    public ResponseEntity<?> saveNewSkill(@RequestBody @Valid SkillCreationForm skillCreationForm,
+                                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.error("Binding Errors Found");
+            String messages = "";
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                messages += error.getDefaultMessage() + ", ";
+            }
+            log.debug(messages);
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
+        }
+        log.debug(bindingResult.toString());
+        log.debug(skillCreationForm.toString());
+        Optional<Skill> parentSkill = skillFinder.findSkillByName(skillCreationForm.getParent());
         List<Skill> skills = new ArrayList<>();
         skills.add(parentSkill.get());
-        SkillMade sm = new SkillMade(child, skills);
+        SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
         skillCreator.makeSkill(sm);
         return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
     }
