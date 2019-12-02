@@ -3,10 +3,13 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.UserInfo;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
+import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,30 +17,28 @@ import java.util.Optional;
 class UserSkillController {
 
     private UserSkillFinder finder;
+    private UserFinder userFinder;
+    private SkillFinder skillFinder;
 
-    public UserSkillController(UserSkillFinder aFinder) {
+    public UserSkillController(UserSkillFinder aFinder,SkillFinder aSkillFinder) {
         finder = aFinder;
+        skillFinder = aSkillFinder;
     }
 
 
-    @GetMapping("findContacts},{i}")
-    public string findContactsInfo(@PathVariable("i") long searchTerm, Model model) {
+    @RequestMapping(path = "findContacts/{id}", method = RequestMethod.GET)
+    public String findContactsInfo(@PathVariable("id") Long searchTerm, Model model) {
 
         List<UserSkill> usersWithSkill;
-        Optional<Skill> skill = finder.findSkillByIndex(searchTerm);
-        List<Skill> childList = skill.getChildSkills();
-
-        List<UserInfo > Usercontact;
+        Optional<Skill> skill = skillFinder.findSkillByIndex(searchTerm);
+        List<UserInfo> Usercontact = new ArrayList<>();
         List<UserSkill> userS;
-        childSkillsList.add(skill);
-        for (Skill skillList : childList) {
+        userS = finder.findUsersSkillBySkillId(searchTerm);
 
-            userS = finder.findUsersSkillBySkillId(skillList.get().getId());
-
-            for (UserSkill uSkill : userS) {
-                UserSkill userSkillPublic = finder.findUserSkillByPrivace(uSkill); {
-                    if(userSkillPublic.isPresent()){
-                        Usercontact.add(Skill.get() );
+        for (UserSkill uSkill : userS) {
+            Boolean userSkillPublic = uSkill.isPrivacy(); {
+                    if(userSkillPublic){
+                        Usercontact.add(uSkill.getUser_id());
                     }
                 }
             }

@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserSkillRepository  {
 
-    public Optional<UserSkill> findUsersSkillBySkillId(long searchTerm);
+    public List<UserSkill> findUsersSkillBySkillId(Long searchTerm);
 
-    public Optional<UserSkill>findUserSkillByPrivace (UserSkill userSkill);
+    public Optional<UserSkill>findUserSkillByPrivacy (UserSkill userSkill);
 
 
 }

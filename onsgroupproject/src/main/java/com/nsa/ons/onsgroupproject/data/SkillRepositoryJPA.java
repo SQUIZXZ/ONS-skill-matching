@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SkillRepositoryJPA extends JpaRepository<Skill, Long> {
-
     // JPA Query searching for Skills
     @Query(value = "select * from skill where upper(skill_name) like concat('%', upper(:paramSearch), '%')", nativeQuery = true)
-    List<com.nsa.ons.onsgroupproject.domain.Skill> findBySearch(@Param("paramSearch") String searchTerm);
+    List<Skill> findBySearch(@Param("paramSearch") String searchTerm);
 
     List<Skill> findAll();
 

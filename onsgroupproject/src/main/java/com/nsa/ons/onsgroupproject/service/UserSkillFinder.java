@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserSkillFinder  {
 
-    public Optional<UserSkill> findUserSkillByPrivace (UserSkill userSkill);
+    public Optional<UserSkill> findUserSkillByPrivacy (UserSkill userSkill);
 
-    public Optional<UserSkill> findUsersSkillBySkillId(long searchTerm);
+    public List<UserSkill> findUsersSkillBySkillId(Long searchTerm);
 
 
 }
