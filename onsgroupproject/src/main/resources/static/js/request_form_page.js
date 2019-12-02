@@ -47,6 +47,9 @@ function saveSkillRequest() {
                     case "furlBadChar":
                         $('#furl').after('<span class="error">' + 'Furl cannot contain special characters' + '</span>'+'<brclass="error">');
                         break;
+                    case "furlExists":
+                        $('#furl').after('<span class="error">' + 'Furl already in use' + '</span>'+'<brclass="error">');
+                        break;
 
                 }
             }
@@ -81,6 +84,11 @@ function saveNewSkill(){
                     case "skillSize":
                         $('#skill').after('<span class="error">' + 'Skill must be between 2 and 200 characters' + '</span>' + '<br class="error">');
                         break;
+                    case "skillExist":
+                        $('#parent').after('<span class="error">' + 'Parent skill must already exist' + '</span>' + '<br class="error">');
+                        break;
+
+
                 }
             }
 
