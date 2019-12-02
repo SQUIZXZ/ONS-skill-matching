@@ -9,7 +9,7 @@
 <main>
     <h2 th:text="${skill.getName()}"></h2>
     <div th:if="${skill.getDescription()} != null">
-        <div th:if="${skill.getDescription() == ''}">
+        <div th:if="${skill.getDescription() != ''}">
             <h3 th:text="'Description of ' + ${skill.getName()}"></h3>
             <span th:text="${skill.getDescription()}"></span>
         </div>
