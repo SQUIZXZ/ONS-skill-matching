@@ -95,7 +95,7 @@ public class SkillRequestController {
         String skill = skillRequestForm.getSkill();
         String description = skillRequestForm.getTaskDescription();
         String furl = skillRequestForm.getFurl();
-        if (skillRequestFinder.findSkillRequestByFurl(furl).isPresent()){
+        if (skillRequestFinder.findSkillRequestByFurl(furl).isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("furlExists");
         }
 
@@ -116,20 +116,25 @@ public class SkillRequestController {
             log.debug(messages);
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
         }
-
-        Optional<Skill> parentSkill = skillFinder.findSkillByName(skillCreationForm.getParent());
-        if(parentSkill.isPresent()){
-            List<Skill> skills = new ArrayList<>();
-            if(parentSkill.isPresent()){
-                skills.add(parentSkill.get());
-                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
-                skillCreator.makeSkill(sm);
-            }else{
-                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), null);
-                skillCreator.makeSkill(sm);
+        Optional<Skill> childSkill = skillFinder.findSkillByName(skillCreationForm.getSkill());
+        if (!childSkill.isPresent()) {
+            Optional<Skill> parentSkill = skillFinder.findSkillByName(skillCreationForm.getParent());
+            if (skillCreationForm.getParent().equals("")) {
+                List<Skill> skills = new ArrayList<>();
+                if (parentSkill.isPresent()) {
+                    skills.add(parentSkill.get());
+                    SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
+                    skillCreator.makeSkill(sm);
+                } else {
+                    SkillMade sm = new SkillMade(skillCreationForm.getSkill(), null);
+                    skillCreator.makeSkill(sm);
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillParentExist");
             }
         }else{
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillExist");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillChildExist");
+
         }
 
 
