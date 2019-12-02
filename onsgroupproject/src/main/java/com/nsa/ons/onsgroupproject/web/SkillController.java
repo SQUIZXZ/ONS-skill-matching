@@ -43,7 +43,16 @@ class SkillController {
             return "skillList";
 
         }
+
+        @RequestMapping(path = "/skill/editsSkill/{id}", method = RequestMethod.GET)
+        public String editSkill(@PathVariable("id")Long skillID,Model model){
+            return "skillEditPage";
+        }
 }
+
+
+
+
 //    private final SkillRepositoryJPA repository;
 //
 //    SkillController(SkillRepositoryJPA repository) {

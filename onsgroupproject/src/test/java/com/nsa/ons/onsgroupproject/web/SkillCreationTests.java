@@ -47,10 +47,10 @@ public class SkillCreationTests {
 
     @Test
     public void newSkillIsCreated() throws Exception{
-        String json = "{\"skill\":\"spring boot\",\"parent\":\"java\"}";
+        String json = "{\"skill\":\"spring boot\",\"description\":\"spring boot description\",\"parent\":\"java\"}";
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(json);
-        given(this.skillFinder.findSkillByName("java")).willReturn(Optional.of(new Skill(null,"java",null,null)));
+        given(this.skillFinder.findSkillByName("java")).willReturn(Optional.of(new Skill(null,"java","java description",null,null)));
         mvc.perform(MockMvcRequestBuilders
                 .post("/saveNewSkill")
                 .content(asJsonString(jsonNode))
