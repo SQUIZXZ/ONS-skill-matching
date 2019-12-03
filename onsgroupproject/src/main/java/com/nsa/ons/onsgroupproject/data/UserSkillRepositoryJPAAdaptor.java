@@ -25,9 +25,6 @@ public class UserSkillRepositoryJPAAdaptor implements UserSkillRepository {
         return userSkillRepositoryJPA.findUsersSkillBySkillId(SkillId);
     }
 
-//    @Override
-//    public Optional<UserSkill> findById(Long id, Long skillId) {
-//        return userSkillRepositoryJPA.findById(id , skillId);
-//    }
+
 
 }
