@@ -8,6 +8,7 @@
 <body>
 <main>
     <h2 th:text="${skill.getName()}"></h2>
+    <button class="btn btn-outline-success my-2 my-sm-0" style="align-self: end" th:href="">Edit Skill</button>
     <div th:if="${skill.getDescription()} != null">
         <div th:if="${skill.getDescription() != ''}">
             <h3 th:text="'Description of ' + ${skill.getName()}"></h3>

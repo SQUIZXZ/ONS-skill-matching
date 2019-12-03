@@ -46,6 +46,11 @@ class SkillController {
 
         @RequestMapping(path = "/skill/editsSkill/{id}", method = RequestMethod.GET)
         public String editSkill(@PathVariable("id")Long skillID,Model model){
+            Optional<Skill> editedSkill = finder.findSkillByIndex(skillID);
+            if(editedSkill.isEmpty()){
+                return "404ErrorPage";
+            }
+            model.addAttribute("editingSkill",editedSkill);
             return "skillEditPage";
         }
 }
