@@ -35,6 +35,9 @@ function saveSkillRequest() {
                     case "skill":
                         $('#skill').after('<span class="error">' + 'Skill cannot be empty and must be between 2 and 200 characters' + '</span>'+'<br class="error">');
                         break;
+                    case "skillExists":
+                        $('#skill').after('<span class="error">' + 'Skill has to exist' + '</span>'+'<br class="error">');
+                        break;
                     case "taskDescription":
                         $('#description').after('<span class="error">' + 'Description cannot be empty and must be between 2 and 300 characters' + '</span>'+'<br class="error">');
                         break;

@@ -98,6 +98,9 @@ public class SkillRequestController {
         if (skillRequestFinder.findSkillRequestByFurl(furl).isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("furlExists");
         }
+        if (!skillFinder.findSkillByName(skill).isPresent()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillExists");
+        }
 
         SkillRequestMade skillRequest = new SkillRequestMade(firstName, surname, department, skill, description, furl);
         skillRequestCreator.makeSkillRequest(skillRequest);
@@ -117,28 +120,26 @@ public class SkillRequestController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
         }
         Optional<Skill> childSkill = skillFinder.findSkillByName(skillCreationForm.getSkill());
+        Optional<Skill> parentSkill = skillFinder.findSkillByName(skillCreationForm.getParent());
         if (!childSkill.isPresent()) {
-            Optional<Skill> parentSkill = skillFinder.findSkillByName(skillCreationForm.getParent());
-            if (skillCreationForm.getParent().equals("")) {
+            if (parentSkill.isPresent()) {
                 List<Skill> skills = new ArrayList<>();
-                if (parentSkill.isPresent()) {
-                    skills.add(parentSkill.get());
-                    SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
-                    skillCreator.makeSkill(sm);
-                } else {
-                    SkillMade sm = new SkillMade(skillCreationForm.getSkill(), null);
-                    skillCreator.makeSkill(sm);
-                }
+                skills.add(parentSkill.get());
+                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
+                skillCreator.makeSkill(sm);
+                return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
+            } else if (skillCreationForm.getParent().equals("")) {
+                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), null);
+                skillCreator.makeSkill(sm);
+                return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
             } else {
                 return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillParentExist");
             }
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillChildExist");
 
         }
 
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
     }
 
     @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
