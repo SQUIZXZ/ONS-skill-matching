@@ -15,5 +15,5 @@ public interface UserSkillRepository  {
 
     public Optional<UserSkill>findUserSkillByPrivacy (UserSkill userSkill);
 
-
+    Optional<UserSkill> findById(Long id, Long skillId);
 }
