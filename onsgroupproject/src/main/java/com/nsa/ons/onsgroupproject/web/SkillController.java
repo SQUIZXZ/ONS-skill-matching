@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +14,17 @@ import org.springframework.web.bind.annotation.*;
 class SkillController {
 
     private SkillFinder finder;
+    private UserSkillFinder userSkillFinder ;
 
-    public SkillController(SkillFinder aFinder) {
+    public SkillController(SkillFinder aFinder,UserSkillFinder uSFinder) {
         finder = aFinder;
+        userSkillFinder = uSFinder;
     }
 
     // If skill index exists for add it to the model and return it
     @GetMapping("skill/{i}")
     public String showSkillPage(@PathVariable("i") Long index, Model model) {
-
+        model.addAttribute("users",userSkillFinder.findUsersSkillBySkillId(index));
         Optional<Skill> skill = finder.findSkillByIndex(index);
 
         if (skill.isPresent()) {

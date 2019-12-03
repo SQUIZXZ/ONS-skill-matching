@@ -1,5 +1,6 @@
 package com.nsa.ons.onsgroupproject.domain;
 
+import com.sun.xml.bind.v2.model.core.ID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,9 +27,9 @@ public class User{
     @Column(name = "email")
     private String email;
 
-
-//    @ManyToMany
-//    @JoinTable(name = "user_skill",)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "skill_id")
+    private UserSkill userSkill;
 
 
 }

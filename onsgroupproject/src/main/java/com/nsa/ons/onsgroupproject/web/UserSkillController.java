@@ -30,29 +30,27 @@ class UserSkillController {
     }
 
     @GetMapping("findContacts")
-    public String findContactsInfo(@PathVariable("id") Long searchTerm, Model model) {
+    public String findContactsInfo( Long SkillID, Model model) {
 
         List<UserSkill> usersWithSkill;
-        Optional<Skill> skill = skillFinder.findSkillByIndex(searchTerm);
+        Optional<Skill> skill = skillFinder.findSkillByIndex(SkillID);
         List<Optional<User>> Usercontact = new ArrayList<>();
         List<UserSkill> userS;
         List<Optional<UserSkill>> userSkillList = null;
-        userS = finder.findUsersSkillBySkillId(searchTerm);
 
-
-        for (UserSkill uSkill : userS) {
-            Optional<UserSkill> userSkillPublic = finder.findUserSkillByPrivacy(uSkill);
-            {
-                    if(userSkillPublic.isPresent()){
-
-                        Usercontact.add(userFinder.findById(uSkill.getUser_id()));
-                     //    System.out.print(uSkill.toString());
-                     //   usersSC =new Pair <User, UserSkill> (userFinder.findById(id), finder.findById(id ,uSkill.getSkill_id()));
-                    }
-
-                }
-            }
-            model.addAttribute("searchTerm", searchTerm);
+//        for (UserSkill uSkill : userS) {
+//            Optional<UserSkill> userSkillPublic = finder.findUserSkillByPrivacy(uSkill);
+//            {
+//                    if(userSkillPublic.isPresent()){
+//
+//                        Usercontact.add(userFinder.findById(uSkill.getUser_id()));
+//                     //    System.out.print(uSkill.toString());
+//                     //   usersSC =new Pair <User, UserSkill> (userFinder.findById(id), finder.findById(id ,uSkill.getSkill_id()));
+//                    }
+//
+//                }
+//            }
+//            model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("Usercontact", Usercontact);
             model.addAttribute("UsersSkill", userSkillList);
 

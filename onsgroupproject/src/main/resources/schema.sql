@@ -53,7 +53,9 @@ CREATE TABLE IF NOT EXISTS `users`
     `first_name`   VARCHAR(100)  NOT NULL,
     `surname`    VARCHAR(100) NOT NULL,
     `email`        VARCHAR(100) NULL,
-    PRIMARY KEY (`id`)
+    `skill_id` INT NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`skill_id`) REFERENCES `user_skill`(`skill_id`)
 )
     ENGINE = InnoDB;
 
