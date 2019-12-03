@@ -80,7 +80,10 @@ class SkillController {
             }
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
         }
-
+        Optional<Skill> skillTaken = finder.findSkillByName(skillEditForm.getSkillName());
+        if(skillTaken.isPresent()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillNameTaken");
+        }
         SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(),skillEditForm.getSkillName(),skillEditForm.getSkillDescription(),null);
         skillUpdater.updateSkill(skillUpdated);
 

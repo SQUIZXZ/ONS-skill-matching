@@ -24,6 +24,10 @@ function submitSkillEdit(skillId) {
                       $('#editSkillName').after('<span class=error>' + 'Skill must have a name' + '</span>');
                       break;
 
+                  case "skillNameTaken":
+                      $('#editSkillName').after('<span class=error>' + 'There is already a skill with that name' + '</span>');
+                      break;
+
                   case "skillNameTooLong":
                       $('#editSkillName').after('<span class=error>' + 'Skill name too long, skill name must be 100 characters or less' + '</span>');
                       break;
