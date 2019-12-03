@@ -1,22 +1,36 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
+@Slf4j
 class SkillController {
 
     private SkillFinder finder;
+    private SkillUpdater skillUpdater;
 
-    public SkillController(SkillFinder aFinder) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate) {
         finder = aFinder;
+        skillUpdater = aSkillUpdate;
     }
+
 
     // If skill index exists for add it to the model and return it
     @GetMapping("skill/{i}")
@@ -44,14 +58,33 @@ class SkillController {
 
         }
 
-        @RequestMapping(path = "/skill/editsSkill/{id}", method = RequestMethod.GET)
+        @RequestMapping(path = "/skill/editSkill/{id}", method = RequestMethod.GET)
         public String editSkill(@PathVariable("id")Long skillID,Model model){
             Optional<Skill> editedSkill = finder.findSkillByIndex(skillID);
             if(editedSkill.isEmpty()){
                 return "404ErrorPage";
             }
-            model.addAttribute("editingSkill",editedSkill);
+            List<Skill> allSkills = finder.findAll();
+            model.addAttribute("allSkills", allSkills);
+            model.addAttribute("editingSkill",editedSkill.get());
             return "skillEditPage";
+        }
+
+        @RequestMapping(path = "/saveSkillEdit", method = RequestMethod.POST)
+        public ResponseEntity<?> saveSkillEdit(@RequestBody @Valid SkillEditForm skillEditForm, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            log.error("edit skill has binding errors");
+            String messages = "";
+            for(ObjectError error: bindingResult.getAllErrors()){
+                messages += error.getDefaultMessage() + ", ";
+            }
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
+        }
+
+        SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(),skillEditForm.getSkillName(),skillEditForm.getSkillDescription(),null);
+        skillUpdater.updateSkill(skillUpdated);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");
         }
 }
 

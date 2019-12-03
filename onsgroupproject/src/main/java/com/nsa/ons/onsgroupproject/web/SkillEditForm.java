@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -13,12 +14,14 @@ import java.util.List;
 @NoArgsConstructor
 public class SkillEditForm {
     @NotNull
-    @Size(max = 100, message = "skillNameTooLong")
-    private String SkillName;
+    private Long id;
 
-    @NotNull
+    @NotEmpty(message = "skillEditEmpty")
+    @Size(max = 100, message = "skillNameTooLong")
+    private String skillName;
+
     @Size(max = 200, message = "skillDescriptionTooLong")
-    private String SkillDescription;
+    private String skillDescription;
 
     private List<String> parentSkills;
 
