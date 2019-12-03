@@ -124,4 +124,26 @@ function hideOrShow(){
     }
 
 }
-
+function saveNewSkill(){
+    var skill = document.getElementById("skill").value;
+    var parent = document.getElementById("parent").value;
+    var description = document.getElementById("skillDescription").value;
+    $.ajax({
+        type: "POST",
+        url: "/saveNewSkill",
+        data:JSON.stringify({
+            skill: skill,
+            description:description,
+            parent:parent
+        }),
+        processData: false,
+        contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+            window.location.href = "/createSkillRequest";
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}

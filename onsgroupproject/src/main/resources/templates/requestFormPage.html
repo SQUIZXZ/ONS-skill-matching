@@ -49,11 +49,17 @@
                     <input id="skillList" th:value="${skills}" type="hidden"/>
                     <label class="createSkill" style="display: none">The parent of this skill</label>
                     <div class="input-group">
-                    <div class="col-sm-3">
-                        <input id="parent" class="createSkill form-control mr-sm-2" list="skills" style="display: none">
+                        <div class="col-sm-3">
+                            <input id="parent" class="createSkill form-control mr-sm-2" list="skills" style="display: none">
+                        </div>
                     </div>
+                        <label class="createSkill" style="display: none">New skill description</label>
+                    <div class="input-group">
+                        <div class="col-sm-6">
+                            <textarea id="skillDescription" class="createSkill form-control mr-sm-2" style="display: none;"></textarea>
+                        </div>
                         <span class="input-group-btn">
-                    <button onclick="saveNewSkill()" type="button" class="createSkill btn btn-outline-success my-2 my-sm-0" style="display: none">Create new skill</button>
+                            <button onclick="saveNewSkill()" type="button" class="createSkill btn btn-outline-success my-2 my-sm-0" style="display: none">Create new skill</button>
                         </span>
                     </div>
                 </div>

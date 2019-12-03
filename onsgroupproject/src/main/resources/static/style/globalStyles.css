@@ -56,3 +56,7 @@ th{
     border-width:2px !important;
 
 }
+
+textarea{
+    resize: none;
+}
