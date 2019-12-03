@@ -13,10 +13,15 @@ import java.util.List;
 public interface UserSkillRepositoryJPA extends JpaRepository<UserSkill,Long> {
 
     @Query(value = "select * from user_skill where skill_id = :paramSearch", nativeQuery = true)
-    List <com.nsa.ons.onsgroupproject.domain.UserSkill> findUsersSkillBySkillId (@Param("paramSearch") long searchTerm);
+    List <com.nsa.ons.onsgroupproject.domain.UserSkill> findUsersSkillBySkillId ( long searchTerm);
 
     @Query(value = "select * from user_skill where privacy = false ", nativeQuery = true)
-    Optional<UserSkill> findUserSkillByPrivacy(@Param("paramSearch") long searchTerm);
+    Optional<UserSkill> findUserSkillByPrivacy( long searchTerm);
+
+    public Optional<UserSkill> findById(Long id ,Long SkillId);
+
+
+
 
 
 }

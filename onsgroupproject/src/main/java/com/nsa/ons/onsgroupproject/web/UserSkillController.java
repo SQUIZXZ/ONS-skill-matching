@@ -1,9 +1,10 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.domain.UserInfo;
+import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
+import com.nsa.ons.onsgroupproject.service.UserFinder;
 import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,35 +17,45 @@ import java.util.Optional;
 @Controller
 class UserSkillController {
 
-    private UserSkillFinder finder;
     private UserFinder userFinder;
-    private SkillFinder skillFinder;
+    private UserSkillFinder finder ;
+    private SkillFinder skillFinder ;
 
-    public UserSkillController(UserSkillFinder aFinder,SkillFinder aSkillFinder) {
+
+
+    public UserSkillController(SkillFinder Skillfinder ,UserSkillFinder aFinder ,UserFinder auserFinder ) {
         finder = aFinder;
-        skillFinder = aSkillFinder;
+        skillFinder  =Skillfinder;
+        userFinder  = auserFinder;
     }
 
-
-    @RequestMapping(path = "findContacts/{id}", method = RequestMethod.GET)
+    @GetMapping("findContacts")
     public String findContactsInfo(@PathVariable("id") Long searchTerm, Model model) {
 
         List<UserSkill> usersWithSkill;
         Optional<Skill> skill = skillFinder.findSkillByIndex(searchTerm);
-        List<UserInfo> Usercontact = new ArrayList<>();
+        List<Optional<User>> Usercontact = new ArrayList<>();
         List<UserSkill> userS;
+        List<Optional<UserSkill>> userSkillList = null;
         userS = finder.findUsersSkillBySkillId(searchTerm);
 
+
         for (UserSkill uSkill : userS) {
-            Boolean userSkillPublic = uSkill.isPrivacy(); {
-                    if(userSkillPublic){
-                        Usercontact.add(uSkill.getUser_id());
+            Optional<UserSkill> userSkillPublic = finder.findUserSkillByPrivacy(uSkill);
+            {
+                    if(userSkillPublic.isPresent()){
+
+                        Usercontact.add(userFinder.findById(uSkill.getUser_id()));
+                     //    System.out.print(uSkill.toString());
+                     //   usersSC =new Pair <User, UserSkill> (userFinder.findById(id), finder.findById(id ,uSkill.getSkill_id()));
                     }
+
                 }
             }
             model.addAttribute("searchTerm", searchTerm);
             model.addAttribute("Usercontact", Usercontact);
+            model.addAttribute("UsersSkill", userSkillList);
+
             return "Usercontact";
         }
     }
-}
