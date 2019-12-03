@@ -125,11 +125,11 @@ public class SkillRequestController {
             if (parentSkill.isPresent()) {
                 List<Skill> skills = new ArrayList<>();
                 skills.add(parentSkill.get());
-                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), skills);
+                SkillMade sm = new SkillMade(skillCreationForm.getSkill(),skillCreationForm.getDescription(), skills);
                 skillCreator.makeSkill(sm);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
             } else if (skillCreationForm.getParent().equals("")) {
-                SkillMade sm = new SkillMade(skillCreationForm.getSkill(), null);
+                SkillMade sm = new SkillMade(skillCreationForm.getSkill(),skillCreationForm.getDescription(), null);
                 skillCreator.makeSkill(sm);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Added to DB");
             } else {

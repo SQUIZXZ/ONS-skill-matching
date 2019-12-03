@@ -51,7 +51,7 @@ function saveSkillRequest() {
                         $('#furl').after('<span class="error">' + 'Furl cannot contain special characters' + '</span>'+'<brclass="error">');
                         break;
                     case "furlExists":
-                        $('#furl').after('<span class="error">' + 'Furl already in use' + '</span>'+'<brclass="error">');
+                        $('#furl').after('<span class="error">' + 'Furl already in use' + '</span>'+'<brclass="error">'+'<brclass="error">');
                         break;
 
                 }
@@ -64,7 +64,8 @@ function saveSkillRequest() {
 function saveNewSkill(){
     var skill = document.getElementById("skill").value;
     var parent = document.getElementById("parent").value;
-    var data = {skill:skill, parent:parent};
+    var description = document.getElementById("skillDescription").value;
+    var data = {skill:skill, parent:parent, description:description};
     console.log(data);
     $.ajax({
         type: "POST",
@@ -92,6 +93,9 @@ function saveNewSkill(){
                         break;
                     case "skillParentExist":
                         $('#parent').after('<span class="error">' + 'Parent skill must already exist' + '</span>' + '<br class="error">');
+                        break;
+                    case "descriptionSize":
+                        $('#skillDescription').after('<span class="error">' + 'Skill description is too long, it should be less than 200 characters' + '</span>' + '<br class="error">');
                         break;
 
 
@@ -124,26 +128,27 @@ function hideOrShow(){
     }
 
 }
-function saveNewSkill(){
-    var skill = document.getElementById("skill").value;
-    var parent = document.getElementById("parent").value;
-    var description = document.getElementById("skillDescription").value;
-    $.ajax({
-        type: "POST",
-        url: "/saveNewSkill",
-        data:JSON.stringify({
-            skill: skill,
-            description:description,
-            parent:parent
-        }),
-        processData: false,
-        contentType: "application/json",
-        success: function (data) {
-            console.log(data);
-            window.location.href = "/createSkillRequest";
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-}
+
+// function saveNewSkill(){
+//     var skill = document.getElementById("skill").value;
+//     var parent = document.getElementById("parent").value;
+//
+//     $.ajax({
+//         type: "POST",
+//         url: "/saveNewSkill",
+//         data:JSON.stringify({
+//             skill: skill,
+//             description:description,
+//             parent:parent
+//         }),
+//         processData: false,
+//         contentType: "application/json",
+//         success: function (data) {
+//             console.log(data);
+//             window.location.href = "/createSkillRequest";
+//         },
+//         error: function (e) {
+//             console.log(e);
+//         }
+//     });
+// }

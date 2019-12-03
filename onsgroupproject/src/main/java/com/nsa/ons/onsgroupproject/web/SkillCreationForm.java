@@ -16,4 +16,7 @@ public class SkillCreationForm {
     private String skill;
 
     private String parent;
+
+    @Size(max = 200, message = "descriptionSize")
+    private String description;
 }
