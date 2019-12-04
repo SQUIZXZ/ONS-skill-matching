@@ -3,17 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style/globalStyles.css"/>
-    <title th:text="${skill.getName()} + '- SkillShare'"> </title>
+    <title th:text="${skill.getName()} + '- SkillShare'"></title>
 </head>
 <body>
 <main>
-    <p th:each="item: ${users}" th:text="${item}"></p>
+<!--    <p th:each="item: ${users}" th:text="${item}"></p>-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Level</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${users}">
+            <th scope="row">
+                <span th:text="${item.getFirstName()} + ' ' + ${item.getSurname()}"></span>
+            </th>
+            <th scope="row">
+                <span th:text="${item.getEmail()}"></span>
+            </th>
+            <th scope="row">
+                <span th:text="${item.getUserSkill().getLevel()}"></span>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+
     <h2 th:text="${skill.getName()}"></h2>
     <div th:if="${skill.getChildSkills().size() > 0}">
         <h3>Child Skills</h3>
         <tbody>
         <tr th:each="skillChild: ${skill.getChildSkills()}">
-            <th><a th:href="@{/skill/{id} (id = ${skillChild.getId()})}"><span th:text="${skillChild.getName()}"></span></a><br></th>
+            <th><a th:href="@{/skill/{id} (id = ${skillChild.getId()})}"><span th:text="${skillChild.getName()}"></span></a><br>
+            </th>
         </tr>
         </tbody>
     </div>
@@ -21,7 +45,8 @@
         <h3>Parent Skills</h3>
         <tbody>
         <tr th:each="skillParent: ${skill.getParentSkills()}">
-            <th><a th:href="@{/skill/{id} (id = ${skillParent.getId()})}"><span th:text="${skillParent.getName()}"></span></a><br></th>
+            <th><a th:href="@{/skill/{id} (id = ${skillParent.getId()})}"><span
+                    th:text="${skillParent.getName()}"></span></a><br></th>
         </tr>
         </tbody>
     </div>
