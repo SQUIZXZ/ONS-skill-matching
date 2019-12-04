@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
+            .csrf().disable()
             .authorizeRequests()
             .antMatchers("/reports/**").access("hasRole('ROLE_USER')")
             .antMatchers("/**").access("hasRole('ROLE_USER')")
@@ -49,9 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .exceptionHandling()
             .accessDeniedPage("/403")
-            .and()
-            .csrf()
-            .ignoringAntMatchers("/h2-console/**")
     ;
     http.headers().frameOptions().disable();
   }

@@ -2,12 +2,13 @@ package com.nsa.ons.onsgroupproject.web;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.*;
 
-import com.nsa.ons.onsgroupproject.service.events.SkillMade;
+
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Optional;
 
@@ -31,13 +32,10 @@ public class SkillCreationTests {
     private MockMvc mvc;
 
     @MockBean
-    private SkillRequestRepository skillRequestRepository;
+    private SkillRequestCreator skillRequestCreator;
 
     @MockBean
     private SkillRequestFinder skillRequestFinder;
-
-    @MockBean
-    private SkillRequestCreator skillRequestCreator;
 
     @MockBean
     private SkillFinder skillFinder;
@@ -45,7 +43,14 @@ public class SkillCreationTests {
     @MockBean
     private SkillCreator skillCreator;
 
+    @MockBean
+    private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    private WebApplicationContext context;
+
     @Test
+    @WithMockUser(value = "Mock")
     public void newSkillIsCreated() throws Exception{
         String json = "{\"skill\":\"spring boot\",\"description\":\"spring boot description\",\"parent\":\"java\"}";
         ObjectMapper objectMapper = new ObjectMapper();
