@@ -21,9 +21,22 @@
                 <label>Skill Description</label>
                 <textarea class="form-control mr-sm-2" id="editSkillDescription" th:text="${editingSkill.getDescription()}" placeholder="Skill description here..."></textarea>
             </div>
-            <span class="input-group-btn">
-                <button th:onclick="'javascript:submitSkillEdit(' + ${editingSkill.getId()} + ')'" type="button" class="btn btn-outline-success my-2 my-sm-0">Save Skill</button>
-            </span>
+            <div id = "allParentSkills" class="form-section">
+                <label>Parent Skills</label>
+                <button onclick="AddParent()" type="button" class="btn btn-outline-success my-2 my-sm-0">Add a new Parent</button>
+                <div id="parentSkills" th:each = "skill : ${editingSkill.getParentSkills()}">
+                    <input type="text" list="listOfSkills" th:value="${skill.getName()}" class="parentSkillSelector">
+                    <button onclick="deleteParent(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">Delete Parent</button>
+                </div>
+                <datalist id="listOfSkills">
+                    <option th:each="selectionSkill:${allSkills}" th:text="${selectionSkill.getName()}"></option>
+                </datalist>
+            </div>
+            <div class = "form-section">
+                <span class="input-group-btn">
+                    <button th:onclick="'javascript:submitSkillEdit(' + ${editingSkill.getId()} + ')'" type="button" class="btn btn-outline-success my-2 my-sm-0">Save Skill</button>
+                </span>
+            </div>
         </form>
     </main>
 </body>

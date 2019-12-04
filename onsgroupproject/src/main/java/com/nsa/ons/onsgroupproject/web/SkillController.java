@@ -81,10 +81,37 @@ class SkillController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
         }
         Optional<Skill> skillTaken = finder.findSkillByName(skillEditForm.getSkillName());
+        Optional<Skill> thisSkill = finder.findSkillByIndex(skillEditForm.getId());
+
         if(skillTaken.isPresent()){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillNameTaken");
+            if(!skillTaken.get().getName().equals(thisSkill.get().getName())) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillNameTaken");
+            }
         }
-        SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(),skillEditForm.getSkillName(),skillEditForm.getSkillDescription(),null);
+        List<Skill> parentSkillList = new ArrayList<>();
+        for(int i = 0; i<skillEditForm.getParentSkills().size(); i++){
+            Optional<Skill> possibleParent = finder.findSkillByName(skillEditForm.getParentSkills().get(i));
+            if(possibleParent.isPresent()) {
+                if(!possibleParent.get().equals(thisSkill.get())) {
+                    Boolean notInList = true;
+                    for(int x = 0; x<parentSkillList.size();x++){
+                        if(parentSkillList.get(x).equals(possibleParent.get())){
+                            notInList = false;
+                        }
+                    }
+                    if(notInList) {
+                        parentSkillList.add(finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
+                    } else {
+                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentTwice");
+                    }
+                } else {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeOwnParent");
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("parentSkillDoesNotExist");
+            }
+        }
+        SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(),skillEditForm.getSkillName(),skillEditForm.getSkillDescription(),parentSkillList);
         skillUpdater.updateSkill(skillUpdated);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");

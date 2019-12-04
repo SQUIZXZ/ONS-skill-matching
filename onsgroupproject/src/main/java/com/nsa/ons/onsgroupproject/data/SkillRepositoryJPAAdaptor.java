@@ -49,7 +49,7 @@ public class SkillRepositoryJPAAdaptor implements SkillRepository {
         Skill skillToUpdate = findById(skillUpdated.getSkillID()).get();
         skillToUpdate.setName(skillUpdated.getSkillName());
         skillToUpdate.setDescription(skillUpdated.getSkillDescription());
-        skillToUpdate.setParentSkills(/*skillUpdated.getParentSkills()*/ skillToUpdate.getParentSkills());
+        skillToUpdate.setParentSkills(skillUpdated.getParentSkills());
         skillRepositoryJPA.save(skillToUpdate);
     }
 }
