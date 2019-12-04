@@ -15,6 +15,8 @@ insert into skill (skill_name) values ('Icon');
 insert into skill_hierarchy (parent_id,child_id) values (1,2);
 insert into skill_hierarchy (parent_id,child_id) values (1,3);
 insert into skill_hierarchy (parent_id,child_id) values (1,4);
+insert into skill_hierarchy (parent_id,child_id) values (5,4);
+
 
 insert into skill_requests (id, first_name, last_name, furl, department, skill, info) values (null, 'Daniel', 'Fulop', 'python-help', 'operations', 'Python', 'Need help with python');
 

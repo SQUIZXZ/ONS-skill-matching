@@ -2,7 +2,12 @@ function submitSkillEdit(skillId) {
     var editName = document.getElementById("editSkillName").value;
     var editDesc = document.getElementById("editSkillDescription").value;
     var idToEdit = skillId;
-    var data = {id:idToEdit,skillName:editName,skillDescription:editDesc};
+    var parentSkills = $(".parentSkillSelector");
+    var parentSkillValues = new Array();
+    for(s = 0; s < parentSkills.length; s++){
+        parentSkillValues[s] = parentSkills[s].value;
+    }
+    var data = {id:idToEdit,skillName:editName,skillDescription:editDesc,parentSkills:parentSkillValues};
 
     $.ajax({
         type:"POST",
@@ -35,8 +40,27 @@ function submitSkillEdit(skillId) {
                   case "skillDescriptionTooLong":
                       $('#editSkillDescription').after('<span class=error>' + 'Skill description too long, skill name must be 200 characters or less' + '</span>');
                       break;
+                  case "parentSkillDoesNotExist":
+                      $('#allParentSkills').after('<span class=error>' + 'One of your parent skills does not exist' + '</span>');
+                      break;
+                  case "skillCannotBeOwnParent":
+                      $('#allParentSkills').after('<span class=error>' + 'A skill cannot be its own parent' + '</span>');
+                      break;
+                  case "skillCannotBeParentTwice":
+                      $('#allParentSkills').after('<span class=error>' + 'A skill cannot be a parent of another skill more than once' + '</span>');
+                      break;
+
               }
           }
         }
         })
+}
+
+function AddParent() {
+    $("#allParentSkills").append('<div id="parentSkills"><input type="text" list="listOfSkills" class="parentSkillSelector"> <button onclick="deleteParent(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">' + 'Delete Parent' + '</button> </div>')
+
+}
+
+function deleteParent(button) {
+    button.closest( "div" ).remove();
 }
