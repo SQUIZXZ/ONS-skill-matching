@@ -2,6 +2,7 @@ package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
+import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,8 @@ public interface SkillRepository {
     public List<Skill> findAll();
 
     public void saveSkill(SkillMade skill);
+
+    public void saveSkill(SkillUpdated skillUpdated);
 
 
 }
