@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `skill`
 (
     `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `skill_name`   VARCHAR(100)  NOT NULL,
+    `skill_desc`    VARCHAR(200),
 
     PRIMARY KEY (`id`)
 )

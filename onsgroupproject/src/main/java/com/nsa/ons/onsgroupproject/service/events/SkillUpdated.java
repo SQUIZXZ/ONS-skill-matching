@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SkillMade {
+public class SkillUpdated {
+    private Long skillID;
     private String skillName;
     private String skillDescription;
     private List<Skill> parentSkills;
