@@ -2,10 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style/globalStyles.css"/>
     <title th:text="${skill.getName()} + '- SkillShare'"> </title>
 </head>
 <body>
+<main>
     <h2 th:text="${skill.getName()}"></h2>
+    <div th:if="${skill.getDescription()} != null">
+        <div th:if="${skill.getDescription() != ''}">
+            <h3 th:text="'Description of ' + ${skill.getName()}"></h3>
+            <span th:text="${skill.getDescription()}"></span>
+        </div>
+    </div>
+    <div th:if="${skill.getChildSkills().size() > 0}">
+        <h3>Child Skills</h3>
+        <tbody>
+        <tr th:each="skillChild: ${skill.getChildSkills()}">
+            <th><a th:href="@{/skill/{id} (id = ${skillChild.getId()})}"><span th:text="${skillChild.getName()}"></span></a><br></th>
+        </tr>
+        </tbody>
+    </div>
+    <div th:if="${skill.getParentSkills().size() > 0}">
+        <h3>Parent Skills</h3>
+        <tbody>
+        <tr th:each="skillParent: ${skill.getParentSkills()}">
+            <th><a th:href="@{/skill/{id} (id = ${skillParent.getId()})}"><span th:text="${skillParent.getName()}"></span></a><br></th>
+        </tr>
+        </tbody>
+    </div>
+</main>
 
 </body>
 </html>

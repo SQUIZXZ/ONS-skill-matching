@@ -1,13 +1,13 @@
 package com.nsa.ons.onsgroupproject.web;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 class SkillController {
@@ -43,7 +43,16 @@ class SkillController {
             return "skillList";
 
         }
+
+        @RequestMapping(path = "/skill/editsSkill/{id}", method = RequestMethod.GET)
+        public String editSkill(@PathVariable("id")Long skillID,Model model){
+            return "skillEditPage";
+        }
 }
+
+
+
+
 //    private final SkillRepositoryJPA repository;
 //
 //    SkillController(SkillRepositoryJPA repository) {

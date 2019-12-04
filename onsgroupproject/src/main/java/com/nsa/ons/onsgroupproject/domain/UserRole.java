@@ -5,27 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+@Table(name = "user_role")
+public class UserRole {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Column(name = "user_role_id")
+  private Long userroleid;
 
-  @Column(nullable = false, unique = true)
-  @NotNull
-  @NotEmpty
-  private String username;
+  @Column(name = "userid")
+  private Long userid;
 
-  @NotNull
-  @NotEmpty
-  private String password;
+  @Column(name = "role")
+  private String role;
 
 }
-

@@ -1,6 +1,7 @@
 package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,5 +11,10 @@ public interface SkillFinder {
     public Optional<Skill> findSkillByIndex(Long index);
 
     public List<Skill> findSkillBySearch(String searchTerm);
+
+    public List<Skill> findAll();
+
+    public Optional<Skill> findSkillByName(String name);
+
 
 }
