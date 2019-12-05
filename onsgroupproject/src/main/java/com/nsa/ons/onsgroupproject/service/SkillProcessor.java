@@ -2,7 +2,6 @@ package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
-import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +45,4 @@ public class SkillProcessor implements SkillFinder, SkillCreator,SkillUpdater {
     }
 
 }
-
-
 

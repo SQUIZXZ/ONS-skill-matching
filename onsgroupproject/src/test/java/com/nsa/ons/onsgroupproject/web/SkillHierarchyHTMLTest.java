@@ -49,9 +49,9 @@ public class SkillHierarchyHTMLTest {
     @WithMockUser(value = "Mock")
     public void skillPageHierarchiesTest() throws Exception {
 
-        Skill skillParent = new Skill(1L, "ParentSkill","description", null, null);
-        Skill skillChild = new Skill(2L, "ChildSkill","description", null, null);
-        Skill thisSkill = new Skill(3L, "This Skill","description", null, null);
+        Skill skillParent = new Skill(1L, "ParentSkill", null, null);
+        Skill skillChild = new Skill(2L, "ChildSkill", null, null);
+        Skill thisSkill = new Skill(3L, "This Skill", null, null);
 
         ArrayList<Skill> containsParent = new ArrayList<Skill>();
         ArrayList<Skill> containsChild = new ArrayList<Skill>();
