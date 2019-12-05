@@ -1,17 +1,14 @@
 package com.nsa.ons.onsgroupproject.domain;
 
-import com.sun.xml.bind.v2.model.core.ID;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
-
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
@@ -36,11 +33,12 @@ public class User{
     @Column(name = "surname")
     private String surname;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "skill_id")
-    private UserSkill userSkill;
+//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "skill_id")
+//    private UserSkill userSkill;
 
 
 }
+
 
 

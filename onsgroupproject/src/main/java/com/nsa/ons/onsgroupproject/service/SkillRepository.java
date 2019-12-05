@@ -22,5 +22,7 @@ public interface SkillRepository {
 
     public void saveSkill(SkillMade skill);
 
+    public void saveSkill(SkillUpdated skillUpdated);
+
 
 }

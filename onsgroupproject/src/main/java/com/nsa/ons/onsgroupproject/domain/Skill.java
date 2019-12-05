@@ -21,13 +21,8 @@ public class Skill {
     @Column(name = "skill_name")
     private String name;
 
-    public List<Skill> getChildSkills() {
-        return childSkills;
-    }
-
-    public void setChildSkills(List<Skill> childSkills) {
-        this.childSkills = childSkills;
-    }
+    @Column(name = "skill_desc")
+    private String description;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "skill_hierarchy",
