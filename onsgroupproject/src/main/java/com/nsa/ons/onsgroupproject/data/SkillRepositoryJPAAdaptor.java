@@ -3,8 +3,10 @@ package com.nsa.ons.onsgroupproject.data;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
+
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,12 +40,10 @@ public class SkillRepositoryJPAAdaptor implements SkillRepository {
 
     @Override
     public void saveSkill(SkillMade skillMade) {
-        Skill s = new Skill(null,skillMade.getSkillName(),new ArrayList<>(),skillMade.getParentSkills());
+        Skill s = new Skill(null,skillMade.getSkillName(),skillMade.getSkillDescription(),new ArrayList<>(),skillMade.getParentSkills());
         skillRepositoryJPA.save(s);
 
     }
-
-
     @Override
     public void  saveSkill(SkillUpdated skillUpdated){
         Skill skillToUpdate = findById(skillUpdated.getSkillID()).get();
@@ -52,4 +52,5 @@ public class SkillRepositoryJPAAdaptor implements SkillRepository {
         skillToUpdate.setParentSkills(skillUpdated.getParentSkills());
         skillRepositoryJPA.save(skillToUpdate);
     }
+
 }

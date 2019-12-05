@@ -1,12 +1,12 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import lombok.extern.slf4j.Slf4j;
@@ -15,26 +15,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 
 
 @Controller
+@Slf4j
 class SkillController {
 
     private SkillFinder finder;
-    private UserSkillFinder userSkillFinder ;
+    private SkillUpdater skillUpdater;
 
-    public SkillController(SkillFinder aFinder,UserSkillFinder uSFinder) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate) {
         finder = aFinder;
-        userSkillFinder = uSFinder;
+        skillUpdater = aSkillUpdate;
     }
+
 
     // If skill index exists for add it to the model and return it
     @GetMapping("skill/{i}")
     public String showSkillPage(@PathVariable("i") Long index, Model model) {
-        model.addAttribute("users",userSkillFinder.findUsersSkillBySkillId(index));
+
         Optional<Skill> skill = finder.findSkillByIndex(index);
 
         if (skill.isPresent()) {
@@ -46,16 +51,28 @@ class SkillController {
         }
     }
 
-    @GetMapping("findSkill")
-    public String findSkill(@RequestParam("search") String searchTerm, Model model) {
+        @GetMapping("findSkill")
+        public String findSkill(@RequestParam("search") String searchTerm, Model model) {
 
-        List<Skill> skills = finder.findSkillBySearch(searchTerm);
+            List<Skill> skills = finder.findSkillBySearch(searchTerm);
 
-        model.addAttribute("searchTerm", searchTerm);
-        model.addAttribute("skills", skills);
-        return "skillList";
+            model.addAttribute("searchTerm", searchTerm);
+            model.addAttribute("skills", skills);
+            return "skillList";
 
-    }
+        }
+
+        @RequestMapping(path = "/skill/editSkill/{id}", method = RequestMethod.GET)
+        public String editSkill(@PathVariable("id")Long skillID,Model model){
+            Optional<Skill> editedSkill = finder.findSkillByIndex(skillID);
+            if(editedSkill.isEmpty()){
+                return "404ErrorPage";
+            }
+            List<Skill> allSkills = finder.findAll();
+            model.addAttribute("allSkills", allSkills);
+            model.addAttribute("editingSkill",editedSkill.get());
+            return "skillEditPage";
+        }
 
         @RequestMapping(path = "/saveSkillEdit", method = RequestMethod.POST)
         public ResponseEntity<?> saveSkillEdit(@RequestBody @Valid SkillEditForm skillEditForm, BindingResult bindingResult){
@@ -107,11 +124,7 @@ class SkillController {
 }
 
 
-//    @GetMapping("findSkill")
-//    public List<UserInfo> FindContactBySkill(@RequestParam("search") String searchTerm, Model model) {
-//
-//        return null;
-//    }
+
 
 //    private final SkillRepositoryJPA repository;
 //

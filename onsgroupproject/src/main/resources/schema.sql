@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `skill`
 (
     `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `skill_name`   VARCHAR(100)  NOT NULL,
+    `skill_desc`    VARCHAR(200),
 
     PRIMARY KEY (`id`)
 )
@@ -21,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `skill_hierarchy`
     ENGINE = InnoDB;
 
 
-
 CREATE TABLE IF NOT EXISTS `skill_requests`
 (
     `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -35,32 +35,14 @@ CREATE TABLE IF NOT EXISTS `skill_requests`
 )
     ENGINE = InnoDB;
 
-
-CREATE TABLE IF NOT EXISTS `user_skill`
+CREATE TABLE if not exists `user`
 (
-    `user_id`    INT NOT NULL,
-    `skill_id`    INT NOT NULL,
-    `level`   INT NOT NULL,
-    `privacy`      BOOLEAN NOT NULL,
-    PRIMARY KEY (user_id,skill_id)
---    FOREIGN KEY (user_id) REFERENCES `users`(id),
---    FOREIGN KEY (skill_id) REFERENCES `skill`(id)
-)
-    ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `users`
-(
-    `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `first_name`   VARCHAR(100)  NOT NULL,
+    `id`       int(11)      NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(45)  NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    `surname`    VARCHAR(100) NOT NULL,
-    `email`        VARCHAR(100) NULL,
-    `skill_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`skill_id`) REFERENCES `user_skill`(`skill_id`)
+    PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
-
 
 CREATE TABLE if not exists `user_role`
 (
@@ -70,4 +52,3 @@ CREATE TABLE if not exists `user_role`
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
-

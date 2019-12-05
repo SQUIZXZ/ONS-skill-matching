@@ -1,58 +1,31 @@
 package com.nsa.ons.onsgroupproject.domain;
 
-import com.sun.xml.bind.v2.model.core.ID;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
-
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
-public class User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+@Entity
+public class User {
 
-    @Column(name = "first_name")
-    private String firstName;
-    
-    @Column(name = "email", nullable = false, unique = true)
-    @NotNull
-    @NotEmpty
-    private String email;
-    
-    @NotNull
-    @NotEmpty
-    private String password;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "surname")
-    private String surname;
+  @Column(nullable = false, unique = true)
+  @NotNull
+  @NotEmpty
+  private String username;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "skill_id")
-    private UserSkill userSkill;
-
+  @NotNull
+  @NotEmpty
+  private String password;
 
 }
 
-
-
-
-
- 
-
-  
-
-  
-
-}
-
->>>>>>> onsgroupproject/src/main/java/com/nsa/ons/onsgroupproject/domain/User.java

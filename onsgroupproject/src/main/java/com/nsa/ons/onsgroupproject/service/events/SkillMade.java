@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class SkillMade {
     private String skillName;
+    private String skillDescription;
     private List<Skill> parentSkills;
 }
