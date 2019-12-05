@@ -12,10 +12,12 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   @Column(nullable = false, unique = true)
@@ -26,6 +28,19 @@ public class User {
   @NotNull
   @NotEmpty
   private String password;
+
+  @Column(name = "first_name")
+  private String firstName;
+
+  @Column(name = "surname")
+  private String surname;
+
+  @Column(name = "email")
+  private String email;
+
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "skill_id")
+  private UserSkill userSkill;
 
 }
 

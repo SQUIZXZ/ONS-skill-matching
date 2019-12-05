@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +30,19 @@ class SkillController {
 
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
+    private UserSkillFinder userSkillFinder ;
 
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate,UserSkillFinder uSFinder) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
+        userSkillFinder = uSFinder;
     }
 
 
     // If skill index exists for add it to the model and return it
     @GetMapping("skill/{i}")
     public String showSkillPage(@PathVariable("i") Long index, Model model) {
-
+        model.addAttribute("users",userSkillFinder.findUsersSkillBySkillId(index));
         Optional<Skill> skill = finder.findSkillByIndex(index);
 
         if (skill.isPresent()) {
