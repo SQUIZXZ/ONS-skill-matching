@@ -25,6 +25,12 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.data:spring-data-rest-hal-browser")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("javax.servlet:jstl")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile("org.webjars:bootstrap:3.3.6")
+    compile("org.webjars:bootstrap-datepicker:1.0.1")
+    compile("org.webjars:jquery:1.9.1")
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -35,6 +41,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile "org.springframework.security:spring-security-test"
 //    testImplementation('org.springframework.boot:spring-boot-starter-test') {
 //        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 //    }

@@ -3,12 +3,22 @@ package com.nsa.ons.onsgroupproject.web;
 import java.util.List;
 import java.util.Optional;
 
+
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
+import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @Controller
 class SkillController {
@@ -46,6 +56,54 @@ class SkillController {
         return "skillList";
 
     }
+
+        @RequestMapping(path = "/saveSkillEdit", method = RequestMethod.POST)
+        public ResponseEntity<?> saveSkillEdit(@RequestBody @Valid SkillEditForm skillEditForm, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            log.error("edit skill has binding errors");
+            String messages = "";
+            for(ObjectError error: bindingResult.getAllErrors()){
+                messages += error.getDefaultMessage() + ", ";
+            }
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
+        }
+        Optional<Skill> skillTaken = finder.findSkillByName(skillEditForm.getSkillName());
+        Optional<Skill> thisSkill = finder.findSkillByIndex(skillEditForm.getId());
+
+        if(skillTaken.isPresent()){
+            if(!skillTaken.get().getName().equals(thisSkill.get().getName())) {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillNameTaken");
+            }
+        }
+        List<Skill> parentSkillList = new ArrayList<>();
+        for(int i = 0; i<skillEditForm.getParentSkills().size(); i++){
+            Optional<Skill> possibleParent = finder.findSkillByName(skillEditForm.getParentSkills().get(i));
+            if(possibleParent.isPresent()) {
+                if(!possibleParent.get().equals(thisSkill.get())) {
+                    Boolean notInList = true;
+                    for(int x = 0; x<parentSkillList.size();x++){
+                        if(parentSkillList.get(x).equals(possibleParent.get())){
+                            notInList = false;
+                        }
+                    }
+                    if(notInList) {
+                        parentSkillList.add(finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
+                    } else {
+                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentTwice");
+                    }
+                } else {
+                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeOwnParent");
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("parentSkillDoesNotExist");
+            }
+        }
+        SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(),skillEditForm.getSkillName(),skillEditForm.getSkillDescription(),parentSkillList);
+        skillUpdater.updateSkill(skillUpdated);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");
+        }
+
 }
 
 

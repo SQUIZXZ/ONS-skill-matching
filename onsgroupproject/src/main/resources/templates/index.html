@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
           integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" rel="stylesheet">
@@ -14,6 +14,15 @@
             <P class="lead text-left"> Please enter the name of the skill that you are looking for.
             </P>
         </div>
+    </div>
+    <div>
+        <div style="color: white">
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        </div>
+
         <div class="row">
 
             <form action="/findSkill" class="form-inline my-2 my-lg-0" method="get">

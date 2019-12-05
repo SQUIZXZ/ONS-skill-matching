@@ -1,7 +1,6 @@
 package com.nsa.ons.onsgroupproject.data;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +16,7 @@ public interface SkillRepositoryJPA extends JpaRepository<Skill, Long> {
     List<Skill> findAll();
 
     Optional<Skill> findByName(String name);
+
 
 }
 
