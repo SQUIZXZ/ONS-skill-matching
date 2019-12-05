@@ -15,7 +15,14 @@ insert into skill (skill_name) values ('Icon');
 insert into skill_hierarchy (parent_id,child_id) values (1,2);
 insert into skill_hierarchy (parent_id,child_id) values (1,3);
 insert into skill_hierarchy (parent_id,child_id) values (1,4);
+insert into skill_hierarchy (parent_id,child_id) values (5,4);
+
 
 insert into skill_requests (id, first_name, last_name, furl, department, skill, info) values (null, 'Daniel', 'Fulop', 'python-help', 'operations', 'Python', 'Need help with python');
 
+INSERT INTO user(username,password)
+VALUES ('Fin','{bcrypt}$2a$10$B188I9BfwGLsWGU9eF4wPOV6O6z.MgEbNxcErNEKb8xwM.4ChBT7G');
+
+INSERT INTO user_role(userid, role)
+VALUES (001, 'ROLE_USER');
 
