@@ -3,6 +3,7 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
+import com.nsa.ons.onsgroupproject.service.SkillUpdater;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class SkillHierarchyHTMLTest {
 
     @MockBean
     private SkillFinder skillRepository;
+
+    @MockBean
+    private SkillUpdater skillUpdater;
 
     @Test
     public void skillPageHierarchiesTest() throws Exception {

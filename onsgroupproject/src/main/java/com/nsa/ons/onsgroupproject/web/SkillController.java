@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ class SkillController {
 
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
+    private UserSkillFinder userSkillFinder;
 
     public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate) {
         finder = aFinder;
