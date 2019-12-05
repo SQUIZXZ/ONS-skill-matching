@@ -15,66 +15,84 @@
         <!-- The Commented bits are my reserve code just in case we need them -->
         <h2>Create a Skill request</h2>
         <!--    <form action="#" method="post" th:action="@{/saveSkillRequest}" th:object="${skillRequestForm}">-->
-        <form id="registrationForm" th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
+        <form th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
             <div class="formSection">
                 <label th:for="firstName">First Name</label>
                 <div class="col-sm-3">
-                    <input value="" id="firstName" class="form-control mr-sm-2" type="text" th:field="*{firstName}"
+                    <input id="firstName" class="form-control mr-sm-2" type="text" th:field="*{firstName}"
                            placeholder="Enter your Name..."/>
+                </div>
+                <div th:errors="*{firstName}"
+                     th:if="${#fields.hasErrors('firstName')}">
+                    Name Error
                 </div>
             </div>
             <div class="formSection">
                 <label th:for="surname">Surname</label>
                 <div class="col-sm-3">
-                    <input value="" id="surname" class="form-control mr-sm-2" type="text" th:field="*{surname}"
+                    <input id="surname" class="form-control mr-sm-2" type="text" th:field="*{surname}"
                            placeholder="Enter your Surname..."/>
                 </div>
+                    <div th:errors="*{surname}"
+                         th:if="${#fields.hasErrors('surname')}">
+                        Surname Error
+                    </div>
                 </div>
                 <div class="formSection">
                     <label th:for="department">Department</label>
                     <div class="col-sm-3">
-                        <input value="" id="department" class="form-control mr-sm-2" type="text" th:field="*{department}"
+                        <input id="department" class="form-control mr-sm-2" type="text" th:field="*{department}"
                                placeholder="Enter your department..."/>
+                    </div>
+                    <div th:errors="*{department}"
+                         th:if="${#fields.hasErrors('department')}">
+                        Surname Error
                     </div>
                 </div>
                 <div class="formSection">
                     <label th:for="skill">Skill you want to find</label>
                     <div class="col-sm-3">
-                        <input value="" oninput="hideOrShow()" id="skill" class="form-control mr-sm-2" list="skills" type="text"
+                        <input oninput="hideOrShow()" id="skill" class="form-control mr-sm-2" list="skills" type="text"
                                th:field="*{skill}" placeholder="Enter the skill you need..."/>
                     </div>
                     <datalist id="skills">
                         <option th:each="skill: ${skills}" th:text="${skill}"></option>
                     </datalist>
+                    <div th:errors="*{skill}"
+                         th:if="${#fields.hasErrors('skill')}">
+                        Skill Error
+                    </div>
                     <input id="skillList" th:value="${skills}" type="hidden"/>
                     <label class="createSkill" style="display: none">The parent of this skill</label>
                     <div class="input-group">
-                        <div class="col-sm-3">
-                            <input id="parent" class="createSkill form-control mr-sm-2" list="skills" style="display: none">
-                        </div>
+                    <div class="col-sm-3">
+                        <input id="parent" class="createSkill form-control mr-sm-2" list="skills" style="display: none">
                     </div>
-                        <label class="createSkill" style="display: none">New skill description</label>
-                    <div class="input-group">
-                        <div class="col-sm-6">
-                            <textarea id="skillDescription" class="createSkill form-control mr-sm-2" style="display: none;"></textarea>
-                        </div>
                         <span class="input-group-btn">
-                            <button onclick="saveNewSkill()" type="button" class="createSkill btn btn-outline-success my-2 my-sm-0" style="display: none">Create new skill</button>
+                    <button onclick="saveNewSkill()" type="button" class="createSkill btn btn-outline-success my-2 my-sm-0" style="display: none">Create new skill</button>
                         </span>
                     </div>
                 </div>
                 <div class="formSection">
                     <label th:for="taskDescription">Description of the task you need doing</label>
                     <div class="col-sm-3">
-                        <input value="" id="description" class="form-control mr-sm-2" type="text" th:field="*{taskDescription}"
+                        <input id="description" class="form-control mr-sm-2" type="text" th:field="*{taskDescription}"
                                placeholder="Enter task description..."/>
+                    </div>
+                    <div th:errors="*{taskDescription}"
+                         th:if="${#fields.hasErrors('taskDescription')}">
+                        Description Error
                     </div>
                 </div>
                 <div class="formSection">
                     <label th:for="furl">Furl</label>
                     <div class="col-sm-3">
-                        <input value="" id="furl" class="form-control mr-sm-2" type="text" th:field="*{furl}"
+                        <input id="furl" class="form-control mr-sm-2" type="text" th:field="*{furl}"
                                placeholder="Enter the furl for your page..."/>
+                    </div>
+                    <div th:errors="*{furl}"
+                         th:if="${#fields.hasErrors('furl')}">
+                        furl Error
                     </div>
                 </div>
             <br>

@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(com.nsa.ons.onsgroupproject.web.SkillRequestController.class)
+@WebMvcTest(SkillRequestController.class)
 public class SkillRequestPageTests {
 
     @Autowired

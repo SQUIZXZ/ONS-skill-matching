@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -15,28 +14,28 @@ import javax.validation.constraints.Size;
 public class SkillRequestForm {
 
     @NotNull
-    @Size(min = 2, max = 100, message = "firstName")
+    @Size(min = 2, max = 100, message = "Invalid Name")
     private String firstName;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "surname")
+    @Size(min = 2, max = 100, message = "Invalid Surname")
     private String surname;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "department")
+    @Size(min = 2, max = 100, message = "Invalid department name")
     private String department;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "skill")
+    @Size(min = 2, max = 100, message = "Skill not Found") //This will likely be a dropdown when we get the skill database up and running
     private String skill;
 
     @NotNull
-    @Size(min = 2, max = 300, message = "taskDescription")
+    @Size(min = 2, max = 300, message = "Your Description is too long")
     private String taskDescription;
 
-    @NotEmpty(message = "furlEmpty")
-    @Size(max = 20, message = "furlToLong")
-    @Pattern(regexp = "^\\w+$|", message = "furlBadChar")
+    @NotNull
+    @Size(min = 1,max = 20, message = "Invalid Furl")
+    @Pattern(regexp = "^\\w+$", message = "Invalid Furl")
     private String furl;
 
 }

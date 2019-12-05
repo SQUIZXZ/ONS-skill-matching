@@ -56,19 +56,3 @@ th{
     border-width:2px !important;
 
 }
-
-textarea{
-    resize: none;
-}
-
-.error{
-    color:red;
-}
-
-#editButton{
-    margin-top: 100px!important;
-    margin-right: 100px;
-    position:absolute;
-    top:0;
-    right:0;
-}

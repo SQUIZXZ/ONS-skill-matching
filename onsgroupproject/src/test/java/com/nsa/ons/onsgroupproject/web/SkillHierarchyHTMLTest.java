@@ -3,7 +3,6 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
-import com.nsa.ons.onsgroupproject.service.SkillUpdater;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(com.nsa.ons.onsgroupproject.web.SkillController.class)
+@WebMvcTest(SkillController.class)
 public class SkillHierarchyHTMLTest {
 
     @Autowired
@@ -35,15 +34,12 @@ public class SkillHierarchyHTMLTest {
     @MockBean
     private SkillFinder skillRepository;
 
-    @MockBean
-    private SkillUpdater skillUpdater;
-
     @Test
     public void skillPageHierarchiesTest() throws Exception {
 
-        Skill skillParent = new Skill(1L, "ParentSkill","description", null, null);
-        Skill skillChild = new Skill(2L, "ChildSkill","description", null, null);
-        Skill thisSkill = new Skill(3L, "This Skill","description", null, null);
+        Skill skillParent = new Skill(1L, "ParentSkill", null, null);
+        Skill skillChild = new Skill(2L, "ChildSkill", null, null);
+        Skill thisSkill = new Skill(3L, "This Skill", null, null);
 
         ArrayList<Skill> containsParent = new ArrayList<Skill>();
         ArrayList<Skill> containsChild = new ArrayList<Skill>();

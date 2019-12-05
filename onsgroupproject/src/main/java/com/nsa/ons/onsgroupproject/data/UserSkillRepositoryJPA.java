@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserSkillRepositoryJPA extends JpaRepository<User,Long> {
 
     @Query("SELECT u FROM User u, UserSkill u_s WHERE u_s.skill_id = :searchTerm AND u.id = u_s.user_id")
-    List <User> findUsersSkillBySkillId (@Param("searchTerm")Long searchTerm);
+    List <User> findUsersSkillBySkillId(@Param("searchTerm") Long searchTerm);
 
 
 
