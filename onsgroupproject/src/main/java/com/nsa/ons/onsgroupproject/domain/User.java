@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+<<<<<<< HEAD
 @Table(name = "users")
 public class User{
     @Id
@@ -36,6 +37,26 @@ public class User{
 //    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "skill_id")
 //    private UserSkill userSkill;
+=======
+@Entity
+public class User {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(nullable = false, unique = true)
+  @NotNull
+  @NotEmpty
+  private String username;
+
+  @NotNull
+  @NotEmpty
+  private String password;
+>>>>>>> eb285079c21d52c4fe6a4a3085ead38ddd87d316
 
 
+<<<<<<< HEAD
 }
+=======
+>>>>>>> eb285079c21d52c4fe6a4a3085ead38ddd87d316
