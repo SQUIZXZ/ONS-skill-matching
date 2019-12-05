@@ -44,15 +44,3 @@ public class User{
 }
 
 
-
-
-
- 
-
-  
-
-  
-
-}
-
->>>>>>> onsgroupproject/src/main/java/com/nsa/ons/onsgroupproject/domain/User.java

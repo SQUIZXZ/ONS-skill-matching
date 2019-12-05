@@ -1,11 +1,11 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
-<<<<<<< onsgroupproject/src/main/java/com/nsa/ons/onsgroupproject/web/SkillRequestController.java
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
