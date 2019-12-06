@@ -43,7 +43,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
   public User registerNewUserAccount(UserForm userForm) {
 
-    User newUser = new User(null, userForm.getUsername(), userForm.getPassword());
+    User newUser = new User(null, userForm.getUsername(), userForm.getPassword(),null,null,null,null);
 
 
     return newUser;

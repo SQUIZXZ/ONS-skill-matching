@@ -49,6 +49,9 @@ function submitSkillEdit(skillId) {
                   case "skillCannotBeParentTwice":
                       $('#allParentSkills').after('<span class=error>' + 'A skill cannot be a parent of another skill more than once' + '</span>');
                       break;
+                  case "skillCannotBeParentAndChild":
+                      $('#allParentSkills').after('<span class=error>' + 'A skill cannot both the parent and the child of a skill' + '</span>');
+                      break;
 
               }
           }

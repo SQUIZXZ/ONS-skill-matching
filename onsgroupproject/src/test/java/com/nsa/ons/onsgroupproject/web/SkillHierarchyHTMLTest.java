@@ -6,6 +6,7 @@ import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SkillController.class)
+@WebMvcTest(com.nsa.ons.onsgroupproject.web.SkillController.class)
 public class SkillHierarchyHTMLTest {
 
     @Autowired
@@ -39,8 +40,10 @@ public class SkillHierarchyHTMLTest {
     private SkillFinder skillFinder;
 
     @MockBean
-    private SkillUpdater skillUpdater;
+    private UserSkillFinder userSkillFinder ;
 
+    @MockBean
+    private SkillUpdater skillUpdater;
 
     @MockBean
     private MyUserDetailsService myUserDetailsService;

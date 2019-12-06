@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,12 @@ class SkillController {
 
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
+    private UserSkillFinder userSkillFinder ;
 
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate,UserSkillFinder uSFinder) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
+        userSkillFinder = uSFinder;
     }
 
 
@@ -93,20 +96,29 @@ class SkillController {
             }
         }
         List<Skill> parentSkillList = new ArrayList<>();
+        List<Skill> childSkillList = thisSkill.get().getChildSkills();
         for(int i = 0; i<skillEditForm.getParentSkills().size(); i++){
             Optional<Skill> possibleParent = finder.findSkillByName(skillEditForm.getParentSkills().get(i));
             if(possibleParent.isPresent()) {
                 if(!possibleParent.get().equals(thisSkill.get())) {
-                    Boolean notInList = true;
+                    Boolean inParentList = false;
                     for(int x = 0; x<parentSkillList.size();x++){
                         if(parentSkillList.get(x).equals(possibleParent.get())){
-                            notInList = false;
+                            inParentList = true;
                         }
                     }
-                    if(notInList) {
-                        parentSkillList.add(finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
-                    } else {
+                    Boolean inChildList = false;
+                    for(int y = 0; y<childSkillList.size(); y++){
+                        if(childSkillList.get(y).equals(possibleParent.get())){
+                            inChildList = true;
+                        }
+                    }
+                    if(inParentList) {
                         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentTwice");
+                    } else if(inChildList) {
+                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentAndChild");
+                    } else {
+                        parentSkillList.add(finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
                     }
                 } else {
                     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeOwnParent");

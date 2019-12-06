@@ -1,10 +1,19 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.SkillRequest;
 
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
 import lombok.extern.slf4j.Slf4j;
 
 import com.nsa.ons.onsgroupproject.service.SkillCreator;
@@ -60,32 +69,6 @@ public class SkillRequestController {
         model.addAttribute("skills", skillsNoId);
         return "requestFormPage";
     }
-
-    //    @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
-//    public String confirmSkillRequest(@ModelAttribute("skillRequestForm") @Valid SkillRequestForm skillRequest,
-//                                   Model model,
-//                                   BindingResult bindingResult){
-//        if(bindingResult.hasErrors()){
-//            log.debug("Binding Errors Found");
-//            return "RequestFormPage";
-//        }
-//
-//        log.debug("saving skill request");
-//        SkillRequestMade skillRequestMade = new SkillRequestMade(
-//                skillRequest.getFirstName(),
-//                skillRequest.getSurname(),
-//                skillRequest.getDepartment(),
-//                skillRequest.getSkill(),
-//                skillRequest.getTaskDescription(),
-//                skillRequest.getFurl()
-//        );
-//        skillRequestRepository.saveSkillRequest(skillRequestMade);
-//
-//        model.addAttribute("skillRequest",skillRequestRepository.findByFurl(skillRequest.getFurl()).get());
-//        return "RequestPage";
-//
-//
-//    }
 
     @RequestMapping(path = "saveSkillRequest", method = RequestMethod.POST)
     public ResponseEntity<?> saveSkillRequest(@RequestBody @Valid SkillRequestForm skillRequestForm,
