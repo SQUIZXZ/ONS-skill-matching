@@ -6,6 +6,7 @@ import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillRepository;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class SkillHierarchyHTMLTest {
 
     @MockBean
     private SkillFinder skillFinder;
+
+    @MockBean
+    private UserSkillFinder userSkillFinder ;
 
     @MockBean
     private SkillUpdater skillUpdater;
