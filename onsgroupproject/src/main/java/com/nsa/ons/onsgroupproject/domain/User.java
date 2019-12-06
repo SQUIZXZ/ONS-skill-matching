@@ -11,38 +11,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-<<<<<<< HEAD
-@Table(name = "users")
-public class User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "first_name")
-    private String firstName;
-    
-    @Column(name = "email", nullable = false, unique = true)
-    @NotNull
-    @NotEmpty
-    private String email;
-    
-    @NotNull
-    @NotEmpty
-    private String password;
-
-    @Column(name = "surname")
-    private String surname;
-
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "skill_id")
-//    private UserSkill userSkill;
-=======
 @Entity
+@Table(name = "users")
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   @Column(nullable = false, unique = true)
@@ -53,10 +28,20 @@ public class User {
   @NotNull
   @NotEmpty
   private String password;
->>>>>>> eb285079c21d52c4fe6a4a3085ead38ddd87d316
 
+  @Column(name = "first_name")
+  private String firstName;
 
-<<<<<<< HEAD
+  @Column(name = "surname")
+  private String surname;
+
+  @Column(name = "email")
+  private String email;
+
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "skill_id")
+  private UserSkill userSkill;
+
 }
-=======
->>>>>>> eb285079c21d52c4fe6a4a3085ead38ddd87d316
+
+
