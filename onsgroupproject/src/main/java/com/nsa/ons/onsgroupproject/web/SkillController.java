@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.nsa.ons.onsgroupproject.config.security.MyUserPrincipal;
 import com.nsa.ons.onsgroupproject.domain.Skill;
+import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
 import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
+import com.nsa.ons.onsgroupproject.service.UserSkillRepo;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ class SkillController {
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
     private UserSkillFinder userSkillFinder;
+
+    @Autowired
+    UserSkillRepo skillReporepo;
 
     public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder) {
         finder = aFinder;
@@ -137,12 +143,15 @@ class SkillController {
 
 
     @PostMapping("user")
-    public String greetingSubmit(@ModelAttribute user user) {
-        return "result";
+    @ResponseBody
+    public UserSkill userProfile(@ModelAttribute UserSkill user) {
+        user.setUser_id((long) 10);
+        UserSkill userSkill1=skillReporepo.save(user);
+        return userSkill1;
     }
     @GetMapping("user")
     public String userProfile( Model model) {
-        model.addAttribute("user", new user());
+        model.addAttribute("user", new UserSkill());
         return "user";
     }
     }

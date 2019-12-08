@@ -3,7 +3,7 @@ package com.nsa.ons.onsgroupproject.web;
 
 public class user  {
 
-    private long level;
+    private long level1;
     private String skill;
     private  boolean privacy ;
 
@@ -16,12 +16,12 @@ public class user  {
     }
 
 
-    public long getLevel() {
-        return level;
+    public long getLevel1() {
+        return level1;
     }
 
-    public void setLevel(long level) {
-        this.level = level;
+    public void setLevel1(long level) {
+        this.level1 = level;
     }
 
     public String getSkill() {

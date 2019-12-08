@@ -8,7 +8,7 @@
 <h1>Form</h1>
 <form action="#" th:action="@{user}" th:object="${user}" method="post">
     <p>level: <input type="text" th:field="*{level}" /></p>
-    <p>skill: <input type="text" th:field="*{skill}" /></p>
+    <p>skill: <input type="text" th:field="*{skill_id}" /></p>
     <p>privacy :<input type="checkbox" th:field="*{privacy}" />
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
