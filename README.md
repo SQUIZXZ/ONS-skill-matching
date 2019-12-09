@@ -49,6 +49,7 @@ A feature is done when it has been implemented according to the acceptance crite
 Additionally a feature is done when it has been pushed to the master version and is officially part of the final build. All essential functionality must be tested e.g search for skill
 <br>
 
+<br>
 Working Agreement
 <br>
 As a team we agree to communicate with each other about our problems and our worries.<br>
