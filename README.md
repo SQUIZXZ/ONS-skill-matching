@@ -38,11 +38,13 @@ We agree to ask for help when needed and offer our help to those in need<br>
 <h3>Week 2</h3>
 
 <br>
-Definition of Ready<br>
+Definition of Ready
+<br>
 A feature is ready when it is one of the top priorities, it has defined acceptance criteria and it doesn’t pose a high risk to the other features
 It also needs an estimated time.
 <br>
 
+<br>
 Definition of Done 
 <br>
 A feature is done when it has been implemented according to the acceptance criteria and has been tested and reviewed by another member of the team
