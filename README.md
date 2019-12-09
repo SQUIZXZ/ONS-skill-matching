@@ -58,5 +58,9 @@ We agree to work at a reasonable pace and respect our team members time<br>
 We agree to ask for help when needed and offer our help to those in need<br>
 We agree to implement and respect WIP limit of 3 and 4 on doing and testing columns<br>
 We agree to share peer testing and make testing known
+We agree to welcom questions and help if its affect others workflow 
+We agree that we have to communicate and involve product owner on the project progress 
+We agree that we should check teams everyday to be updated of other team members progress
+
 <br>
 
