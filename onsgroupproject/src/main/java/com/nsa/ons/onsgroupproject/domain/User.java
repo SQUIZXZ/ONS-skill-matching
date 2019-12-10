@@ -25,7 +25,13 @@ public class User {
 
   @NotNull
   @NotEmpty
+  private String email;
+
+  @NotNull
+  @NotEmpty
   private String password;
+
+
 
 }
 
