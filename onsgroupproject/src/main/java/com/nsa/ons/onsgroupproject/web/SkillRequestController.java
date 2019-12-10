@@ -97,7 +97,11 @@ public class SkillRequestController {
 
         SkillRequestMade skillRequest = new SkillRequestMade(firstName, surname, department, skill, description, furl);
         skillRequestCreator.makeSkillRequest(skillRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(furl);
+        //This is bad practise but was requested by the user
+        Optional<SkillRequest> skillRequestByFurl = skillRequestFinder.findSkillRequestByFurl(furl);
+        Long id = skillRequestByFurl.get().getId();
+        String data = (id+","+furl);
+        return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
     @RequestMapping(path = "saveNewSkill", method = RequestMethod.POST)

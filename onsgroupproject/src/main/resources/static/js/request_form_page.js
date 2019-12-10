@@ -5,6 +5,7 @@ function saveSkillRequest() {
     var skill = document.getElementById("skill").value;
     var description = document.getElementById("description").value;
     var furl = document.getElementById("furl").value;
+
     var data = {firstName: firstName, surname: surname, department: department, skill: skill, taskDescription: description, furl: furl};
 
     $.ajax({
@@ -13,9 +14,9 @@ function saveSkillRequest() {
         data: JSON.stringify(data),
         processData: false,
         contentType: "application/json",
-        success: function (furl) {
-            console.log(furl);
-            window.location.href = "/skillRequest/"+furl;
+        success: function (data) {
+            console.log(data);
+            window.location.href = "/skillRequest/"+data.split(",")[1]+"/"+data.split(",")[0];
         },
         error: function (response) {
             console.log(response.responseText.toString());
