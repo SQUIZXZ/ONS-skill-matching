@@ -15,7 +15,6 @@ public class user  {
         this.privacy = privacy;
     }
 
-
     public long getLevel1() {
         return level1;
     }
