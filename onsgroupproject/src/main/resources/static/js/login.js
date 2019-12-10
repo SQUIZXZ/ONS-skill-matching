@@ -3,7 +3,6 @@ $('.message a').click(function(){
 });
 
 function saveNewUser(){
-   console.log("rllo");
    var email = document.getElementById("register_email").value;
    var username = document.getElementById("register_username").value;
    var password = document.getElementById("register_password").value;
@@ -18,7 +17,6 @@ function saveNewUser(){
       contentType: "application/json",
       success: function (data) {
          console.log(data);
-
       }
    });
 }

@@ -20,7 +20,8 @@ public class UserRepositoryJPAAdaptor implements UserRepository {
                 null,
                 userMade.getUsername(),
                 userMade.getEmail(),
-                userMade.getPassword()
+                userMade.getPassword(),
+                null
         );
         userRepositoryJPA.save(newUser);
     }

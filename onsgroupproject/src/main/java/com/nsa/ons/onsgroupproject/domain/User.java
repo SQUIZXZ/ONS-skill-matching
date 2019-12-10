@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
   @Id
@@ -33,12 +33,6 @@ public class User {
   @NotEmpty
   private String password;
 
-
-  @Column(name = "surname")
-  private String surname;
-
-  @Column(name = "email")
-  private String email;
 
   @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "skill_id")

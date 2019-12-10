@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `user_skill`
 )
     ENGINE = InnoDB;
 
-CREATE TABLE if not exists `users`
+CREATE TABLE if not exists `user`
 (
     `id`        int(11)      NOT NULL AUTO_INCREMENT,
     `username`  VARCHAR(45)  NOT NULL,
