@@ -59,7 +59,7 @@ public class SkillRequestPageTests {
         given(this.skillRequestFinder.findSkillRequestByFurl("theFurl")).willReturn(Optional.of(mockSkillRequest));
 
         mvc.perform(
-                get("/skillRequest/theFurl")
+                get("/skillRequest/theFurl/1")
         ).andDo(
                 print()
         ).andExpect(

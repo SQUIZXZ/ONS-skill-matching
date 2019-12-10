@@ -97,7 +97,11 @@ public class SkillRequestController {
 
         SkillRequestMade skillRequest = new SkillRequestMade(firstName, surname, department, skill, description, furl);
         skillRequestCreator.makeSkillRequest(skillRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(furl);
+        //This is bad practise but was requested by the user
+        Optional<SkillRequest> skillRequestByFurl = skillRequestFinder.findSkillRequestByFurl(furl);
+        Long id = skillRequestByFurl.get().getId();
+        String data = (id+","+furl);
+        return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
     @RequestMapping(path = "saveNewSkill", method = RequestMethod.POST)
@@ -135,12 +139,17 @@ public class SkillRequestController {
 
     }
 
-    @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
-    public String skillRequest(@PathVariable("furl") String furl, Model model) {
+    @RequestMapping(path = "skillRequest/{furl}/{id}", method = RequestMethod.GET)
+    public String skillRequest(@PathVariable("furl") String furl,@PathVariable("id") Long id, Model model) {
         Optional<SkillRequest> skillRequest = skillRequestFinder.findSkillRequestByFurl(furl);
         if (skillRequest.isEmpty()) {
             log.debug("failed to find skill request");
             return "404ErrorPage";
+        } else {
+            if(!skillRequest.get().getId().equals(id)){
+                log.debug("failed to find skill request");
+                return "404ErrorPage";
+            }
         }
         model.addAttribute("skillRequest", skillRequest.get());
         return "requestPage";
