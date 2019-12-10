@@ -3,10 +3,7 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
-import com.nsa.ons.onsgroupproject.service.SkillUpdater;
-import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
+import com.nsa.ons.onsgroupproject.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +37,14 @@ public class SkillHierarchyHTMLTest {
     private SkillFinder skillFinder;
 
     @MockBean
-    private UserSkillFinder userSkillFinder ;
+    private UserSkillFinder userSkillFinder;
 
     @MockBean
     private SkillUpdater skillUpdater;
+
+    @MockBean
+    private UserSkillRepo userSkillRepo;
+
 
     @MockBean
     private MyUserDetailsService myUserDetailsService;
