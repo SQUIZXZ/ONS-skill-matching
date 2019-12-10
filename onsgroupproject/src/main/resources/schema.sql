@@ -71,4 +71,3 @@ CREATE TABLE if not exists `user_role`
 )
 
     ENGINE = InnoDB;
-

@@ -27,10 +27,12 @@ public class User {
 
   @NotNull
   @NotEmpty
+  private String email;
+
+  @NotNull
+  @NotEmpty
   private String password;
 
-  @Column(name = "first_name")
-  private String firstName;
 
   @Column(name = "surname")
   private String surname;

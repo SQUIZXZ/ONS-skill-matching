@@ -1,8 +1,8 @@
 package com.nsa.ons.onsgroupproject.config.security;
 
 
-import com.nsa.ons.onsgroupproject.data.UserRepository;
-import com.nsa.ons.onsgroupproject.data.UserRolesRepository;
+import com.nsa.ons.onsgroupproject.data.UserRepositoryJPA;
+import com.nsa.ons.onsgroupproject.data.UserRolesRepositoryJPA;
 import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.web.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
   @Autowired
-  private UserRepository userRepository;
+  private UserRepositoryJPA userRepository;
   @Autowired
-  private UserRolesRepository userRolesRepository;
+  private UserRolesRepositoryJPA userRolesRepository;
   @Autowired
   private PasswordEncoder encoder;
 
@@ -43,7 +43,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
   public User registerNewUserAccount(UserForm userForm) {
 
-    User newUser = new User(null, userForm.getUsername(), userForm.getPassword(),null,null,null,null);
+    User newUser = new User(null, userForm.getUsername(),userForm.getEmail(), userForm.getPassword());
 
 
     return newUser;
