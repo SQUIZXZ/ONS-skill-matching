@@ -16,6 +16,4 @@ public interface UserSkillRepositoryJPA extends JpaRepository<User,Long> {
 
 
 
-
-
 }

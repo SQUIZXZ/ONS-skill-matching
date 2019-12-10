@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `skill_requests`
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `user_skill`
 (
     `user_id`    INT NOT NULL,
@@ -57,6 +58,7 @@ CREATE TABLE if not exists `users`
     `skill_id` INT,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`skill_id`) REFERENCES `user_skill`(`skill_id`)
+
 )
     ENGINE = InnoDB;
 
@@ -67,4 +69,6 @@ CREATE TABLE if not exists `user_role`
     `role`   varchar(45) NOT NULL,
     PRIMARY KEY (`id`)
 )
+
     ENGINE = InnoDB;
+

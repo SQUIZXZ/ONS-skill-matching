@@ -42,7 +42,7 @@ class SkillController {
     // If skill index exists for add it to the model and return it
     @GetMapping("skill/{i}")
     public String showSkillPage(@PathVariable("i") Long index, Model model) {
-        model.addAttribute("users",userSkillFinder.findUsersSkillBySkillId(index));
+
         Optional<Skill> skill = finder.findSkillByIndex(index);
 
         if (skill.isPresent()) {

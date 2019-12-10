@@ -4,7 +4,6 @@ import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.service.UserSkillRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Table;
 import java.util.List;
 
 @Repository

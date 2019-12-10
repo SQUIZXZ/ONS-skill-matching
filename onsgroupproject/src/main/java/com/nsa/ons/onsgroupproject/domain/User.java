@@ -43,5 +43,3 @@ public class User {
   private UserSkill userSkill;
 
 }
-
-
