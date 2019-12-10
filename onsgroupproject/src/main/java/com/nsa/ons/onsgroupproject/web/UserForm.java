@@ -16,6 +16,10 @@ public class UserForm {
 
   @NotNull
   @NotEmpty
+  private String email;
+
+  @NotNull
+  @NotEmpty
   private String username;
 
   @NotNull
@@ -24,7 +28,7 @@ public class UserForm {
 
   @NotNull
   @NotEmpty
-  private String matchingPassword;
+  private String confirmPassword;
 
 
 }

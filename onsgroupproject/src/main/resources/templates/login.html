@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="/style/style.css">
-    <link rel="stylesheet" type="text/css" href="/js/script.js">
+    <link rel="stylesheet" type="text/css" href="/js/login.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -13,9 +13,11 @@
     <img class="onslogo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.svg">
     <div class="form">
         <form class="register-form">
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
-            <button>create</button>
+            <input id="register_email" type="text" placeholder="email address"/>
+            <input id="register_username" type="username" placeholder="username"/>
+            <input id="register_password" type="password" placeholder="password"/>
+            <input id="register_matching_password" type="password" placeholder="confirm password"/>
+            <button onclick="saveNewUser()">create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
         <form class="login-form" method="post" th:action="@{/login}">
@@ -38,7 +40,7 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
 
-<script src="js/script.js"></script>
+<script src="js/login.js"></script>
 
 </body>
 </html>
