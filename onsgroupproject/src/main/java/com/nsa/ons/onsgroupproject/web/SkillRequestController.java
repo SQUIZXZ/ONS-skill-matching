@@ -135,12 +135,17 @@ public class SkillRequestController {
 
     }
 
-    @RequestMapping(path = "skillRequest/{furl}", method = RequestMethod.GET)
-    public String skillRequest(@PathVariable("furl") String furl, Model model) {
+    @RequestMapping(path = "skillRequest/{furl}/{id}", method = RequestMethod.GET)
+    public String skillRequest(@PathVariable("furl") String furl,@PathVariable("id") Long id, Model model) {
         Optional<SkillRequest> skillRequest = skillRequestFinder.findSkillRequestByFurl(furl);
         if (skillRequest.isEmpty()) {
             log.debug("failed to find skill request");
             return "404ErrorPage";
+        } else {
+            if(!skillRequest.get().getId().equals(id)){
+                log.debug("failed to find skill request");
+                return "404ErrorPage";
+            }
         }
         model.addAttribute("skillRequest", skillRequest.get());
         return "requestPage";
