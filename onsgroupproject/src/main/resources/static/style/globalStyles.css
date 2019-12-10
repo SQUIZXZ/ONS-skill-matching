@@ -11,7 +11,6 @@ main{
     font-family: 'Alatsi', sans-serif;
     padding: 2%;
     background-color: #2D283E;
-    border-radius: 1%;
     font-weight: bold;
 
 }
@@ -60,3 +59,28 @@ th{
 textarea{
     resize: none;
 }
+
+.error{
+    color:red;
+}
+
+#editButton{
+    margin-top: 100px!important;
+    margin-right: 100px;
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+h4.request-title{
+    font-size: 14pt;
+}
+
+.request-box{
+    margin: 0.75%;
+    padding: 0.5%;
+    background-color: mediumpurple;
+    border: 5pt;
+    border-color: midnightblue;
+}
+

@@ -2,6 +2,14 @@ package com.nsa.ons.onsgroupproject.web;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nsa.ons.onsgroupproject.domain.Skill;
+import com.nsa.ons.onsgroupproject.service.*;
+
+import com.nsa.ons.onsgroupproject.service.events.SkillMade;
+import org.springframework.http.MediaType;
+
 import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.*;
@@ -19,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -32,10 +41,13 @@ public class SkillCreationTests {
     private MockMvc mvc;
 
     @MockBean
-    private SkillRequestCreator skillRequestCreator;
+    private SkillRequestRepository skillRequestRepository;
 
     @MockBean
     private SkillRequestFinder skillRequestFinder;
+
+    @MockBean
+    private SkillRequestCreator skillRequestCreator;
 
     @MockBean
     private SkillFinder skillFinder;

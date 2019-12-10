@@ -1,15 +1,15 @@
 package com.nsa.ons.onsgroupproject.web;
 
 import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
+
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
+import com.nsa.ons.onsgroupproject.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,14 +27,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SkillController.class)
+@WebMvcTest(com.nsa.ons.onsgroupproject.web.SkillController.class)
 public class SkillHierarchyHTMLTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private SkillFinder skillRepository;
+    private SkillFinder skillFinder;
+
+    @MockBean
+    private UserSkillFinder userSkillFinder;
+
+    @MockBean
+    private SkillUpdater skillUpdater;
+
+    @MockBean
+    private UserSkillRepo userSkillRepo;
+
 
     @MockBean
     private MyUserDetailsService myUserDetailsService;
@@ -60,9 +70,9 @@ public class SkillHierarchyHTMLTest {
         thisSkill.setParentSkills(containsParent);
         thisSkill.setChildSkills(containsChild);
 
-        given(this.skillRepository.findSkillByIndex(1L)).willReturn(Optional.of(skillParent));
-        given(this.skillRepository.findSkillByIndex(2L)).willReturn(Optional.of(skillChild));
-        given(this.skillRepository.findSkillByIndex(3L)).willReturn(Optional.of(thisSkill));
+        given(this.skillFinder.findSkillByIndex(1L)).willReturn(Optional.of(skillParent));
+        given(this.skillFinder.findSkillByIndex(2L)).willReturn(Optional.of(skillChild));
+        given(this.skillFinder.findSkillByIndex(3L)).willReturn(Optional.of(thisSkill));
 
         mvc.perform(
                 get("/skill/3")

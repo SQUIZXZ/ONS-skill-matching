@@ -18,6 +18,7 @@ public interface SkillRepositoryJPA extends JpaRepository<Skill, Long> {
 
     Optional<Skill> findByName(String name);
 
+
 }
 
 

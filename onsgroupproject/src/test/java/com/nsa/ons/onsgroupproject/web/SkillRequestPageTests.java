@@ -39,9 +39,9 @@ public class SkillRequestPageTests {
 
     @MockBean
     private SkillCreator skillCreator;
+
     @MockBean
     private MyUserDetailsService myUserDetailsService;
-
 
     @Test
     @WithMockUser(value = "Mock")

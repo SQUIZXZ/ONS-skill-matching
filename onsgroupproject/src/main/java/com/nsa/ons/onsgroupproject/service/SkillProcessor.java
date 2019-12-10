@@ -2,13 +2,14 @@ package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.service.events.SkillMade;
+import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SkillProcessor implements SkillFinder, SkillCreator {
+public class SkillProcessor implements SkillFinder, SkillCreator,SkillUpdater {
 
     private SkillRepository skillRepository;
 
@@ -38,6 +39,12 @@ public class SkillProcessor implements SkillFinder, SkillCreator {
     public void makeSkill(SkillMade skillMade) {
         skillRepository.saveSkill(skillMade);
     }
+
+    @Override
+    public void updateSkill(SkillUpdated skillUpdated){
+        skillRepository.saveSkill(skillUpdated);
+    }
+
 }
 
 

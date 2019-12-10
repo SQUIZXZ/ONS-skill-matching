@@ -5,6 +5,7 @@ import com.nsa.ons.onsgroupproject.service.SkillRequestRepository;
 import com.nsa.ons.onsgroupproject.service.events.SkillRequestMade;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -33,6 +34,11 @@ public class SkillRequestRepositoryJPAAdaptor implements SkillRequestRepository 
                 skillRequest.getFurl()
         );
         skillRequestRepositoryJPA.save(newSkillRequest);
+    }
+
+    @Override
+    public List<SkillRequest> findAll(){
+        return skillRequestRepositoryJPA.findAll();
     }
 
 }
