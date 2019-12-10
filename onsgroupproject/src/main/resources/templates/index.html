@@ -29,6 +29,10 @@
     </div>
 </nav>
 <main class="container" role="main">
+    <div style="color: white">
+        <h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h1>
+    </div>
+
     <div class="starter-template">
         <div class="row">
             <P class="lead text-left"> Please enter the name of the skill that you are looking for.
@@ -36,9 +40,6 @@
         </div>
     </div>
     <div>
-        <div style="color: white">
-            <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        </div>
 
         <div class="row">
 
