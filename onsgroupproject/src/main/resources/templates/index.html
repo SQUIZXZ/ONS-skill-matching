@@ -61,7 +61,7 @@
     </div>
     <br>
     <div class="request-box" th:each="request:${allRequests}">
-        <a th:href="@{/skillRequest/{furl} (furl = ${request.getFurl()})}"><h4 class="request-title"><span th:text="'Looking for ' + ${request.skill} + ' skills in ' + ${request.department}"></span></h4></a>
+        <a th:href="@{/skillRequest/{furl}/{id} (furl = ${request.getFurl()}, id = ${request.getId()})}"><h4 class="request-title"><span th:text="'Looking for ' + ${request.skill} + ' skills in ' + ${request.department}"></span></h4></a>
     </div>
 </main>
 </body>
