@@ -34,11 +34,11 @@ public class User {
   @NotEmpty
   private String password;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
-  @JoinTable(name = "user_skill",
-  joinColumns = {@JoinColumn(name = "skill_id")},
-  inverseJoinColumns = {@JoinColumn(name = "user_id")})
-  List<Skill> userSkills;
+//  @ManyToMany(cascade = CascadeType.PERSIST)
+//  @JoinTable(name = "user_skill",
+//  joinColumns = {@JoinColumn(name = "skill_id")},
+//  inverseJoinColumns = {@JoinColumn(name = "user_id")})
+//  List<Skill> userSkills;
 
 
 //  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
