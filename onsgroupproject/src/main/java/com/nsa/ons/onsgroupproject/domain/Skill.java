@@ -36,8 +36,8 @@ public class Skill {
             inverseJoinColumns = {@JoinColumn(name = "parent_id")})
     List<Skill> parentSkills;
 
-//    @ManyToMany(mappedBy = "userSkills")
-//    List<User> userSkills;
+    @ManyToMany(mappedBy = "userSkills")
+    List<User> userSkills;
 
     public String searchable() {
         return String.join(";", name);

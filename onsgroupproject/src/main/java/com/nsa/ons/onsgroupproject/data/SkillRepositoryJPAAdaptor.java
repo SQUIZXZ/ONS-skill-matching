@@ -40,7 +40,7 @@ public class SkillRepositoryJPAAdaptor implements SkillRepository {
 
     @Override
     public void saveSkill(SkillMade skillMade) {
-        Skill s = new Skill(null,skillMade.getSkillName(),skillMade.getSkillDescription(),new ArrayList<>(),skillMade.getParentSkills()/*,null*/);
+        Skill s = new Skill(null,skillMade.getSkillName(),skillMade.getSkillDescription(),new ArrayList<>(),skillMade.getParentSkills(),null);
         skillRepositoryJPA.save(s);
 
     }

@@ -32,7 +32,8 @@ public class MyUserPrincipal implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    String roles = StringUtils.collectionToCommaDelimitedString(userRoles);
+    String roles = "ROLE_USER";
+//    String roles = StringUtils.collectionToCommaDelimitedString(userRoles);
     return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
   }
 
