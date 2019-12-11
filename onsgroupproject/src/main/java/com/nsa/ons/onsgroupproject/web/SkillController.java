@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.nsa.ons.onsgroupproject.config.security.MyUserPrincipal;
 import com.nsa.ons.onsgroupproject.domain.Skill;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.SkillFinder;
 import com.nsa.ons.onsgroupproject.service.SkillUpdater;
+import com.nsa.ons.onsgroupproject.service.UserSkillCreator;
 import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
-import com.nsa.ons.onsgroupproject.service.UserSkillRepo;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
+import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,14 +34,13 @@ class SkillController {
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
     private UserSkillFinder userSkillFinder;
+    private UserSkillCreator userSkillCreator;
 
-    @Autowired
-    UserSkillRepo skillReporepo;
-
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUScreate) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
         userSkillFinder = uSFinder;
+        userSkillCreator = aUScreate;
     }
 
 
@@ -142,14 +141,14 @@ class SkillController {
 
 
 
-    @PostMapping("user")
+    @RequestMapping(path = "user",method = RequestMethod.POST)
     @ResponseBody
-    public UserSkill userProfile(@ModelAttribute UserSkill user) {
-        user.setUser_id((long) 10);
-        UserSkill userSkill1=skillReporepo.save(user);
-        return userSkill1;
+    public String userProfile(@ModelAttribute UserSkillMade userSkillMade) {
+        userSkillMade.setUserID((long) 10);
+        userSkillCreator.saveUserSkill(userSkillMade);
+        return "index";
     }
-    @GetMapping("user")
+    @RequestMapping(path = "userProfile", method = RequestMethod.GET)
     public String userProfile( Model model) {
         model.addAttribute("user", new UserSkill());
         return "user";

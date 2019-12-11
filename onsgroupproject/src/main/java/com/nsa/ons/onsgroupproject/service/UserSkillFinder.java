@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserSkillFinder {
 
 
-     List<User> findUsersSkillBySkillId(Long skillID);
+//     List<User> findUsersSkillBySkillId(Long skillID);
 
 //    Optional<UserSkill> findById(Long id, Long skillId);
 

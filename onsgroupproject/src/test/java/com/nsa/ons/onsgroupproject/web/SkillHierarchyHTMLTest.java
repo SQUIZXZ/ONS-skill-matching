@@ -43,7 +43,7 @@ public class SkillHierarchyHTMLTest {
     private SkillUpdater skillUpdater;
 
     @MockBean
-    private UserSkillRepo userSkillRepo;
+    private UserSkillCreator userSkillCreator;
 
 
     @MockBean
