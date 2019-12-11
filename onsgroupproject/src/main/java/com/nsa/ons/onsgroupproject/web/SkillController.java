@@ -12,6 +12,7 @@ import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.*;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
+import com.nsa.ons.onsgroupproject.service.events.UserUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,13 +37,15 @@ class SkillController {
     private UserSkillFinder userSkillFinder;
     private UserSkillCreator userSkillCreator;
     private UserFinder userDetailsService;
+    private UserUpdater userUpdater;
 
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUSCreate, UserFinder aMUDetails) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUSCreate, UserFinder aMUDetails, UserUpdater aUsUpdate) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
         userSkillFinder = uSFinder;
         userSkillCreator = aUSCreate;
         userDetailsService = aMUDetails;
+        userUpdater = aUsUpdate;
     }
 
 
@@ -143,19 +146,32 @@ class SkillController {
 
 
 
-    @RequestMapping(path = "user",method = RequestMethod.POST)
-    @ResponseBody
-    public String userProfile(@ModelAttribute UserSkillMade userSkillMade) {
-        userSkillMade.setUserID((long) 10);
-        userSkillCreator.saveUserSkill(userSkillMade);
-        return "index";
+    @RequestMapping(path = "/saveUserSkills",method = RequestMethod.POST)
+    public ResponseEntity<?> userProfile(@RequestBody @Valid UserSkillsForm userSkillsForm,Authentication authentication) {
+        List<Skill> userSkillList = new ArrayList<>();
+        for(int skill = 0; skill<userSkillsForm.getSkillNames().size(); skill++){
+            Optional<Skill> currentSkill = finder.findSkillByName(userSkillsForm.getSkillNames().get(skill));
+            if(currentSkill.isEmpty()){
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("SkillDoesNotExist");
+            } else {
+                userSkillList.add(currentSkill.get());
+            }
+        }
+        Optional<User> currentUser = userDetailsService.findUserByUserName(authentication.getName());
+        if (currentUser.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("notLoggedIn");
+        }
+        UserUpdated userUpdated = new UserUpdated(currentUser.get(),userSkillList);
+        userUpdater.updateUser(userUpdated);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");
     }
 
-    @RequestMapping(path = "user", method = RequestMethod.GET)
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
     public String userProfile(Model model, Authentication authentication) {
         log.debug("################################" + authentication.getName());
         Optional<User> currentUser = userDetailsService.findUserByUserName(authentication.getName());
         List<Skill> allSkills = finder.findAll();
+        log.debug("#########################################" + currentUser.get().getUserSkills().toString());
         model.addAttribute("user", new UserSkill());
         model.addAttribute("allSkills",allSkills);
         model.addAttribute("userDetails",currentUser.get());

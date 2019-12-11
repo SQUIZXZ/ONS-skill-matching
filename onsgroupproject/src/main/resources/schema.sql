@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `user_skill`
 (
     `user_id`  INT NOT NULL,
     `skill_id` INT NOT NULL,
-    `level`    INT NOT NULL,
-    `privacy`  BOOLEAN NOT NULL,
+    `level`    INT,
+    `privacy`  BOOLEAN,
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
     FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
     PRIMARY KEY (`user_id`,`skill_id`)

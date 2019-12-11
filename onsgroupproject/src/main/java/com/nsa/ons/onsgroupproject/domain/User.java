@@ -36,8 +36,8 @@ public class User {
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinTable(name = "user_skill",
-  joinColumns = {@JoinColumn(name = "skill_id")},
-  inverseJoinColumns = {@JoinColumn(name = "user_id")})
+  joinColumns = {@JoinColumn(name = "user_id")},
+  inverseJoinColumns = {@JoinColumn(name = "skill_id")})
   List<Skill> userSkills;
 
 
