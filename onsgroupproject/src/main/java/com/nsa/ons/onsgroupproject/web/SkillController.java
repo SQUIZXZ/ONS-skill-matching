@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 import com.nsa.ons.onsgroupproject.domain.Skill;
+import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillUpdater;
-import com.nsa.ons.onsgroupproject.service.UserSkillCreator;
-import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
+import com.nsa.ons.onsgroupproject.service.*;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
 import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,12 +35,14 @@ class SkillController {
     private SkillUpdater skillUpdater;
     private UserSkillFinder userSkillFinder;
     private UserSkillCreator userSkillCreator;
+    private UserFinder userDetailsService;
 
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUScreate) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUSCreate, UserFinder aMUDetails) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
         userSkillFinder = uSFinder;
-        userSkillCreator = aUScreate;
+        userSkillCreator = aUSCreate;
+        userDetailsService = aMUDetails;
     }
 
 
@@ -148,9 +150,15 @@ class SkillController {
         userSkillCreator.saveUserSkill(userSkillMade);
         return "index";
     }
-    @RequestMapping(path = "userProfile", method = RequestMethod.GET)
-    public String userProfile( Model model) {
+
+    @RequestMapping(path = "user", method = RequestMethod.GET)
+    public String userProfile(Model model, Authentication authentication) {
+        log.debug("################################" + authentication.getName());
+        Optional<User> currentUser = userDetailsService.findUserByUserName(authentication.getName());
+        List<Skill> allSkills = finder.findAll();
         model.addAttribute("user", new UserSkill());
+        model.addAttribute("allSkills",allSkills);
+        model.addAttribute("userDetails",currentUser.get());
         return "user";
     }
     }

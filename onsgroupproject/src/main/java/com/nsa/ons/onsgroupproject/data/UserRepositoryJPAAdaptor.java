@@ -5,6 +5,8 @@ import com.nsa.ons.onsgroupproject.service.UserRepository;
 import com.nsa.ons.onsgroupproject.service.events.UserMade;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserRepositoryJPAAdaptor implements UserRepository {
 
@@ -24,6 +26,10 @@ public class UserRepositoryJPAAdaptor implements UserRepository {
                 null
         );
         userRepositoryJPA.save(newUser);
+    }
+
+    public Optional<User> findUserByUsername(String userName){
+        return Optional.of(userRepositoryJPA.findByUsername(userName));
     }
 
 }
