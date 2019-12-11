@@ -5,18 +5,19 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.nsa.ons.onsgroupproject.config.security.MyUserPrincipal;
+import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 import com.nsa.ons.onsgroupproject.domain.Skill;
+import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillUpdater;
-import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
-import com.nsa.ons.onsgroupproject.service.UserSkillRepo;
+import com.nsa.ons.onsgroupproject.service.*;
 import com.nsa.ons.onsgroupproject.service.events.SkillUpdated;
+import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
+import com.nsa.ons.onsgroupproject.service.events.UserUpdated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,14 +35,17 @@ class SkillController {
     private SkillFinder finder;
     private SkillUpdater skillUpdater;
     private UserSkillFinder userSkillFinder;
+    private UserSkillCreator userSkillCreator;
+    private UserFinder userDetailsService;
+    private UserUpdater userUpdater;
 
-    @Autowired
-    UserSkillRepo skillReporepo;
-
-    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder) {
+    public SkillController(SkillFinder aFinder, SkillUpdater aSkillUpdate, UserSkillFinder uSFinder, UserSkillCreator aUSCreate, UserFinder aMUDetails, UserUpdater aUsUpdate) {
         finder = aFinder;
         skillUpdater = aSkillUpdate;
         userSkillFinder = uSFinder;
+        userSkillCreator = aUSCreate;
+        userDetailsService = aMUDetails;
+        userUpdater = aUsUpdate;
     }
 
 
@@ -142,16 +146,35 @@ class SkillController {
 
 
 
-    @PostMapping("user")
-    @ResponseBody
-    public UserSkill userProfile(@ModelAttribute UserSkill user) {
-        user.setUser_id((long) 10);
-        UserSkill userSkill1=skillReporepo.save(user);
-        return userSkill1;
+    @RequestMapping(path = "/saveUserSkills",method = RequestMethod.POST)
+    public ResponseEntity<?> userProfile(@RequestBody @Valid UserSkillsForm userSkillsForm,Authentication authentication) {
+        List<Skill> userSkillList = new ArrayList<>();
+        for(int skill = 0; skill<userSkillsForm.getSkillNames().size(); skill++){
+            Optional<Skill> currentSkill = finder.findSkillByName(userSkillsForm.getSkillNames().get(skill));
+            if(currentSkill.isEmpty()){
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("SkillDoesNotExist");
+            } else {
+                userSkillList.add(currentSkill.get());
+            }
+        }
+        Optional<User> currentUser = userDetailsService.findUserByUserName(authentication.getName());
+        if (currentUser.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("notLoggedIn");
+        }
+        UserUpdated userUpdated = new UserUpdated(currentUser.get(),userSkillList);
+        userUpdater.updateUser(userUpdated);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");
     }
-    @GetMapping("user")
-    public String userProfile( Model model) {
+
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    public String userProfile(Model model, Authentication authentication) {
+        log.debug("################################" + authentication.getName());
+        Optional<User> currentUser = userDetailsService.findUserByUserName(authentication.getName());
+        List<Skill> allSkills = finder.findAll();
+        log.debug("#########################################" + currentUser.get().getUserSkills().toString());
         model.addAttribute("user", new UserSkill());
+        model.addAttribute("allSkills",allSkills);
+        model.addAttribute("userDetails",currentUser.get());
         return "user";
     }
     }

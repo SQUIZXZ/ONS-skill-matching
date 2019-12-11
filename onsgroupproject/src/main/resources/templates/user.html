@@ -1,8 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>User Profile Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" rel="stylesheet">
+    <link href="css/starter-template.css" rel="stylesheet">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/user_profile.js}"></script>
+    <link rel="stylesheet" href="/style/globalStyles.css"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg">
@@ -25,12 +31,26 @@
         </form>
     </div>
 </nav>
-<h1>Form</h1>
-<form action="#" th:action="@{user}" th:object="${user}" method="post">
-    <p>level: <input type="text" th:field="*{level}" /></p>
-    <p>skill: <input type="text" th:field="*{skill_id}" /></p>
-    <p>privacy :<input type="checkbox" th:field="*{privacy}" />
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+<h2>Add a skill</h2>
+<form onsubmit="return false;">
+
+    <div>
+        <button onclick="AddUserSkill()" type="button" class="btn btn-outline-success my-2 my-sm-0">Add a new Skill</button>
+    </div>
+    <div id = "AllUserSkills">
+        <div id="userSkill" th:each = "skill : ${userDetails.getUserSkills()}">
+            <label>Skill Name:  </label><input type="text" list="listOfSkills" th:value="${skill.getName()}" class="skillSelector">
+            <label>Skill level:  </label><input type="text" class = "skillLevels"/>
+            <label>Skill Privacy:  </label><input type="checkbox" class = "userSkillPrivacy" />
+            <button onclick="deleteSkill(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">Delete Skill</button>
+        </div>
+    </div>
+
+
+    <datalist id="listOfSkills">
+        <option th:each="selectionSkill:${allSkills}" th:text="${selectionSkill.getName()}"></option>
+    </datalist>
+    <p><button onclick="saveCurrentSkills()">Submit</button></p>
 </form>
 </body>
 </html>
