@@ -67,7 +67,8 @@ CREATE TABLE if not exists `user_role`
     `id`     int(11)     NOT NULL AUTO_INCREMENT,
     `userid` int(11)     NOT NULL,
     `role`   varchar(45) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`userid`) REFERENCES `user`(`id`)
 )
 
     ENGINE = InnoDB;
