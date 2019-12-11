@@ -34,6 +34,9 @@ function saveNewUser(){
                case "confirm_password":
                   $('#register_matching_password').after('<span class="error">' + 'Password must be at least 6 characters long' + '</span>' + '<br class="error">');
                   break;
+               case "password_miss_match":
+                  $('#register_matching_password').after('<span class="error">' + 'Passwords must match' + '</span>' + '<br class="error">');
+                  break;
             }
          }
       }
