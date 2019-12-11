@@ -1,5 +1,6 @@
 package com.nsa.ons.onsgroupproject.web;
 
+import com.nsa.ons.onsgroupproject.service.PasswordValidator;
 import com.nsa.ons.onsgroupproject.service.UserCreator;
 import com.nsa.ons.onsgroupproject.service.events.UserMade;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class RegistrationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     public RegistrationController(UserCreator userCreator, PasswordEncoder passwordEncoder) {
         this.userCreator = userCreator;
         this.passwordEncoder = passwordEncoder;
@@ -38,6 +40,9 @@ public class RegistrationController {
                 messages += error.getDefaultMessage() + ", ";
             }
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
+        }
+        if(!userForm.getPassword().equals(userForm.getConfirmPassword())){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("password_miss_match");
         }
         String hash = passwordEncoder.encode(userForm.getPassword());
         UserMade registerUser = new UserMade(userForm.getUsername(), userForm.getEmail(), hash);
