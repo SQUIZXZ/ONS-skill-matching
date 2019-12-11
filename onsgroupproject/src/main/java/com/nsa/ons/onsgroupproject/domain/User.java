@@ -34,8 +34,8 @@ public class User {
   private String password;
 
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinColumn(name = "skill_id")
-  private UserSkill userSkill;
+//  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//  @JoinColumn(name = "skill_id")
+//  private UserSkill userSkill;
 
 }
