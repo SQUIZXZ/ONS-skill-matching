@@ -60,7 +60,7 @@ function submitSkillEdit(skillId) {
 }
 
 function AddParent() {
-    $("#allParentSkills").append('<div id="parentSkills"><input type="text" list="listOfSkills" class="parentSkillSelector"> <button onclick="deleteParent(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">' + 'Delete Parent' + '</button> </div>')
+    $("#allParentSkills").append('<div id="parentSkills"><input type="text" list="listOfSkills" class="parentSkillSelector search__input"> <button onclick="deleteParent(this)" type="button" class="btn btn btn--secondary">' + 'Delete Parent' + '</button> </div>')
 
 }
 

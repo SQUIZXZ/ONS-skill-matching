@@ -68,7 +68,7 @@
                 <br>
                 <div id="parentSkills" th:each = "skill : ${editingSkill.getParentSkills()}">
                     <input type="text" list="listOfSkills" th:value="${skill.getName()}" class="parentSkillSelector search__input">
-                    <button onclick="deleteParent(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">Delete Parent</button>
+                    <button onclick="deleteParent(this)" type="button" class="btn btn--secondary">Delete Parent</button>
                 </div>
                 <datalist id="listOfSkills">
                     <option th:each="selectionSkill:${allSkills}" th:text="${selectionSkill.getName()}"></option>

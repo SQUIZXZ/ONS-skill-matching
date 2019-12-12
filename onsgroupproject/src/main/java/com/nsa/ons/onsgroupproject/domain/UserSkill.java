@@ -25,9 +25,9 @@ public class UserSkill {
     private Long skill_id;
 
     @Column(name = "level")
-    private long level;
+    private Long level;
 
     @Column(name = "privacy")
-    private boolean privacy;
+    private Boolean privacy;
 
 }

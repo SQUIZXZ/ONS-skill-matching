@@ -64,8 +64,11 @@
             <div id="userSkill" th:each="skill : ${userDetails.getUserSkills()}">
                 <label>Skill Name: </label><input type="text" list="listOfSkills" th:value="${skill.getName()}"
                                                   class="skillSelector search__input">
-                <label>Skill level: </label><input type="text" class="skillLevels search__input"/>
-                <label>Skill Privacy: </label><input type="checkbox" class="userSkillPrivacy"/>
+                <label>Skill level: </label><input th:value="${userSkills.get(skillStat.index).getLevel()}" type="text" class="skillLevels search__input"/>
+
+<!--                <p th:text="${userSkills.get(skill.getId()-1).getPrivacy()}"></p>-->
+                <label>Skill Privacy: </label><input th:if="${userSkills.get(skillStat.index).getPrivacy() == true}" checked type="checkbox" class="userSkillPrivacy"/>
+                <input th:unless="${userSkills.get(skillStat.index).getPrivacy() == true}" type="checkbox" class="userSkillPrivacy"/>
                 <button onclick="deleteSkill(this)" type="button" class="btn btn--secondary">Delete Skill</button>
             </div>
         </div>

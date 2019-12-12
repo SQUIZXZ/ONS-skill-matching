@@ -149,6 +149,7 @@ class SkillController {
     @RequestMapping(path = "/saveUserSkills",method = RequestMethod.POST)
     public ResponseEntity<?> userProfile(@RequestBody @Valid UserSkillsForm userSkillsForm,Authentication authentication) {
         List<Skill> userSkillList = new ArrayList<>();
+
         for(int skill = 0; skill<userSkillsForm.getSkillNames().size(); skill++){
             Optional<Skill> currentSkill = finder.findSkillByName(userSkillsForm.getSkillNames().get(skill));
             if(currentSkill.isEmpty()){
@@ -163,6 +164,21 @@ class SkillController {
         }
         UserUpdated userUpdated = new UserUpdated(currentUser.get(),userSkillList);
         userUpdater.updateUser(userUpdated);
+        for(int skill = 0; skill<userSkillsForm.getSkillNames().size(); skill++) {
+            Optional<Skill> currentSkill = finder.findSkillByName(userSkillsForm.getSkillNames().get(skill));
+            Long i = new Long(0);
+            Boolean b = new Boolean(Boolean.FALSE);
+            if(userSkillsForm.getSkillLevels().get(skill) !=""){
+                i = Long.parseLong(userSkillsForm.getSkillLevels().get(skill));
+            }
+            if(userSkillsForm.getSkillPrivacy().get(skill) !=""){
+                b = Boolean.parseBoolean(userSkillsForm.getSkillPrivacy().get(skill));
+            }
+            UserSkillMade userSkillMade = new UserSkillMade(currentUser.get().getId(), currentSkill.get().getId(), i, b);
+//            log.debug(userSkillMade.toString());
+            userSkillCreator.saveUserSkill(userSkillMade);
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body("Updated Database");
     }
 
@@ -175,6 +191,8 @@ class SkillController {
         model.addAttribute("user", new UserSkill());
         model.addAttribute("allSkills",allSkills);
         model.addAttribute("userDetails",currentUser.get());
+        model.addAttribute("userSkills",userSkillFinder.findAllByUser_id(currentUser.get().getId()));
+
         return "user";
     }
     }

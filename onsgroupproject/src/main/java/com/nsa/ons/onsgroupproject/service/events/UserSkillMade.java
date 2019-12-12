@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class UserSkillMade {
     private Long userID;
     private Long skillId;
-    private Integer level;
-    private  boolean privacy ;
+    private Long level;
+    private Boolean privacy ;
 }

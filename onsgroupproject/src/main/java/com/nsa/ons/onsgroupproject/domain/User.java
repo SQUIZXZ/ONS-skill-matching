@@ -41,6 +41,8 @@ public class User {
   List<Skill> userSkills;
 
 
+
+
 //  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //  @JoinColumn(name = "skill_id")
 //  private UserSkill userSkill;

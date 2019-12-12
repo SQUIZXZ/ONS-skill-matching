@@ -1,6 +1,7 @@
 package com.nsa.ons.onsgroupproject.service;
 
 import com.nsa.ons.onsgroupproject.domain.User;
+import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,10 @@ public class UserSkillProcessor implements UserSkillFinder,UserSkillCreator {
         userSkillRepository.saveUserSkill(userSkillMade);
     }
 
+    @Override
+    public List<UserSkill> findAllByUser_id(Long userId) {
+        return userSkillRepository.findAllByUser_id(userId);
+    }
 
 
 //    public Optional<UserSkill> findById(Long id ,Long SkillId){

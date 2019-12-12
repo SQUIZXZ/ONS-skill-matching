@@ -1,6 +1,5 @@
 package com.nsa.ons.onsgroupproject.data;
 
-import com.nsa.ons.onsgroupproject.domain.User;
 import com.nsa.ons.onsgroupproject.domain.UserSkill;
 import com.nsa.ons.onsgroupproject.service.UserSkillRepository;
 import com.nsa.ons.onsgroupproject.service.events.UserSkillMade;
@@ -18,16 +17,19 @@ public class UserSkillRepositoryJPAAdaptor implements UserSkillRepository {
     }
 
 
-//    @Override
+    //    @Override
 //    public List<User> findUserSkillBySkillId(Long SkillId) {
 //        return userSkillRepositoryJPA.findUsersSkillBySkillId(SkillId);
 //    }
-
-    public void saveUserSkill(UserSkillMade userSkillMade){
-        UserSkill newUserSkill = new UserSkill(userSkillMade.getUserID(),userSkillMade.getSkillId(),userSkillMade.getLevel(),userSkillMade.isPrivacy());
-        userSkillRepositoryJPA.save(newUserSkill);
+    @Override
+    public List<UserSkill> findAllByUser_id(Long id) {
+        return userSkillRepositoryJPA.findAllByUser_id(id);
     }
 
+    public void saveUserSkill(UserSkillMade userSkillMade) {
+        UserSkill newUserSkill = new UserSkill(userSkillMade.getUserID(), userSkillMade.getSkillId(), userSkillMade.getLevel(), userSkillMade.getPrivacy());
+        userSkillRepositoryJPA.save(newUserSkill);
+    }
 
 
 }

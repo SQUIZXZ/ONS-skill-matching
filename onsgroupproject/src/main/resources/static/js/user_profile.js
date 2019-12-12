@@ -3,7 +3,7 @@ function deleteSkill(button) {
 }
 
 function AddUserSkill() {
-    $("#AllUserSkills").append('<div id="userSkill"> <label>Skill Name:  </label><input type="text" list="listOfSkills" class="skillSelector"> <label>Skill level:  </label><input type="text" class = "skillLevels"/> <label>Skill Privacy:  </label><input type="checkbox" class = "userSkillPrivacy" /> <button onclick="deleteSkill(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">' + ' Delete Skill' + '</button> </div>')
+    $("#AllUserSkills").append('<div id="userSkill"> <label>Skill Name:  </label><input type="text" list="listOfSkills" class="skillSelector search__input"> <label>Skill level:  </label><input type="text" class = "skillLevels search__input"/> <label>Skill Privacy:  </label><input type="checkbox" class = "userSkillPrivacy" /> <button onclick="deleteSkill(this)" type="button" class="btn btn--secondary">' + ' Delete Skill' + '</button> </div>')
 }
 
 function saveCurrentSkills() {
@@ -25,7 +25,7 @@ function saveCurrentSkills() {
     }
 
     for (y = 0; y < skillPrivacyList.length; y++) {
-        skillPrivacy[y] = skillPrivacyList[y].value;
+        skillPrivacy[y] = skillPrivacyList[y].checked;
         console.log(skillPrivacy)
     }
 
