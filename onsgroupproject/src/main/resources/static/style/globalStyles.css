@@ -45,9 +45,6 @@ h2{
 /*    background-color: #D1D7E0!important;*/
 /*    color: #802BB1;*/
 /*}*/
-span{
-    color: #414042;
-}
 /*input[type=text]{*/
 /*    background-color: #FBF3FF!important;*/
 /*}*/
@@ -66,8 +63,8 @@ textarea{
 }
 
 #editButton{
-    margin-top: 100px!important;
-    margin-right: 100px;
+    margin-top: 150px!important;
+    margin-right: 150px;
     position:absolute;
     top:0;
     right:0;
@@ -86,4 +83,7 @@ h4.request-title{
 }
 a,h4,span {
     color: white;
+}
+.span{
+    color: #414042;
 }

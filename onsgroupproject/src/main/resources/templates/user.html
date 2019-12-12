@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Profile Page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.ons.gov.uk/sixteens/8bf0290/css/main.css">
 
     <link href="css/starter-template.css" rel="stylesheet">
@@ -52,27 +52,34 @@
         </div>
     </nav>
 </div>
-
-<h2>Add a skill</h2>
-<form onsubmit="return false;">
-
-    <div>
-        <button onclick="AddUserSkill()" type="button" class="btn btn-outline-success my-2 my-sm-0">Add a new Skill</button>
-    </div>
-    <div id = "AllUserSkills">
-        <div id="userSkill" th:each = "skill : ${userDetails.getUserSkills()}">
-            <label>Skill Name:  </label><input type="text" list="listOfSkills" th:value="${skill.getName()}" class="skillSelector">
-            <label>Skill level:  </label><input type="text" class = "skillLevels"/>
-            <label>Skill Privacy:  </label><input type="checkbox" class = "userSkillPrivacy" />
-            <button onclick="deleteSkill(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">Delete Skill</button>
+<main class="container" role="main">
+    <h2>Add a skill</h2>
+    <form onsubmit="return false;">
+        <br>
+        <div>
+            <button onclick="AddUserSkill()" type="button" class="btn btn--secondary">Add a new Skill</button>
         </div>
-    </div>
-
-
-    <datalist id="listOfSkills">
-        <option th:each="selectionSkill:${allSkills}" th:text="${selectionSkill.getName()}"></option>
-    </datalist>
-    <p><button onclick="saveCurrentSkills()">Submit</button></p>
-</form>
+        <br>
+        <div id="AllUserSkills">
+            <div id="userSkill" th:each="skill : ${userDetails.getUserSkills()}">
+                <label>Skill Name: </label><input type="text" list="listOfSkills" th:value="${skill.getName()}"
+                                                  class="skillSelector search__input">
+                <label>Skill level: </label><input type="text" class="skillLevels search__input"/>
+                <label>Skill Privacy: </label><input type="checkbox" class="userSkillPrivacy"/>
+                <button onclick="deleteSkill(this)" type="button" class="btn btn--secondary">Delete Skill</button>
+            </div>
+        </div>
+        <br>
+        <datalist id="listOfSkills">
+            <option th:each="selectionSkill:${allSkills}" th:text="${selectionSkill.getName()}"></option>
+        </datalist>
+        <p>
+            <button class="btn btn--primary" onclick="saveCurrentSkills()">Submit</button>
+        </p>
+        <br>
+        <br>
+        <br>
+    </form>
+</main>
 </body>
 </html>

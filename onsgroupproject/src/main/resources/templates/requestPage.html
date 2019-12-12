@@ -63,22 +63,23 @@
 </div>
 
 <main>
-    <h2><span th:text = "${skillRequest.skill}"></span> skill wanted</h2>
+    <h2><span class="span" th:text = "${skillRequest.skill}"></span> skill wanted</h2>
+    <br>
     <div>
         <label>Requester Name: </label>
-        <span th:text="${skillRequest.firstName} + ' ' + ${skillRequest.lastName}"></span>
+        <span class="span" th:text="${skillRequest.firstName} + ' ' + ${skillRequest.lastName}"></span>
     </div>
     <div>
         <label>Requester Department: </label>
-        <span th:text="${skillRequest.department}"></span>
+        <span class="span"  th:text="${skillRequest.department}"></span>
     </div>
     <div>
         <label>Skill wanted: </label>
-        <span th:text="${skillRequest.skill}"></span>
+        <span class="span" th:text="${skillRequest.skill}"></span>
     </div>
     <div>
         <label>Task Description: </label>
-        <span th:text="${skillRequest.info}"></span>
+        <span class="span" th:text="${skillRequest.info}"></span>
     </div>
 
 </main>

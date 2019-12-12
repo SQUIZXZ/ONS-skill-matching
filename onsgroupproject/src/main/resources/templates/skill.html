@@ -53,11 +53,11 @@
 
 
     <h2 th:text="${skill.getName()}"></h2>
-    <a th:href="@{/skill/editSkill/{id} (id = ${skill.getId()})}"><button class="btn btn-outline-success my-2 my-sm-0" id = "editButton" >Edit Skill</button></a>
+    <a th:href="@{/skill/editSkill/{id} (id = ${skill.getId()})}" style="top:50px"><button class="btn btn--secondary" id = "editButton" >Edit Skill</button></a>
     <div th:if="${skill.getDescription()} != null">
         <div th:if="${skill.getDescription() != ''}">
             <h3 th:text="'Description of ' + ${skill.getName()}"></h3>
-            <span th:text="${skill.getDescription()}"></span>
+            <span class="span" th:text="${skill.getDescription()}"></span>
         </div>
     </div>
     <div th:if="${skill.getChildSkills().size() > 0}">
@@ -72,7 +72,7 @@
         <h3>Parent Skills</h3>
         <tbody>
         <tr th:each="skillParent: ${skill.getParentSkills()}">
-            <th><a th:href="@{/skill/{id} (id = ${skillParent.getId()})}"><span th:text="${skillParent.getName()}"></span></a><br></th>
+            <th><a th:href="@{/skill/{id} (id = ${skillParent.getId()})}"><span class="span" th:text="${skillParent.getName()}"></span></a><br></th>
         </tr>
         </tbody>
     </div>
@@ -89,13 +89,13 @@
         <tbody>
         <tr th:each="item : ${users}">
             <th scope="row">
-                <span th:text="${item.getFirstName()} + ' ' + ${item.getSurname()}"></span>
+                <span class="span" th:text="${item.getFirstName()} + ' ' + ${item.getSurname()}"></span>
             </th>
             <th scope="row">
-                <span th:text="${item.getEmail()}"></span>
+                <span class="span" th:text="${item.getEmail()}"></span>
             </th>
             <th scope="row">
-                <span th:text="${item.getUserSkill().getLevel()}"></span>
+                <span class="span" th:text="${item.getUserSkill().getLevel()}"></span>
             </th>
         </tr>
         </tbody>

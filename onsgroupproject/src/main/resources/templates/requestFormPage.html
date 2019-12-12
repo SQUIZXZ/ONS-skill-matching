@@ -72,28 +72,28 @@
             <div class="formSection">
                 <label th:for="firstName" class="block margin-bottom--1">First Name</label>
                 <div class="col-sm-3">
-                    <input value="" id="firstName" class="search__input col col--md-21 col--lg-32" type="text" th:field="*{firstName}"
+                    <input value="" id="firstName" class="search__input col--md-21 col--lg-32" type="text" th:field="*{firstName}"
                            placeholder="Enter your Name..."/>
                 </div>
             </div>
             <div class="formSection">
                 <label th:for="surname" class="block margin-bottom--1">Surname</label>
                 <div class="col-sm-3">
-                    <input value="" id="surname" class="search__input col col--md-21 col--lg-32" type="text" th:field="*{surname}"
+                    <input value="" id="surname" class="search__input col--md-21 col--lg-32" type="text" th:field="*{surname}"
                            placeholder="Enter your Surname..."/>
                 </div>
                 </div>
                 <div class="formSection">
                     <label class="block margin-bottom--1" th:for="department">Department</label>
                     <div class="col-sm-3">
-                        <input class="search__input col col--md-21 col--lg-32" value="" id="department" type="text" th:field="*{department}"
+                        <input class="search__input col--md-21 col--lg-32" value="" id="department" type="text" th:field="*{department}"
                                placeholder="Enter your department..."/>
                     </div>
                 </div>
                 <div class="formSection">
                     <label class="block margin-bottom--1" th:for="skill">Skill you want to find</label>
                     <div class="col-sm-3">
-                        <input value="" oninput="hideOrShow()" id="skill" class="search__input col col--md-21 col--lg-32" list="skills" type="text"
+                        <input value="" oninput="hideOrShow()" id="skill" class="search__input col--md-21 col--lg-32" list="skills" type="text"
                                th:field="*{skill}" placeholder="Enter the skill you need..."/>
                     </div>
                     <datalist id="skills">
@@ -103,35 +103,34 @@
                     <label class="createSkill" style="display: none">The parent of this skill</label>
                     <div class="input-group">
                         <div class="col-sm-3">
-                            <input id="parent" class="createSkill search__input col col--md-21 col--lg-32" list="skills" style="display: none">
+                            <input id="parent" class="createSkill search__input col--md-21 col--lg-32" list="skills" style="display: none">
                         </div>
                     </div>
                         <label class="createSkill" style="display: none">New skill description</label>
                     <div class="input-group">
                         <div class="col-sm-6">
-                            <textarea id="skillDescription" class="createSkill form-control mr-sm-2" style="display: none;"></textarea>
+                            <textarea id="skillDescription" class="createSkill search__input col--md-21 col--lg-32" style="height: 150px;display: none;"></textarea>
                         </div>
-                        <span class="input-group-btn">
-                            <button onclick="saveNewSkill()" type="button" class="createSkill select" style="display: none">Create new skill</button>
-                        </span>
+                        <br>
+                            <button onclick="saveNewSkill()" type="button" class="createSkill btn btn--primary" style="display: none">Create new skill</button>
                     </div>
                 </div>
                 <div class="formSection">
                     <label class="block margin-bottom--1" th:for="taskDescription">Description of the task you need doing</label>
                     <div class="col-sm-3">
-                        <input value="" id="description" class="form-control select" type="text" th:field="*{taskDescription}"
+                        <input value="" id="description" class="search__input col--md-21 col--lg-32" type="text" th:field="*{taskDescription}"
                                placeholder="Enter task description..."/>
                     </div>
                 </div>
                 <div class="formSection">
                     <label class="block margin-bottom--1" th:for="furl">Furl</label>
                     <div class="col-sm-3">
-                        <input value="" id="furl" class="form-control select" type="text" th:field="*{furl}"
+                        <input value="" id="furl" class="search__input col--md-21 col--lg-32" type="text" th:field="*{furl}"
                                placeholder="Enter the furl for your page..."/>
                     </div>
                 </div>
             <br>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="saveSkillRequest()">Submit</button>
+                <button class="btn btn--primary" type="button" onclick="saveSkillRequest()">Submit</button>
         </form>
     </div>
 </main>

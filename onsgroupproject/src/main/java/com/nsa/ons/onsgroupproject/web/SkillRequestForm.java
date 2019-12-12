@@ -27,7 +27,7 @@ public class SkillRequestForm {
     private String department;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "skill")
+    @Size(min = 1, max = 100, message = "skill")
     private String skill;
 
     @NotNull

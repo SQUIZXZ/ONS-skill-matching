@@ -134,7 +134,6 @@ public class SkillRequestController {
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillChildExist");
-
         }
 
     }

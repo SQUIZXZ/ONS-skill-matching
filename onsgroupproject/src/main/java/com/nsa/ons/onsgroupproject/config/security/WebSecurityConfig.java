@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/style/**").permitAll()
             .antMatchers("/js/**").permitAll()
             .antMatchers("/h2-console/**").permitAll()
-//            .antMatchers("/**").access("hasRole('ROLE_USER')")
+            .antMatchers("/**").access("hasRole('ROLE_USER')")
 //            .anyRequest().authenticated()
             .and()
             .formLogin()

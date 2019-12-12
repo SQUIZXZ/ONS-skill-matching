@@ -55,18 +55,19 @@
         <h2>Edit Skill Page</h2>
         <form>
             <div class="form-section">
-                <label>Skill Name</label>
-                <input type="text" class="form-control mr-sm-2" id = "editSkillName" th:value="${editingSkill.getName()}" placeholder="Skill name here...">
+                <label class="block margin-bottom--1">Skill Name</label>
+                <input type="text" class="search__input" id = "editSkillName" th:value="${editingSkill.getName()}" placeholder="Skill name here...">
             </div>
             <div class="form-section">
-                <label>Skill Description</label>
-                <textarea class="form-control mr-sm-2" id="editSkillDescription" th:text="${editingSkill.getDescription()}" placeholder="Skill description here..."></textarea>
+                <label class="block margin-bottom--1">Skill Description</label>
+                <textarea class="search__input" id="editSkillDescription" style="height: 150px;" th:text="${editingSkill.getDescription()}" placeholder="Skill description here..."></textarea>
             </div>
             <div id = "allParentSkills" class="form-section">
-                <label>Parent Skills</label>
+                <label class="block margin-bottom--1">Parent Skills</label>
                 <button onclick="AddParent()" type="button" class="btn btn-outline-success my-2 my-sm-0">Add a new Parent</button>
+                <br>
                 <div id="parentSkills" th:each = "skill : ${editingSkill.getParentSkills()}">
-                    <input type="text" list="listOfSkills" th:value="${skill.getName()}" class="parentSkillSelector">
+                    <input type="text" list="listOfSkills" th:value="${skill.getName()}" class="parentSkillSelector search__input">
                     <button onclick="deleteParent(this)" type="button" class="btn btn-outline-success my-2 my-sm-0">Delete Parent</button>
                 </div>
                 <datalist id="listOfSkills">
@@ -74,7 +75,7 @@
                 </datalist>
             </div>
             <div class = "form-section">
-                <span class="input-group-btn">
+                <span class="input-group-btn span">
                     <button th:onclick="'javascript:submitSkillEdit(' + ${editingSkill.getId()} + ')'" type="button" class="btn btn-outline-success my-2 my-sm-0">Save Skill</button>
                 </span>
             </div>
