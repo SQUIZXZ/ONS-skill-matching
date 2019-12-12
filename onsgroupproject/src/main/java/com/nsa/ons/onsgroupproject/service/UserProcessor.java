@@ -33,6 +33,10 @@ public class UserProcessor implements UserCreator,UserFinder, UserUpdater {
     public Optional<User> findUserByUserName(String userName){
         return userRepository.findUserByUsername(userName);
     }
+
+    public Optional<User> findUserById(Long id){
+        return userRepository.findUserById(id);
+    }
 }
 
 

@@ -54,9 +54,31 @@ class SkillController {
     public String showSkillPage(@PathVariable("i") Long index, Model model) {
 
         Optional<Skill> skill = finder.findSkillByIndex(index);
+        List<UserSkill> userSkillList = userSkillFinder.findBySkill_id(index);
+        List<UserSkill> publicUserSkills = new ArrayList<>();
+
+        for(int i = 0; i<userSkillList.size(); i++){
+            if(userSkillList.get(i).getPrivacy()){
+                publicUserSkills.add(userSkillList.get(i));
+            }
+        }
+
+        ArrayList<List> collectedUsers = new ArrayList<>(){};
+
+        for(int x = 0; x<publicUserSkills.size(); x++){
+            ArrayList<String> details = new ArrayList<>();
+            Optional<User> skillUser = userDetailsService.findUserById(publicUserSkills.get(x).getUser_id());
+            details.add(skillUser.get().getUsername());
+            details.add(skillUser.get().getEmail());
+            details.add(publicUserSkills.get(x).getLevel().toString());
+            collectedUsers.add(details);
+        }
+
 
         if (skill.isPresent()) {
             model.addAttribute("skill", skill.get());
+            model.addAttribute("collectedUsers",collectedUsers );
+
             return "skill";
 
         } else {
@@ -168,10 +190,11 @@ class SkillController {
             Optional<Skill> currentSkill = finder.findSkillByName(userSkillsForm.getSkillNames().get(skill));
             Long i = new Long(0);
             Boolean b = new Boolean(Boolean.FALSE);
-            if(userSkillsForm.getSkillLevels().get(skill) !=""){
+            if(!userSkillsForm.getSkillLevels().get(skill).equals("")){
                 i = Long.parseLong(userSkillsForm.getSkillLevels().get(skill));
             }
-            if(userSkillsForm.getSkillPrivacy().get(skill) !=""){
+            log.debug("################################ skill private" + userSkillsForm.getSkillPrivacy().get(skill));
+            if(!userSkillsForm.getSkillPrivacy().get(skill).equals("")){
                 b = Boolean.parseBoolean(userSkillsForm.getSkillPrivacy().get(skill));
             }
             UserSkillMade userSkillMade = new UserSkillMade(currentUser.get().getId(), currentSkill.get().getId(), i, b);

@@ -40,4 +40,8 @@ public class UserRepositoryJPAAdaptor implements UserRepository {
         return Optional.of(userRepositoryJPA.findByUsername(userName));
     }
 
+    public Optional<User>findUserById(Long id){
+        return userRepositoryJPA.findById(id);
+    }
+
 }

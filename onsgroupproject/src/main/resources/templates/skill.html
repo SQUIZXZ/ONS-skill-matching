@@ -87,15 +87,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${users}">
+        <tr th:each="userSkill : ${collectedUsers}">
             <th scope="row">
-                <span class="span" th:text="${item.getFirstName()} + ' ' + ${item.getSurname()}"></span>
+                <span class="span" th:text="${userSkill.get(0)}"></span>
             </th>
             <th scope="row">
-                <span class="span" th:text="${item.getEmail()}"></span>
+                <span class="span" th:text="${userSkill.get(1)}"></span>
             </th>
             <th scope="row">
-                <span class="span" th:text="${item.getUserSkill().getLevel()}"></span>
+                <span class="span" th:text="${userSkill.get(2)}"></span>
             </th>
         </tr>
         </tbody>

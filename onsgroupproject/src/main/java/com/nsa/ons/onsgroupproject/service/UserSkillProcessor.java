@@ -31,6 +31,11 @@ public class UserSkillProcessor implements UserSkillFinder,UserSkillCreator {
         return userSkillRepository.findAllByUser_id(userId);
     }
 
+    @Override
+    public List<UserSkill> findBySkill_id(Long userId) {
+        return userSkillRepository.findBySkill_id(userId);
+    }
+
 
 //    public Optional<UserSkill> findById(Long id ,Long SkillId){
 //        return userSkillRepository.findById(id,SkillId);

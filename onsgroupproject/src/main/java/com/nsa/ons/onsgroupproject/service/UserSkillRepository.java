@@ -10,7 +10,11 @@ public interface UserSkillRepository  {
 
     List <UserSkill>findAllByUser_id(Long userId);
 
+    List <UserSkill>findBySkill_id(Long skillId);
+
     public void saveUserSkill(UserSkillMade userSkillMade);
+
+
 
 //    Optional<UserSkill> findById(Long id, Long skillId);
 }

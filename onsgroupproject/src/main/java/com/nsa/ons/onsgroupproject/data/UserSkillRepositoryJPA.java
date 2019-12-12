@@ -15,7 +15,10 @@ public interface UserSkillRepositoryJPA extends JpaRepository<UserSkill, Long> {
 
     //    @Query("SELECT u FROM User u, UserSkill u_s WHERE u_s.skill_id = :searchTerm AND u.id = u_s.user_id")
 //    List <User> findUsersSkillBySkillId(@Param("searchTerm") Long searchTerm);
-    @Query(value = "select * from user_skill", nativeQuery = true)
-    List<UserSkill> findAllByUser_id(Long id);
+    @Query(value = "select * from user_skill where user_id like :id", nativeQuery = true)
+    List<UserSkill> findAllByUser_id(@Param("id")Long id);
+
+    @Query(value = "select * from user_skill where skill_id like :id", nativeQuery = true)
+    List<UserSkill> findBySkill_id(@Param("id")Long id);
 
 }
