@@ -45,9 +45,14 @@ public class SkillHierarchyHTMLTest {
     @MockBean
     private UserSkillCreator userSkillCreator;
 
+    @MockBean
+    private UserFinder userFinder;
 
     @MockBean
     private MyUserDetailsService myUserDetailsService;
+
+    @MockBean
+    private UserUpdater userUpdater;
 
     @Test
     @WithMockUser(value = "Mock")
