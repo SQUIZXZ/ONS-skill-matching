@@ -4,7 +4,6 @@ CREATE SCHEMA IF NOT EXISTS ons_database;
 
 USE ons_database;
 
--- SHOW TABLES;
 CREATE TABLE IF NOT EXISTS `skill`
 (
     `id`           INT NOT NULL AUTO_INCREMENT,
@@ -56,8 +55,8 @@ CREATE TABLE IF NOT EXISTS `user_skill`
 (
     `user_id`  INT NOT NULL,
     `skill_id` INT NOT NULL,
-    `level`    INT NOT NULL,
-    `privacy`  BOOLEAN NOT NULL,
+    `level`    INT,
+    `privacy`  BOOLEAN,
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
     FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
     PRIMARY KEY (`user_id`,`skill_id`)
@@ -75,7 +74,7 @@ CREATE TABLE if not exists `user_role`
 
     ENGINE = InnoDB;
 
-    insert into skill (id,skill_name,skill_desc) values (1,'language','Look at my description!');
+insert into skill (id,skill_name,skill_desc) values (1,'language','Look at my description!');
 insert into skill (id,skill_name,skill_desc) values (2,'java','Look at my description!');
 insert into skill (id,skill_name,skill_desc) values (3,'python','Look at my description!');
 insert into skill (id,skill_name,skill_desc) values (4,'css','Look at my description!');
@@ -135,6 +134,10 @@ insert into user_skill (user_id, skill_id, level ,privacy) values (1,2,12,false)
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,3,12,true) ;
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,4,12,true);
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,5,12,false);
+
+
+
+
 
 
 

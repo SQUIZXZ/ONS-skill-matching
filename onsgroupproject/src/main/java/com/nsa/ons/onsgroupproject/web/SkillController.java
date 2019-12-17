@@ -193,7 +193,6 @@ class SkillController {
             if(!userSkillsForm.getSkillLevels().get(skill).equals("")){
                 i = Long.parseLong(userSkillsForm.getSkillLevels().get(skill));
             }
-            log.debug("################################ skill private" + userSkillsForm.getSkillPrivacy().get(skill));
             if(!userSkillsForm.getSkillPrivacy().get(skill).equals("")){
                 b = Boolean.parseBoolean(userSkillsForm.getSkillPrivacy().get(skill));
             }
