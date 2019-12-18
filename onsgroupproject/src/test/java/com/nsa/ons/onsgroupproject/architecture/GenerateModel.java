@@ -13,7 +13,6 @@ import com.structurizr.view.*;
 import org.junit.Test;
 
 import java.io.File;
-import java.nio.file.Files;
 
 
 public class GenerateModel {
@@ -110,8 +109,23 @@ public class GenerateModel {
                 .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY))
                 .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JPA"));
 
+        Component skillUpdater = webApplication.addComponent("SkillUpdater", "Updates skills in the repository", "Java Interface");
+        Component skillFinder = webApplication.addComponent("SkillFinder", "Retrives skills from the repository", "Java Interface");
+        Component userSkillFinder = webApplication.addComponent("UserSkillFinder", "Retrives information from the repository", "Java Interface");
+        Component userSkillCreator = webApplication.addComponent("UserSkillCreator", "Adds new user skills", "Java Interface");
+        Component userFinder = webApplication.addComponent("UserFinder", "Retrives user details from repository", "Java Interface");
+        Component userUpdater = webApplication.addComponent("UserUpdater", "Update existing users details", "Java Interface");
+
+        webApplication.getComponentWithName("SkillController").uses(skillFinder, "Retrives skill information from repository");
+        webApplication.getComponentWithName("SkillController").uses(skillUpdater, "Sends data to repository to update a skill");
+        webApplication.getComponentWithName("SkillController").uses(userSkillFinder, "Gets a user skill relation from the repository");
+        webApplication.getComponentWithName("SkillController").uses(userSkillCreator, "Adds the user skill rating and privacy to the repository");
+        webApplication.getComponentWithName("SkillController").uses(userFinder, "Gets logged in users details");
+        webApplication.getComponentWithName("SkillController").uses(userUpdater, "Adds new skills to the user");
+
+
         //link internal components
-//
+
 //        Component cservice = webApplication.getComponentOfType("com.nsa.ons.onsgroupproject.service.CharityFinder");
 //        cservice.addTags("contrib: Carl, Simon");
 //
@@ -134,8 +148,9 @@ public class GenerateModel {
 //        charityProfilePage.uses(charityController, "is fed data by");
 
         //what about configuration e.g. security
-
-        Component securityConfig = webApplication.addComponent("SecurityConfiguration", "Determines the security process", "Spring Security");
+        Component mvcConfig = webApplication.addComponent("MvcConfig", "Registers view controllers that create a direct mapping between the URL and the view name", "Spring Security");
+        Component userPrincipal = webApplication.addComponent("MyUserPrincipal", "Grants roles of authority", "Spring Security");
+        Component securityConfig = webApplication.addComponent("WebSecurityConfig", "Determines the security process", "Spring Security");
         Component userDetailsService = webApplication.addComponent("MyUserDetailsService", "Provides the User authentication and authorisation data", SpringComponentFinderStrategy.SPRING_SERVICE);
         securityConfig.uses(userDetailsService, "delegates user retrieval to");
 
