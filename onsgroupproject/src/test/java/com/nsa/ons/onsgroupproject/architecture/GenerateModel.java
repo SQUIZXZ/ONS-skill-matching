@@ -60,7 +60,7 @@ public class GenerateModel {
 
         webApplication.uses(relationalDatabase, "Reads from and writes to", "JPA, port 3306");
         //create the view
-        ContainerView containerView = viewSet.createContainerView(onsGroupProject, "containers", "The Containers diagram for the Charity 2018 system.");
+        ContainerView containerView = viewSet.createContainerView(onsGroupProject, "containers", "The Containers diagram for the ONS system.");
         containerView.addAllContainers();
         containerView.setAutomaticLayout(true);
 
@@ -76,7 +76,6 @@ public class GenerateModel {
                 "com.nsa.ons.onsgroupproject", //change for your package structure
                 springComponentFinderStrategy
                 , new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150)
-
         );
 
         try {
@@ -136,13 +135,13 @@ public class GenerateModel {
 
         //what about configuration e.g. security
 
-//        Component securityConfig = webApplication.addComponent("SecurityConfiguration", "Determines the security process", "Spring Security");
-//        Component userDetailsService = webApplication.addComponent("UserDetailsService", "Provides the User authentication and authorisation data", SpringComponentFinderStrategy.SPRING_SERVICE);
-//        securityConfig.uses(userDetailsService, "delegates user retrieval to");
+        Component securityConfig = webApplication.addComponent("SecurityConfiguration", "Determines the security process", "Spring Security");
+        Component userDetailsService = webApplication.addComponent("MyUserDetailsService", "Provides the User authentication and authorisation data", SpringComponentFinderStrategy.SPRING_SERVICE);
+        securityConfig.uses(userDetailsService, "delegates user retrieval to");
 
-        // Create the component view and add all components (and the database for reference).
+//         Create the component view and add all components (and the database for reference).
 
-        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the Charity 2018 web application.");
+        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the ONS web application.");
         componentView.addAllComponents();
         //componentView.addAllPeople(); //could show all users using controllers.
         componentView.add(relationalDatabase);
