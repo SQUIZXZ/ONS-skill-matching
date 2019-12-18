@@ -183,7 +183,8 @@ public class GenerateModel {
         // add some documentation
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         template.addContextSection(onsGroupProject, Format.Markdown,
-                "This is a simple charity donation system based on JustGiving to illustrate Spring Boot...\n" +
+                "This is a web app we designed in order to help project leaders \n" +
+                        "find people with the right skills for the job they need doing without having to know the specific skill they need\n" +
                         "\n" +
                         "![](embed:context)");
 
