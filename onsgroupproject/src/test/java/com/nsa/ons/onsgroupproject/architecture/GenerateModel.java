@@ -109,6 +109,20 @@ public class GenerateModel {
                 .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY))
                 .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JPA"));
 
+        //Data layer
+        //Adaptors
+        Component skillRepoJpaAdaptor = webApplication.addComponent("SkillRepositoryJpaAdaptor", "The java code that allows skill input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        Component skillRequestJpaAdaptor = webApplication.addComponent("SkillRequestRepositoryJpaAdaptor", "The java code that allows skill request input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        Component UserRepositoryJpaAdaptor = webApplication.addComponent("UserRepositoryJpaAdaptor", "The java code that allows user input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        Component UserSkillRepositoryJpaAdaptor = webApplication.addComponent("UserSkillRepositoryJpaAdaptor", "The java code that allows 'UserSkill' input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        //Repositories
+        Component SkillRepositoryJpa = webApplication.addComponent("SkillRepositoryJpa","The interface that connects directly to the database for skills","Spring Repository");
+        Component UserRepositoryJpa = webApplication.addComponent("UserRepositoryJpa","The interface that connects directly to the database for Users","Spring Repository");
+        Component UserRolesRepositoryJpa = webApplication.addComponent("UserRoleRepositoryJpa","The interface that connects directly to the database for User Roles","Spring Repository");;
+
+        //Domain layer
+
+        //Service layer
         Component skillUpdater = webApplication.addComponent("SkillUpdater", "Updates skills in the repository", "Java Interface");
         Component skillFinder = webApplication.addComponent("SkillFinder", "Retrives skills from the repository", "Java Interface");
         Component userSkillFinder = webApplication.addComponent("UserSkillFinder", "Retrives information from the repository", "Java Interface");
