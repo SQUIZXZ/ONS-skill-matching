@@ -3,10 +3,7 @@ package com.nsa.ons.onsgroupproject.web;
 import com.nsa.ons.onsgroupproject.config.security.MyUserDetailsService;
 
 import com.nsa.ons.onsgroupproject.domain.Skill;
-import com.nsa.ons.onsgroupproject.service.SkillFinder;
-import com.nsa.ons.onsgroupproject.service.SkillRepository;
-import com.nsa.ons.onsgroupproject.service.SkillUpdater;
-import com.nsa.ons.onsgroupproject.service.UserSkillFinder;
+import com.nsa.ons.onsgroupproject.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,21 +37,30 @@ public class SkillHierarchyHTMLTest {
     private SkillFinder skillFinder;
 
     @MockBean
-    private UserSkillFinder userSkillFinder ;
+    private UserSkillFinder userSkillFinder;
 
     @MockBean
     private SkillUpdater skillUpdater;
 
     @MockBean
+    private UserSkillCreator userSkillCreator;
+
+    @MockBean
+    private UserFinder userFinder;
+
+    @MockBean
     private MyUserDetailsService myUserDetailsService;
+
+    @MockBean
+    private UserUpdater userUpdater;
 
     @Test
     @WithMockUser(value = "Mock")
     public void skillPageHierarchiesTest() throws Exception {
 
-        Skill skillParent = new Skill(1L, "ParentSkill","description", null, null);
-        Skill skillChild = new Skill(2L, "ChildSkill","description", null, null);
-        Skill thisSkill = new Skill(3L, "This Skill","description", null, null);
+        Skill skillParent = new Skill(1L, "ParentSkill","description", null, null,null);
+        Skill skillChild = new Skill(2L, "ChildSkill","description", null, null,null);
+        Skill thisSkill = new Skill(3L, "This Skill","description", null, null,null);
 
         ArrayList<Skill> containsParent = new ArrayList<Skill>();
         ArrayList<Skill> containsChild = new ArrayList<Skill>();

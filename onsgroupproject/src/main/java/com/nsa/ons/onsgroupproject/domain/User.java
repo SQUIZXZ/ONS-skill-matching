@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
   @Id
@@ -27,19 +28,23 @@ public class User {
 
   @NotNull
   @NotEmpty
-  private String password;
-
-  @Column(name = "first_name")
-  private String firstName;
-
-  @Column(name = "surname")
-  private String surname;
-
-  @Column(name = "email")
   private String email;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinColumn(name = "skill_id")
-  private UserSkill userSkill;
+  @NotNull
+  @NotEmpty
+  private String password;
+
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @JoinTable(name = "user_skill",
+  joinColumns = {@JoinColumn(name = "user_id")},
+  inverseJoinColumns = {@JoinColumn(name = "skill_id")})
+  List<Skill> userSkills;
+
+
+
+
+//  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//  @JoinColumn(name = "skill_id")
+//  private UserSkill userSkill;
 
 }

@@ -1,45 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.ons.gov.uk/sixteens/8bf0290/css/main.css">
     <link href="css/starter-template.css" rel="stylesheet">
     <link rel="stylesheet" href="/style/globalStyles.css"/>
 </head>
 
 <body>
-<main class="container" role="main">
-    <div class="starter-template">
-        <div class="row">
-            <P class="lead text-left"> Please enter the name of the skill that you are looking for.
-            </P>
+<div class="wrapper">
+    <div class="header col-wrap">
+        <div class="col col--lg-one-third col--md-one-third">
+            <a href="/">
+                <!--[if lte IE 8]>
+                <img class="logo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.png"
+                     alt="Office for National Statistics">
+                <![endif]-->
+                <!--[if gte IE 9]><!-->
+                <img class="logo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.svg"
+                     alt="Office for National Statistics">
+                <!--[endif]---->
+            </a>
+        </div>
+        <div class="secondary-nav col col--lg-two-thirds col--md-two-thirds print--hide">
+            <ul class="secondary-nav__list js-nav-clone__list">
+                <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+                    <input class="btn btn--primary" type="submit" value="Sign Out"/>
+                </form>
+            </ul>
         </div>
     </div>
-    <div>
-        <div style="color: white">
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form method="post" th:action="@{/logout}">
-            <input type="submit" value="Sign Out"/>
-        </form>
+</div>
+<div class="primary-nav print--hide">
+    <nav>
+        <div class="wrapper nav-main--hidden" id="nav-primary" aria-expanded="false">
+            <ul class="primary-nav__list">
+                <li class="primary-nav__item primary-nav__item--active js-nav hide--sm old-ie--display-block"><a
+                        class="primary-nav__link col col--md-7 col--lg-10" href="/">Home</a></li>
+                <li class="primary-nav__item js-nav js-expandable">
+                    <a class="primary-nav__link col col--md-8 col--lg-10" href="/createSkillRequest"
+                       aria-haspopup="true">Make a request</a>
+                </li>
+                <li class="primary-nav__item js-nav js-expandable">
+                    <a class="primary-nav__link col col--md-8 col--lg-10" href="/user"
+                       aria-haspopup="true">User Page</a>
+                </li>
+            </ul>
         </div>
+    </nav>
+</div>
+<main class="container" role="main">
 
-        <div class="row">
 
-            <form action="/findSkill" class="form-inline my-2 my-lg-0" method="get">
+        <h2 th:inline="text" >Welcome [[${#httpServletRequest.remoteUser}]]</h2>
+    <div class="tiles">
+        <h1  class="lead text-left" style="display: inline-block; font-size: 20px"> Please enter the name of the skill that you are looking for.</h1>
 
-                <input aria-label="Search"
-                       class="form-control mr-sm-2"
-                       id="search"
-                       name="search"
-                       type="text"
-                       placeholder="Enter skill name"/>
+    <form style="display: inline-block; padding-left: 20px;" action="/findSkill" class="form-inline my-2 my-lg-0" method="get">
 
-                <input class="btn btn-outline-success my-2 my-sm-0"
-                       id="submit"
-                       type="submit"
-                       value="submit"/>
-            </form>
-        </div>
+        <input aria-label="Search"
+               class="search__input"
+               id="search"
+               name="search"
+               type="text"
+               placeholder="Enter skill name"/>
+
+        <!--                <input class="search__button"-->
+        <!--                       id="submit"-->
+        <!--                       type="submit"/>-->
+        <button id="submit" type="submit" class="search__button">
+            <span class="visuallyhidden">Search</span>
+            <span class="icon icon-search--light"></span>
+        </button>
+    </form>
+    </div>
+
+    <br>
+    <div class="request-box" th:each="request:${allRequests}">
+        <a th:href="@{/skillRequest/{furl}/{id} (furl = ${request.getFurl()}, id = ${request.getId()})}"><h4
+                class="request-title"><span
+                th:text="'Looking for ' + ${request.skill} + ' skills in ' + ${request.department}"></span></h4></a>
     </div>
 </main>
 </body>

@@ -35,10 +35,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/reports/**").access("hasRole('ROLE_USER')")
-            .antMatchers("/**").access("hasRole('ROLE_USER')")
-            .antMatchers("/").permitAll()
+//            .antMatchers("/").permitAll()
+            .antMatchers("/registerUser").permitAll()
+            .antMatchers("/style/**").permitAll()
+            .antMatchers("/js/**").permitAll()
             .antMatchers("/h2-console/**").permitAll()
-            //.anyRequest().authenticated()
+            .antMatchers("/**").access("hasRole('ROLE_USER')")
+//            .anyRequest().authenticated()
             .and()
             .formLogin()
             .loginPage("/login")
@@ -51,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
             .accessDeniedPage("/403")
     ;
+
     http.headers().frameOptions().disable();
   }
 

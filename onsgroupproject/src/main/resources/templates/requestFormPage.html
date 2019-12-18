@@ -4,12 +4,65 @@
     <meta charset="UTF-8">
     <title>Create a Request - SkillShare</title>
     <script type="text/javascript" th:src="@{/js/request_form_page.js}"></script>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.ons.gov.uk/sixteens/8bf0290/css/main.css">
     <link rel="stylesheet" href="/style/globalStyles.css"/>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
 </head>
 <body>
+<div class="wrapper">
+    <div class="header col-wrap">
+        <div class="col col--lg-one-third col--md-one-third">
+            <a href="/">
+                <!--[if lte IE 8]>
+                <img class="logo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.png"
+                     alt="Office for National Statistics">
+                <![endif]-->
+                <!--[if gte IE 9]><!-->
+                <img class="logo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.svg"
+                     alt="Office for National Statistics">
+                <!--[endif]---->
+            </a>
+        </div>
+        <div class="secondary-nav col col--lg-two-thirds col--md-two-thirds print--hide">
+            <ul class="secondary-nav__list js-nav-clone__list">
+                <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+                    <input class="btn btn--primary" type="submit" value="Sign Out"/>
+                </form>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="primary-nav print--hide">
+    <nav>
+        <ul class="nav--controls">
+            <li class="nav--controls__item">
+                <a href="#nav-primary" id="menu-toggle" aria-controls="nav-primary" class="nav--controls__menu">
+                    <span class="nav--controls__text">Menu</span>
+                </a>
+            </li>
+            <li class="nav--controls__item ">
+                <a href="#nav-search" id="search-toggle" aria-controls="nav-search" class="nav--controls__search">
+                    <span class="nav--controls__text">Search</span>
+                </a>
+            </li>
+        </ul>
+        <div class="wrapper nav-main--hidden" id="nav-primary" aria-expanded="false">
+            <ul class="primary-nav__list">
+                <li class="primary-nav__item js-nav js-expandable">
+                    <a class="primary-nav__link col col--md-8 col--lg-10" href="/"
+                       aria-haspopup="true">Home</a>
+                </li>
+                <li class="primary-nav__item primary-nav__item--active js-nav hide--sm old-ie--display-block"><a
+                        class="primary-nav__link col col--md-7 col--lg-10" href="/createSkillRequest">Make a request </a></li>
+                <li class="primary-nav__item js-nav js-expandable">
+                    <a class="primary-nav__link col col--md-8 col--lg-10" href="/user"
+                       aria-haspopup="true">User Page</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 <main>
     <div>
         <!-- The Commented bits are my reserve code just in case we need them -->
@@ -17,30 +70,30 @@
         <!--    <form action="#" method="post" th:action="@{/saveSkillRequest}" th:object="${skillRequestForm}">-->
         <form id="registrationForm" th:onsubmit="@{return saveSkillRequest();}" th:object="${skillRequestForm}">
             <div class="formSection">
-                <label th:for="firstName">First Name</label>
+                <label th:for="firstName" class="block margin-bottom--1">First Name</label>
                 <div class="col-sm-3">
-                    <input value="" id="firstName" class="form-control mr-sm-2" type="text" th:field="*{firstName}"
+                    <input value="" id="firstName" class="search__input col--md-21 col--lg-32" type="text" th:field="*{firstName}"
                            placeholder="Enter your Name..."/>
                 </div>
             </div>
             <div class="formSection">
-                <label th:for="surname">Surname</label>
+                <label th:for="surname" class="block margin-bottom--1">Surname</label>
                 <div class="col-sm-3">
-                    <input value="" id="surname" class="form-control mr-sm-2" type="text" th:field="*{surname}"
+                    <input value="" id="surname" class="search__input col--md-21 col--lg-32" type="text" th:field="*{surname}"
                            placeholder="Enter your Surname..."/>
                 </div>
                 </div>
                 <div class="formSection">
-                    <label th:for="department">Department</label>
+                    <label class="block margin-bottom--1" th:for="department">Department</label>
                     <div class="col-sm-3">
-                        <input value="" id="department" class="form-control mr-sm-2" type="text" th:field="*{department}"
+                        <input class="search__input col--md-21 col--lg-32" value="" id="department" type="text" th:field="*{department}"
                                placeholder="Enter your department..."/>
                     </div>
                 </div>
                 <div class="formSection">
-                    <label th:for="skill">Skill you want to find</label>
+                    <label class="block margin-bottom--1" th:for="skill">Skill you want to find</label>
                     <div class="col-sm-3">
-                        <input value="" oninput="hideOrShow()" id="skill" class="form-control mr-sm-2" list="skills" type="text"
+                        <input value="" oninput="hideOrShow()" id="skill" class="search__input col--md-21 col--lg-32" list="skills" type="text"
                                th:field="*{skill}" placeholder="Enter the skill you need..."/>
                     </div>
                     <datalist id="skills">
@@ -50,35 +103,34 @@
                     <label class="createSkill" style="display: none">The parent of this skill</label>
                     <div class="input-group">
                         <div class="col-sm-3">
-                            <input id="parent" class="createSkill form-control mr-sm-2" list="skills" style="display: none">
+                            <input id="parent" class="createSkill search__input col--md-21 col--lg-32" list="skills" style="display: none">
                         </div>
                     </div>
                         <label class="createSkill" style="display: none">New skill description</label>
                     <div class="input-group">
                         <div class="col-sm-6">
-                            <textarea id="skillDescription" class="createSkill form-control mr-sm-2" style="display: none;"></textarea>
+                            <textarea id="skillDescription" class="createSkill search__input col--md-21 col--lg-32" style="height: 150px;display: none;"></textarea>
                         </div>
-                        <span class="input-group-btn">
-                            <button onclick="saveNewSkill()" type="button" class="createSkill btn btn-outline-success my-2 my-sm-0" style="display: none">Create new skill</button>
-                        </span>
+                        <br>
+                            <button onclick="saveNewSkill()" type="button" class="createSkill btn btn--primary" style="display: none">Create new skill</button>
                     </div>
                 </div>
                 <div class="formSection">
-                    <label th:for="taskDescription">Description of the task you need doing</label>
+                    <label class="block margin-bottom--1" th:for="taskDescription">Description of the task you need doing</label>
                     <div class="col-sm-3">
-                        <input value="" id="description" class="form-control mr-sm-2" type="text" th:field="*{taskDescription}"
+                        <input value="" id="description" class="search__input col--md-21 col--lg-32" type="text" th:field="*{taskDescription}"
                                placeholder="Enter task description..."/>
                     </div>
                 </div>
                 <div class="formSection">
-                    <label th:for="furl">Furl</label>
+                    <label class="block margin-bottom--1" th:for="furl">Furl</label>
                     <div class="col-sm-3">
-                        <input value="" id="furl" class="form-control mr-sm-2" type="text" th:field="*{furl}"
+                        <input value="" id="furl" class="search__input col--md-21 col--lg-32" type="text" th:field="*{furl}"
                                placeholder="Enter the furl for your page..."/>
                     </div>
                 </div>
             <br>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="saveSkillRequest()">Submit</button>
+                <button class="btn btn--primary" type="button" onclick="saveSkillRequest()">Submit</button>
         </form>
     </div>
 </main>

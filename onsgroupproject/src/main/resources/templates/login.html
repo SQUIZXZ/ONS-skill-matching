@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.ons.gov.uk/sixteens/8bf0290/css/main.css">
+    <!--    <script type="text/javascript" href="static/js/login.js"></script>-->
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<!-- partial:index.partial.html -->
+<div class="login-page">
+    <img class="onslogo" src="https://cdn.ons.gov.uk/assets/images/ons-logo/v2/ons-logo.svg">
+    <div class="form">
+        <form class="register-form" onsubmit="return false;">
+            <input id="register_email" type="text" placeholder="email address"/>
+            <input id="register_username" type="username" placeholder="username"/>
+            <input id="register_password" type="password" placeholder="password"/>
+            <input id="register_matching_password" type="password" placeholder="confirm password"/>
+            <button onclick="saveNewUser()" class="btn btn--primary" style="width: 100%;">create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form class="login-form" method="post" th:action="@{/login}">
+            <input name="username" type="text" placeholder="Username"/>
+            <input name="password" type="password" placeholder="Password"/>
+            <button type="submit" value="Sign In" class="btn btn--primary" style="width: 100%;">Login</button>
+            <p id= "message" class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form method="post" th:action="@{/login}">
-    <div><label> User Name : <input name="username" type="text"/> </label></div>
-    <div><label> Password: <input name="password" type="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<!-- partial -->
+<!--<script-->
+<!--        src="https://code.jquery.com/jquery-2.2.4.min.js"-->
+<!--        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="-->
+<!--        crossorigin="anonymous"></script>-->
+
+<script src="js/login.js"></script>
+
 </body>
 </html>

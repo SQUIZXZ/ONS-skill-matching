@@ -3,7 +3,7 @@ SET IGNORECASE = TRUE;
 
 CREATE TABLE IF NOT EXISTS `skill`
 (
-    `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id`           INT NOT NULL AUTO_INCREMENT,
     `skill_name`   VARCHAR(100)  NOT NULL,
     `skill_desc`    VARCHAR(200),
 
@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `skill`
 
 CREATE TABLE IF NOT EXISTS `skill_hierarchy`
 (
-    `parent_id`  INT UNSIGNED NOT NULL,
-    `child_id`   INT UNSIGNED NOT NULL,
+    `parent_id`  INT NOT NULL,
+    `child_id`   INT NOT NULL,
     FOREIGN KEY (`parent_id`) REFERENCES `skill`(`id`),
     FOREIGN KEY (`child_id`) REFERENCES `skill`(`id`)
 
@@ -35,40 +35,38 @@ CREATE TABLE IF NOT EXISTS `skill_requests`
 )
     ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `user_skill`
+CREATE TABLE if not exists `user`
 (
-    `user_id`    INT NOT NULL,
-    `skill_id`    INT NOT NULL,
-    `level`   INT NOT NULL,
-    `privacy`      BOOLEAN NOT NULL,
-    PRIMARY KEY (user_id,skill_id)
---    FOREIGN KEY (user_id) REFERENCES `users`(id),
---    FOREIGN KEY (skill_id) REFERENCES `skill`(id)
-)
-    ENGINE = InnoDB;
-
-CREATE TABLE if not exists `users`
-(
-    `id`        int(11)      NOT NULL AUTO_INCREMENT,
+    `id`        INT(11)      NOT NULL AUTO_INCREMENT,
     `username`  VARCHAR(45)  NOT NULL,
     `password`  VARCHAR(100) NOT NULL,
     `first_name`VARCHAR(100),
     `surname`   VARCHAR(100),
     `email`     VARCHAR(100),
-    `skill_id` INT,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`skill_id`) REFERENCES `user_skill`(`skill_id`)
+    PRIMARY KEY (`id`)
+--     FOREIGN KEY (`skill_id`) REFERENCES `user_skill`(`skill_id`)
+)
+    ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `user_skill`
+(
+    `user_id`  INT NOT NULL,
+    `skill_id` INT NOT NULL,
+    `level`    INT,
+    `privacy`  BOOLEAN,
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
+    PRIMARY KEY (`user_id`,`skill_id`)
 )
     ENGINE = InnoDB;
 
 CREATE TABLE if not exists `user_role`
 (
-    `id`     int(11)     NOT NULL AUTO_INCREMENT,
-    `userid` int(11)     NOT NULL,
+    `id`     INT(11)     NOT NULL AUTO_INCREMENT,
+    `userid` INT(11)     NOT NULL,
     `role`   varchar(45) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`userid`) REFERENCES `user`(`id`)
 )
 
     ENGINE = InnoDB;
-

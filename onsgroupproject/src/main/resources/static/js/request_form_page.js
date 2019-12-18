@@ -5,6 +5,7 @@ function saveSkillRequest() {
     var skill = document.getElementById("skill").value;
     var description = document.getElementById("description").value;
     var furl = document.getElementById("furl").value;
+
     var data = {firstName: firstName, surname: surname, department: department, skill: skill, taskDescription: description, furl: furl};
 
     $.ajax({
@@ -13,9 +14,9 @@ function saveSkillRequest() {
         data: JSON.stringify(data),
         processData: false,
         contentType: "application/json",
-        success: function (furl) {
-            console.log(furl);
-            window.location.href = "/skillRequest/"+furl;
+        success: function (data) {
+            console.log(data);
+            window.location.href = "/skillRequest/"+data.split(",")[1]+"/"+data.split(",")[0];
         },
         error: function (response) {
             console.log(response.responseText.toString());
@@ -30,7 +31,7 @@ function saveSkillRequest() {
                         $('#surname').after('<span class="error">' + 'Surname cannot be empty and must be between 2 and 200 characters' + '</span>'+'<br class="error">');
                         break;
                     case "department":
-                        $('#department').after('<span class="error">' + 'Department cannot be empty and must be between 2 and 200 characters' + '</span>'+'<br class="error">');
+                        $('#department').after('<span class="error">' + 'Department cannot be empty and must be between 1 and 200 characters' + '</span>'+'<br class="error">');
                         break;
                     case "skill":
                         $('#skill').after('<span class="error">' + 'Skill cannot be empty and must be between 2 and 200 characters' + '</span>'+'<br class="error">');
@@ -74,8 +75,7 @@ function saveNewSkill(){
         processData: false,
         contentType: "application/json",
         success: function (data) {
-            console.log(data);
-            window.location.href = "/createSkillRequest";
+            $('#skill').after('<span class="span" style="font-size: 16px">' + 'Skill added refresh to use' + '</span>' + '<br>');
         },
         error: function (e) {
             $('.error').remove();
@@ -89,7 +89,7 @@ function saveNewSkill(){
                         $('#skill').after('<span class="error">' + 'Skill must be between 2 and 200 characters' + '</span>' + '<br class="error">');
                         break;
                     case "skillChildExist":
-                        $('#skill').after('<span class="error">' + 'Skill must be unique (nice try)' + '</span>' + '<br class="error">');
+                        $('#skill').after('<span class="error">' + 'Skill must be unique' + '</span>' + '<br class="error">');
                         break;
                     case "skillParentExist":
                         $('#parent').after('<span class="error">' + 'Parent skill must already exist' + '</span>' + '<br class="error">');
