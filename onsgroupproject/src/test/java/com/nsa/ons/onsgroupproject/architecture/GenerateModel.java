@@ -113,16 +113,28 @@ public class GenerateModel {
         //Adaptors
         Component skillRepoJpaAdaptor = webApplication.addComponent("SkillRepositoryJpaAdaptor", "The java code that allows skill input or output requests from the service layer to be sent to the JPA repository","Java Class");
         Component skillRequestJpaAdaptor = webApplication.addComponent("SkillRequestRepositoryJpaAdaptor", "The java code that allows skill request input or output requests from the service layer to be sent to the JPA repository","Java Class");
-        Component UserRepositoryJpaAdaptor = webApplication.addComponent("UserRepositoryJpaAdaptor", "The java code that allows user input or output requests from the service layer to be sent to the JPA repository","Java Class");
-        Component UserSkillRepositoryJpaAdaptor = webApplication.addComponent("UserSkillRepositoryJpaAdaptor", "The java code that allows 'UserSkill' input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        Component userRepositoryJpaAdaptor = webApplication.addComponent("UserRepositoryJpaAdaptor", "The java code that allows user input or output requests from the service layer to be sent to the JPA repository","Java Class");
+        Component userSkillRepositoryJpaAdaptor = webApplication.addComponent("UserSkillRepositoryJpaAdaptor", "The java code that allows 'UserSkill' input or output requests from the service layer to be sent to the JPA repository","Java Class");
         //Repositories
-        Component SkillRepositoryJpa = webApplication.addComponent("SkillRepositoryJpa","The interface that connects directly to the database for skills","Spring Repository");
-        Component UserRepositoryJpa = webApplication.addComponent("UserRepositoryJpa","The interface that connects directly to the database for Users","Spring Repository");
-        Component UserRolesRepositoryJpa = webApplication.addComponent("UserRoleRepositoryJpa","The interface that connects directly to the database for User Roles","Spring Repository");;
+        Component skillRepositoryJpa = webApplication.addComponent("SkillRepositoryJpa","The interface that connects directly to the database for skills","Spring Repository");
+        Component userRepositoryJpa = webApplication.addComponent("UserRepositoryJpa","The interface that connects directly to the database for Users","Spring Repository");
+        Component userRolesRepositoryJpa = webApplication.addComponent("UserRoleRepositoryJpa","The interface that connects directly to the database for User Roles","Spring Repository");;
 
         //Domain layer
+        Component skill = webApplication.addComponent("Skill","Skills as they are represented in the database", "Java Class/Jpa Entity");
+        Component skillRequest = webApplication.addComponent("SkillRequest","Skill Requests as they are represented in the database", "Java Class/Jpa Entity");
+        Component userDomain = webApplication.addComponent("User","Users as they are represented in the database", "Java Class/Jpa Entity");
+        Component userRole = webApplication.addComponent("UserRole","User Roles for spring security as they are represented in the database", "Java Class/Jpa Entity/Spring Security");
+        Component userSkill = webApplication.addComponent("UserSkill","Links between Users and the skills they have with additional relevant information as they are represented in the database", "Java Class/Jpa Entity");
 
         //Service layer
+        //Events
+        Component skillMade = webApplication.addComponent("SkillMade","An event class for details that allows us to pass data between layers in a clean manner","Java Class");
+        Component skillUdated = webApplication.addComponent("SkillUpdated","An event class for details that allows us to pass data between layers in a clean manner","Java Class");
+        Component userMade = webApplication.addComponent("UserMade","An event class for details that allows us to pass data between layers in a clean manner","Java Class");
+        Component userSkillMade = webApplication.addComponent("UserSkillMade","An event class for details that allows us to pass data between layers in a clean manner","Java Class");
+        Component userUpdated = webApplication.addComponent("UserUpdated","An event class for details that allows us to pass data between layers in a clean manner","Java Class");
+        //Services
         Component skillUpdater = webApplication.addComponent("SkillUpdater", "Updates skills in the repository", "Java Interface");
         Component skillFinder = webApplication.addComponent("SkillFinder", "Retrives skills from the repository", "Java Interface");
         Component userSkillFinder = webApplication.addComponent("UserSkillFinder", "Retrives information from the repository", "Java Interface");
