@@ -142,12 +142,23 @@ public class GenerateModel {
         Component userFinder = webApplication.addComponent("UserFinder", "Retrives user details from repository", "Java Interface");
         Component userUpdater = webApplication.addComponent("UserUpdater", "Update existing users details", "Java Interface");
 
+        //Web
+
+        //Relationships
         webApplication.getComponentWithName("SkillController").uses(skillFinder, "Retrives skill information from repository");
         webApplication.getComponentWithName("SkillController").uses(skillUpdater, "Sends data to repository to update a skill");
         webApplication.getComponentWithName("SkillController").uses(userSkillFinder, "Gets a user skill relation from the repository");
         webApplication.getComponentWithName("SkillController").uses(userSkillCreator, "Adds the user skill rating and privacy to the repository");
         webApplication.getComponentWithName("SkillController").uses(userFinder, "Gets logged in users details");
         webApplication.getComponentWithName("SkillController").uses(userUpdater, "Adds new skills to the user");
+
+//        webApplication.getComponentWithName("SkillProcessor").uses(skillFinder, "Implements interface methods");
+//        webApplication.getComponentWithName("SkillProcessor").uses(webApplication.getComponentWithName("SkillRepository"), "Calls repository queries via interface methods");
+        Component test = webApplication.addComponent("test", "A test component", "Java Interface");
+
+
+
+
 
 
         //link internal components
@@ -202,6 +213,7 @@ public class GenerateModel {
         // tag and style some elements
         onsGroupProject.addTags("ONS Skill Share Web App");
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_MVC_CONTROLLER)).forEach(c -> c.addTags("Spring MVC Controller"));
+
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REST_CONTROLLER)).forEach(c -> c.addTags("Spring REST Controller"));
 
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_SERVICE)).forEach(c -> c.addTags("Spring Service"));

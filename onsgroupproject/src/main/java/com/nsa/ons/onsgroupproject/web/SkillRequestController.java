@@ -54,7 +54,6 @@ public class SkillRequestController {
         skillRequestFinder = srFinder;
         skillFinder = aSkillFinder;
         skillCreator = aSkillCreator;
-
     }
 
     @RequestMapping(path = "createSkillRequest", method = RequestMethod.GET)
