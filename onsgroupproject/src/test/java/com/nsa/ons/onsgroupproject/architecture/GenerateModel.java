@@ -22,7 +22,7 @@ public class GenerateModel {
     public void generateModel() throws Exception {
 
 
-        File sourceRoot = new File("C:\\Users\\C1817717\\Documents\\New folder\\group-5-project-ons-skills\\onsgroupproject");
+        File sourceRoot = new File("C:\\Users\\C1847920\\Documents\\CM6213_Java_applications_in_Buisness\\Group-Project-1\\group-5-project-ons-skills\\onsgroupproject");
 
         Workspace workspace = new Workspace("ONS GROUP 5 CLIENT PROJECT", "Group 5 Client Project");
         Model model = workspace.getModel();
