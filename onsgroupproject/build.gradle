@@ -46,10 +46,16 @@ dependencies {
 //    testImplementation('org.springframework.boot:spring-boot-starter-test') {
 //        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 //    }
-    
+
     testCompile 'com.structurizr:structurizr-core:1.3.1'
     testCompile 'com.structurizr:structurizr-client:1.3.1'
     testCompile 'com.structurizr:structurizr-spring:1.3.1'
+    testCompile 'com.structurizr:structurizr-mermaid:1.3.1'
+
+
+    bootRun{
+        args = ["-DXverify:none", "-DXX:TieredStopAtLevel=1"]
+    }
 }
 
 test {
