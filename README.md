@@ -92,4 +92,9 @@ We agree that we have to communicate and involve product owner on the project pr
 We agree that we should check teams everyday to be updated of other team members progress<br>
 
 <br>
+<br>
+<br>
+
+<h2>Submission</h2>
+<p>This version of the code is not the most recent version go to https://gitlab.cs.cf.ac.uk/c1817717/group-5-project-ons-skills to find the most up to date version of our work</p>
 
