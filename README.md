@@ -92,4 +92,22 @@ We agree that we have to communicate and involve product owner on the project pr
 We agree that we should check teams everyday to be updated of other team members progress<br>
 
 <br>
+<br>
+<br>
 
+<h2>Submission</h2>
+<h3>Test/Production database</h3>
+<p>You can switch between the h2-Test database and MySQL production database in the application.properties file</p>
+<p>To use the h2 database have spring.profiles.active equal to "development"</p>
+<p>To use the MySQL database you will need to set it equal to "production"</p>
+<p>If you plan to use the production database you will first need to generate the onsdatabase in IDEA</p>
+<h4>Generation Instructions</h4>
+
+<h3>Getting the Jar file</h3>
+<h4>Git Bash<h4>
+<p>after cloning the project type:</p>
+<p>cd group-5-project-ons-skills/onsgroupproject</p>
+<p>gradle build</p>
+<p>cd build/libs</p>
+<p>java -jar onsgroupproject-0.0.1-SNAPSHOT.jar</p>
+<p>note: by default it spring.profiles.active is equal to development, make sure to change this if you want to use the mySQL database</p>
