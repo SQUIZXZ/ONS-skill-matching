@@ -5,6 +5,7 @@
 <h2>Script walkthrough 1</h2>
 <p>To succesfully test this feature it should do the following<p>
 <p>User should be able to Change and existing skill in the database, the following should be able to change</p>
+
 * The Skills name
 * The Skills description
 * The Parent skills of the skill
