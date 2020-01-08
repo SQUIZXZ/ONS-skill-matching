@@ -5,4 +5,4 @@
 <h2>Script walkthrough 1</h2>
 
 <h2>Script walkthrough 2</h2>
-<p>This feature is tested by my automated testing under data/SkillHierarchyTests and web SkillHierarchyHTMLTests</p>
+<p>This feature is tested by my automated testing under web/SkillRequestPageTests</p>
