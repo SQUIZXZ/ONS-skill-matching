@@ -101,7 +101,7 @@ We agree that we should check teams everyday to be updated of other team members
 <p>To use the h2 database have spring.profiles.active equal to "development"</p>
 <p>To use the MySQL database you will need to set it equal to "production"</p>
 <p>If you plan to use the production database you will first need to generate the onsdatabase in IDEA</p>
-<h4>Generation Instructions</h4>
+<p>for stability purpouses please use development</p>
 
 <h3>Getting the Jar file</h3>
 <h4>Git Bash<h4>
@@ -110,4 +110,3 @@ We agree that we should check teams everyday to be updated of other team members
 <p>gradle build</p>
 <p>cd build/libs</p>
 <p>java -jar onsgroupproject-0.0.1-SNAPSHOT.jar</p>
-<p>note: by default it spring.profiles.active is equal to development, make sure to change this if you want to use the mySQL database</p>
