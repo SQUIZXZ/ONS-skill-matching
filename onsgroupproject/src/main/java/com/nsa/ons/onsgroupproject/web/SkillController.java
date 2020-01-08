@@ -58,7 +58,7 @@ class SkillController {
         List<UserSkill> publicUserSkills = new ArrayList<>();
 
         for(int i = 0; i<userSkillList.size(); i++){
-            if(userSkillList.get(i).getPrivacy()){
+            if(!userSkillList.get(i).getPrivacy()){
                 publicUserSkills.add(userSkillList.get(i));
             }
         }
@@ -110,14 +110,16 @@ class SkillController {
     }
 
     @RequestMapping(path = "/saveSkillEdit", method = RequestMethod.POST)
-    public ResponseEntity<?> saveSkillEdit(@RequestBody @Valid SkillEditForm skillEditForm, BindingResult bindingResult) {
+    public ResponseEntity<?> saveSkillEdit(@RequestBody @Valid SkillEditForm skillEditForm,
+                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("edit skill has binding errors");
             String messages = "";
             for (ObjectError error : bindingResult.getAllErrors()) {
                 messages += error.getDefaultMessage() + ", ";
             }
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0, messages.length() - 2));
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(messages.substring(0,
+                    messages.length() - 2));
         }
         Optional<Skill> skillTaken = finder.findSkillByName(skillEditForm.getSkillName());
         Optional<Skill> thisSkill = finder.findSkillByIndex(skillEditForm.getId());
@@ -146,17 +148,22 @@ class SkillController {
                         }
                     }
                     if (inParentList) {
-                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentTwice");
+                        return ResponseEntity.status(
+                                HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentTwice");
                     } else if (inChildList) {
-                        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentAndChild");
+                        return ResponseEntity.status(
+                                HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeParentAndChild");
                     } else {
-                        parentSkillList.add(finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
+                        parentSkillList.add(
+                                finder.findSkillByName(skillEditForm.getParentSkills().get(i)).get());
                     }
                 } else {
-                    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeOwnParent");
+                    return ResponseEntity.status(
+                            HttpStatus.UNPROCESSABLE_ENTITY).body("skillCannotBeOwnParent");
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("parentSkillDoesNotExist");
+                return ResponseEntity.status(
+                        HttpStatus.UNPROCESSABLE_ENTITY).body("parentSkillDoesNotExist");
             }
         }
         SkillUpdated skillUpdated = new SkillUpdated(skillEditForm.getId(), skillEditForm.getSkillName(), skillEditForm.getSkillDescription(), parentSkillList);
