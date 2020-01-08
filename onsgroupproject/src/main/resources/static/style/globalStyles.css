@@ -81,7 +81,7 @@ h4.request-title{
     border: 5pt;
     border-color: midnightblue;
 }
-a,h4,span {
+h4,span {
     color: white;
 }
 .span{
