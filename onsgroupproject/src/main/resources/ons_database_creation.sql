@@ -1,3 +1,5 @@
+CREATE USER 'springuser'@'localhost' IDENTIFIED BY 'password';
+
 DROP SCHEMA IF EXISTS ons_database;
 
 CREATE SCHEMA IF NOT EXISTS ons_database;
@@ -134,6 +136,8 @@ insert into user_skill (user_id, skill_id, level ,privacy) values (1,2,12,false)
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,3,12,true) ;
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,4,12,true);
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,5,12,false);
+
+GRANT ALL PRIVILEGES ON ons_database TO 'springuser'@'localhost';
 
 
 
