@@ -1,4 +1,4 @@
-DROP SCHEMA ons_database;
+DROP SCHEMA IF EXISTS ons_database;
 
 CREATE SCHEMA IF NOT EXISTS ons_database;
 
