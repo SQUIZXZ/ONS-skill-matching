@@ -1,4 +1,4 @@
-CREATE USER 'springuser'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'springuser'@'localhost' IDENTIFIED BY '_Pa55word';
 
 DROP SCHEMA IF EXISTS ons_database;
 
