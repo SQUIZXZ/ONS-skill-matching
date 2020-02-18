@@ -137,7 +137,7 @@ insert into user_skill (user_id, skill_id, level ,privacy) values (1,3,12,true) 
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,4,12,true);
 insert into user_skill (user_id, skill_id, level ,privacy) values (1,5,12,false);
 
-GRANT ALL PRIVILEGES ON ons_database TO 'springuser'@'localhost';
+GRANT ALL PRIVILEGES ON ons_database.* TO 'springuser'@'localhost';
 
 
 
