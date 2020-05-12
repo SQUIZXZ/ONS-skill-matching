@@ -1,0 +1,151 @@
+﻿Vagrant.configure("2") do |config|
+
+config.vm.box = "centos/8"
+
+config.vm.network "forwarded_port", guest:8081, host:8081
+
+config.vm.synced_folder ".", "/vagrant", type: "rsync", disabled: true
+
+config.vm.provision "shell", privileged: false, inline: <<-SHELL
+
+echo "Running who am I?"
+whoami
+
+echo "finding home directory..."
+pwd
+
+#echo "updatating to latest version, this may take some time"
+#sudo yup update -y
+
+echo "installing java"
+sudo yum install java-11-openjdk-devel -y
+
+echo "installing unzip"
+sudo yum install unzip -y
+
+echo "making /opt/gradle directory..."
+sudo mkdir /opt/gradle
+
+
+echo "installing gradle"
+echo "installing gradle 5.6.4..."
+cd /opt/gradle
+sudo curl -sLo \
+gradle-5.6.4-bin.zip \
+https://services.gradle.org/distributions/gradle-5.6.4-bin.zip
+echo "unziping gradle"
+sudo unzip gradle-5.6.4-bin.zip
+echo "removing lose ends (zip files)"
+sudo rm gradle-5.6.4-bin.zip
+echo "exporting gradle, we're almost done"
+export GRADLE_HOME=/opt/gradle/gradle-5.6.4
+export PATH=$GRADLE_HOME/bin:$PATH
+
+echo "creating /etc/profile.d/gradle.sh..."
+sudo touch /etc/profile.d/gradle.sh
+sudo chown vagrant.vagrant /etc/profile.d/gradle.sh
+sudo cat << `EOF` >> /etc/profile.d/gradle.sh
+export GRADLE_HOME=/opt/gradle/gradle-5.6.4 
+export PATH=$GRADLE_HOME/bin:$PATH 
+`EOF`
+sudo chown root.root /etc/profile.d/gradle.sh
+sudo chmod 644 /etc/profile.d/gradle.sh
+
+echo "gradle version..."
+which gradle
+gradle --version
+
+echo "cding out of gradle"
+cd /home/vagrant
+
+echo "Installing Mysql"
+sudo yum -y install @mysql
+echo "Starting mysql"
+sudo systemctl start mysqld
+echo "getting mysql'd"
+sudo systemctl enable --now mysqld
+echo "checking status of mysql"
+systemctl status mysqld
+
+echo "creating setup file for mysql 'mysql_security_setup.txt'"
+touch mysql_security_setup.txt
+cat << `EOF` >> mysql_security_setup.txt
+y
+2
+_t5rasdifouaorhto5qiXKCVJOUIE£JHTO
+_t5rasdifouaorhto5qiXKCVJOUIE£JHTO
+y
+y
+y
+y
+y
+`EOF`
+
+echo "running mysql security setup"
+mysql_secure_installation < mysql_security_setup.txt
+
+echo "Installing git"
+sudo yum install git -y
+
+echo "installing the gitlab server key"
+touch .ssh/known_hosts
+ssh-keyscan gitlab.cs.cf.ac.uk >> .ssh/known_hosts
+chmod 664 .ssh/known_hosts
+
+echo "Installing gitlab deployment key"
+touch ons_group5_gitlab.key
+cat << `EOF` >> ons_group5_gitlab.key
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA58uuzFMO/DM5ReT5asoF+nkvrjmOQ6AJWrYjI7JnVo6o8M91
+MKRkadmXPddVr5qUfJ7bztl/2/XFci/ZLdfBG2LjpJBF2qI/yKkUwkJ5VR9S/sob
+KL44OaPOAaOknZofGiRc/DwmOay/NhZNzet+KXhntd2hqc9DhNh8ue6dC+1oOW9b
+XOdG3+9T8laCSAj1wugczaWj+qLGjkFg1DVpY3lC04KM7QF/A0pXB8yf9UeaGfqN
+bU1C1O39/a85Bh1VbXqrXgBUwhALVhofnzeRjucoOjW4O4M7qwxWTSJMFigLFUaA
+vHoKBG+zyRD0oXkIWzh61PeXOEnCX3Atx2eJgwIDAQABAoIBAD0qpI/KgzPOGJj3
+GVIyyW0VOZ3SFlaGDrHfSlqLI3XV44LYW+ZgGxdLkfuBrVzPf8t66ConfvP+YQIG
+2lqcipq9d7DfWW+eTRKYe5/fhsENqQsPLieMOq4LKbuJAVGNcBOn8Nmmzbd+fF67
+eACU2g/7c/Kr75Mt3HVb4131N4ADv17KuUc7hCLN1WPfG7db5yOA8vUQTXrLfJ9M
+plBRsaFH4KK2UU5pcPZxBnHIKeb8S1OsB+r7uIKx9iEbEKELY8f8xQ0kr4jeqtPv
++73vtZGhyW1JyXC1hNVddWcLYG7Rq1WR0evpZGq1c3ozYOFtOaM+5HgNeA5YLoZo
+xjnlvqECgYEA926cSEKI8l9Uzv9GUrOBbzh7CITnsGT4WehfxT6gN3n1TRU2GEY0
+bYFEmXW8v2+rBtodTux0P/CVBmKSnagbvaQgNxuB9QhbJbVYWExkl+chLErJKd3r
+D0MqUwcwxZYBUnkv+1GHuA51vVRSxJ8D3rVM0gjoH0CsMcJnbgCcOtsCgYEA79J2
+HKL8nHgMSnuRRccK0bfelJhGEfkvgqm2EEaBiZ6IGyBlzD5uGk1xZzLuGgdXNF0n
+WmgLJCIJ6G6YxuLJiYadMxHEQ0ft3NsRbCs/30HDCZjeaJxu2cr/jEBG+Zq8UPEo
+UloccbJUWJMETqtMDeaSSL4O0NEJKyVoe//QqHkCgYEApI2iUAg3zYELBPMOkLei
+0BXu9PZ2o4AzDpAVCTeiE+L++Xmu1SvzeBQtTCXaFjKsukzaiv+EPHXCllF+Em2X
+rWJ2rk+T+SLKg2R8UZTUnZVwIWXHLRnSVv8jKb6xd+ZQEMpZ17kcGpM7SGPI+8yJ
+JVbLtS+JOCepnRod8TFktVsCgYAd6kPfeJlIL1VhKR7K9HQuCuCR6pi6/zlk9CSI
+zTK1ZvgVYiowmw0C7OwbcmfvCUFgf8o75cSWAkT4IGugS4PWSttrFmlD90H9jboT
+oyV5hOt+U/pSVEkjk8XiydXQpvOcqShddW4c5KDO16/u3EFFbqCKwGJ6u8iIAEeT
+SCrQCQKBgQDSX7/l/NCYMaIJiiU6PQLMxmZaUckh/6b2e8w96msIhSSzgt+hpwL7
+N6yg127LPncC8OR7e9WtGSXWxGJPV7ZxlVgp8opumaBH53tJ0F7xH+eFBjB/o0lg
+MkMNTq/jg66n1gKOyWaUAr+ogpHRrFFh3J79wlHGn+vKghdaaqab0w==
+-----END RSA PRIVATE KEY-----
+`EOF`
+chmod 400 ons_group5_gitlab.key
+
+echo "git cloning the repo"
+ssh-agent bash -c 'ssh-add ons_group5_gitlab.key; git clone git@gitlab.cs.cf.ac.uk:c1847920/group-5-project-ons-skills.git'
+
+echo "CDing into project"
+cd /home/vagrant/group-5-project-ons-skills/onsgroupproject/src/main/resources
+
+echo "creating database"
+mysql -u root -p_t5rasdifouaorhto5qiXKCVJOUIE£JHTO < ons_database_creation.sql
+cd /home/vagrant/group-5-project-ons-skills/onsgroupproject/
+
+echo "Building file with gradle"
+gradle build
+
+echo "CDing into libs"
+cd /home/vagrant/group-5-project-ons-skills/onsgroupproject/build/libs
+
+echo "Running program prepare the cheese shields"
+java -jar onsgroupproject-0.0.1-SNAPSHOT.jar
+
+echo "Running complete, we are in the beam"
+
+SHELL
+
+end
