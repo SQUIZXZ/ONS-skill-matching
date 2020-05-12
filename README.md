@@ -100,7 +100,8 @@ We agree that we should check teams everyday to be updated of other team members
 <p>You can switch between the h2-Test database and MySQL production database in the application.properties file</p>
 <p>To use the h2 database have spring.profiles.active equal to "development"</p>
 <p>To use the MySQL database you will need to set it equal to "production"</p>
-<p>for stability purpouses please use development</p>
+<p><strike>for stability purpouses please use development</strike></p>
+<p>Currently thers seem to be problems with development, when running please generate the database on mysql locally as the instruction below states</p>
 <p>If you plan to use the production database you will first need to generate the ons_database in mySQL with root/localhost as the IP using the code in ons_database_creation.sql using either mySQL workbench or the command line interface</p>
 
 <h3>Getting the Jar file</h3>
